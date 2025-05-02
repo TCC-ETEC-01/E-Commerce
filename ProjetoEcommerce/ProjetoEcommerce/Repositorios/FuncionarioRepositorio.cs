@@ -1,6 +1,6 @@
 ﻿namespace ProjetoEcommerce.Repositorios
 {
-    public class ClientesRepositorio
+    public class FuncionarioRepositorio
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace ProjetoEcommerce.Repositorios
 {
-    public class ViagensRepositorio
+    public class ViagemRepositorio
     {
     }
 }
