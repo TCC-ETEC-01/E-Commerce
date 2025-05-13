@@ -1,6 +1,6 @@
 ﻿namespace ProjetoEcommerce.Models
 {
-    public class tbExclusaoCliente
+    public class tbLogs
     {
     }
 }
