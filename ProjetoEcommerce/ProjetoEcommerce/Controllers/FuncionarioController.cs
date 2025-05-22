@@ -14,5 +14,15 @@ namespace ProjetoEcommerce.Controllers
             return View();
         }
 
+        public IActionResult Logout()
+        {
+            return View();
+        }
+
+        public IActionResult CadastrarFuncionario()
+        {
+            return View();
+        }
+
     }
 }
