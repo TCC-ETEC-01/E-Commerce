@@ -13,7 +13,7 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new("select * from tbCliente where Email = @email"), conexao;
+                MySqlCommand cmd = new("select * from tbCliente where Email = @email", conexao);
                 cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
 
                 using (MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
