@@ -14,12 +14,12 @@ namespace ProjetoEcommerce.Controllers
             return View();
         }
 
-        public IActionResult EditarProduto()
+        public IActionResult EditarPacote()
         {
             return View();
         }
 
-        public IActionResult ExcluirFuncionario()
+        public IActionResult ExcluirPacote()
         {
             return View();
         }

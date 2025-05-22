@@ -8,6 +8,20 @@ namespace ProjetoEcommerce.Controllers
         {
             return View();
         }
-     
+
+        public IActionResult CadastrarCliente()
+        {
+            return View();
+        }
+
+        public IActionResult EditarFuncionario()
+        {
+            return View();
+        }
+
+        public IActionResult ExcluirFuncionario()
+        {
+            return View();
+        }
     }
 }
