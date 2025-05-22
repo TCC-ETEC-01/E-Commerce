@@ -85,6 +85,28 @@ namespace ProjetoEcommerce.Repositorios
                 return FuncList;
             }
         }
+        public tbFuncionario ObterFuncEmail(string email)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbFuncionario where Email=@email", conexao);
+                cmd.Parameters.AddWithValue("@email", email);
+                using (var dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    if (dr.Read())
+                    {
+                        return new tbFuncionario
+                        {
+                            Email = dr["Email"].ToString(),
+                            Senha = dr["Senha"].ToString()
+                        };
+                    }
+                }
+                return null;
+            }
+        }
+
         public void ExcluirFuncionario(int Id)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
