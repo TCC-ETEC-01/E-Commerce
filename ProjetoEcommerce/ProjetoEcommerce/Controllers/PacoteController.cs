@@ -8,5 +8,21 @@ namespace ProjetoEcommerce.Controllers
         {
             return View();
         }
+
+        public IActionResult CadastrarPacote()
+        {
+            return View();
+        }
+
+        public IActionResult EditarPacote()
+        {
+            return View();
+        }
+
+        public IActionResult ExcluirPacote()
+        {
+            return View();
+        }
+
     }
 }
