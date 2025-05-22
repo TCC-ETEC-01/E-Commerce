@@ -24,5 +24,10 @@ namespace ProjetoEcommerce.Controllers
             return View();
         }
 
+        public IActionResult EditarFuncionario()
+        {
+            return View();
+        }
+
     }
 }
