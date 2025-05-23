@@ -69,10 +69,10 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
             public IEnumerable<tbPassagem> TodasPassagens()
-        {
+            {
             List<tbPassagem> PassagemLista = new List<tbPassagem>();
             using (var conexao = new MySqlConnection(_conexaoMySQL))
-            {
+                {
                 conexao.Open();
               MySqlCommand cmd = new MySqlCommand("select * from tbPassagem", conexao);
               MySqlDataAdapter da = new MySqlDataAdapter(cmd);
@@ -92,6 +92,15 @@ namespace ProjetoEcommerce.Repositorios
                     });
                 }
                 return PassagemLista;
+                }
+            }
+        public void ExcluirPassagem(int id)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbPacote where IdPassagem=@idPassagem", conexao);
+                cmdBuscarId.Parameters.AddWithValue("@idPassagem", tbPassagem.IdPassagem);
             }
         }
     }
