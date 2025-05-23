@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using ProjetoEcommerce.Models;
+using System.Data;
 using System.Security.Cryptography;
 
 namespace ProjetoEcommerce.Repositorios
@@ -49,7 +50,6 @@ namespace ProjetoEcommerce.Repositorios
                     }
                     return true;
                 }
-                conexao.Close();
             }
 
         }
@@ -68,7 +68,29 @@ namespace ProjetoEcommerce.Repositorios
                 return linhasAfetadas > 0;
             }
         }
-            
+            public IEnumerable<tbPassagem> TodasPassagens()
+        {
+            List<tbPassagem> PassagemLista = new List<tbPassagem>();
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+              MySqlCommand cmd = new MySqlCommand("select * from tbPassagem", conexao);
+              MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+              DataTable dt = new DataTable();
+                da.Fill(dt);
+                conexao.Close();
+
+                foreach (DataRow dr in dt.Rows) 
+                {
+                    PassagemLista.Add(new tbPassagem
+                    {
+                        IdPassagem = Convert.ToInt32(dr["IdPassagem"]),
+                        IdViagem = Convert.ToInt32(dr["IdViagem"]),
+
+                    })
+                }
+            }
+        }
             }
 }
 

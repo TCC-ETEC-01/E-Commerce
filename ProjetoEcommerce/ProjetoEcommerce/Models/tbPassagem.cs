@@ -2,7 +2,7 @@
 {
     public class tbPassagem
     {
-        public string IdPassagem { get; set; }
+        public int IdPassagem { get; set; }
         public string Assento { get; set; }
         public decimal Valor { get; set; }
         public DateTime DataCompra {  get; set; }
