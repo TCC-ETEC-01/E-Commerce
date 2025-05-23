@@ -8,6 +8,33 @@ namespace ProjetoEcommerce.Repositorios
     {
         private readonly string _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
 
+        public tbCliente ObterCliente(string email)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new("select * from tbCliente where Email = @email", conexao);
+                cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
+
+                using (MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    tbCliente cliente = null;
+                    if (dr.Read())
+                    {
+                        cliente = new tbCliente
+                        {
+                            Nome = dr["Nome"].ToString(),
+                            Sexo = dr["Sexo"].ToString(),
+                            Email = dr["Email"].ToString(),
+                            Telefone = dr["Email"].ToString(),
+                            Cpf = dr["Cpf"].ToString(),
+                            IdCliente = Convert.ToInt32(dr["IdCliente"])
+                        };
+                    }
+                    return cliente;
+                }
+            }
+        }
         public void CadastrarCliente (tbCliente cliente)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
@@ -24,31 +51,23 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
-        public tbCliente ObterCliente(string email)
+        public bool EditarCliente(tbCliente cliente)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new("select * from tbCliente where Email = @email", conexao);
-                cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
-
-                using (MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
-                {
-                    tbCliente cliente = null;
-                    if(dr.Read())
-                    {
-                        cliente = new tbCliente
-                        {
-                            Nome = dr["Nome"].ToString(),
-                            Sexo = dr["Sexo"].ToString(),
-                            Email = dr["Email"].ToString(),
-                            Telefone = dr["Email"].ToString(),
-                            Cpf = dr["Cpf"].ToString(),
-                            IdCliente = Convert.ToInt32(dr["IdCliente"])
-                        };
-                    } return cliente;
-                }
+                MySqlCommand cmd = new MySqlCommand("update tbCliente set Nome=@nome,Sexo=@sexo,Email=@email,Telefone=@telefone,Cpf=@cpf" +
+                    "where IdCliente=@IdCliente",conexao);
+                cmd.Parameters.Add("@IdCliente", MySqlDbType.Int32).Value = cliente.IdCliente;
+                cmd.Parameters.Add("@Nome",MySqlDbType.VarChar).Value = cliente.Nome;
+                cmd.Parameters.Add("@Email", MySqlDbType.VarChar).Value = cliente.Email;
+                cmd.Parameters.Add("@Telefone", MySqlDbType.VarChar).Value = cliente.Telefone;
+                cmd.Parameters.Add("@Cpf", MySqlDbType.VarChar).Value = cliente.Cpf;
+                int linhasAfestadas = cmd.ExecuteNonQuery();
+                return linhasAfestadas > 0;
             }
         }
+
+        
     }
 }
