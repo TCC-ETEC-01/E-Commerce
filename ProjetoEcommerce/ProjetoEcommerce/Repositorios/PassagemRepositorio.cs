@@ -20,18 +20,23 @@ namespace ProjetoEcommerce.Repositorios
                 MySqlCommand cmdBuscarId = new MySqlCommand("select * from tbViagem where IdViagem=@idViagem", conexao);
                 cmdBuscarId.Parameters.AddWithValue("@idViagem", passagem.IdViagem);
 
-                using (var dr = cmdBuscarId.ExecuteReader())
+                using (var drViagem = cmdBuscarId.ExecuteReader())
                 {
-                    if (dr.HasRows)
+                    if (!drViagem.HasRows)
+                    {
+                        Console.WriteLine("Id da viagem não existente");
+                        return false;
+                    }
+                    else if (drViagem.HasRows)
                     {
                         idExistente = true;
 
                         bool duplicado = false;
-                        MySqlCommand cmd = new MySqlCommand("select * from tbPassagem where Assento=@assento");
+                        MySqlCommand cmd = new MySqlCommand("select * from tbPassagem where Assento=@assento", conexao);
                         cmd.Parameters.AddWithValue("@assento", passagem.Assento);
                         using (var drAssento = cmd.ExecuteReader())
                         {
-                            if (dr.HasRows)
+                            if (drAssento.HasRows)
                             {
                                 duplicado = true;
                                 Console.WriteLine("Assento já existente");
@@ -44,13 +49,13 @@ namespace ProjetoEcommerce.Repositorios
                                 cmdInsert.Parameters.Add("@valor", MySqlDbType.Decimal).Value = passagem.Valor;
                                 cmdInsert.Parameters.Add("@situacao", MySqlDbType.VarChar).Value = passagem.Situacao;
                                 cmdInsert.Parameters.Add("@idVIagem", MySqlDbType.Int32).Value = passagem.IdViagem;
-                                cmdInsert.ExecuteNonQuery();    
+                                cmdInsert.ExecuteNonQuery();
                             }
-                        }  
+                        }
                     }
                     return true;
-                    conexao.Close();
                 }
+                conexao.Close();
             }
         }
     }
