@@ -53,6 +53,22 @@ namespace ProjetoEcommerce.Repositorios
             }
 
         }
-    }
+
+        public bool AtualizarPassagem(tbPassagem passagem)
+        {
+            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("update tbPassagem set Assento=@assento, Valor=@valor,Situacao=@situacao,IdViagem=@idViagem" + "where IdPassagem=@passagem", conexao);
+                cmd.Parameters.AddWithValue("@assento", passagem.Assento);
+                cmd.Parameters.AddWithValue("@situacao", passagem.Situacao);
+                cmd.Parameters.AddWithValue("@valor", passagem.Valor);
+                cmd.Parameters.AddWithValue("@idViagem", passagem.IdViagem);
+                int linhasAfetadas = cmd.ExecuteNonQuery();
+                return linhasAfetadas > 0;
+            }
+        }
+            
+            }
 }
 
