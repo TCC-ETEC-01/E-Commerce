@@ -55,5 +55,68 @@ namespace ProjetoEcommerce.Repositorios
                 return false;
             }
         }
+        public IEnumerable<tbFuncionario> TodosFuncionarios()
+        {
+            List<tbFuncionario> FuncList = new List<tbFuncionario>();
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbFuncionario", conexao);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+
+                da.Fill(dt);
+                conexao.Close();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    FuncList.Add(new tbFuncionario
+                    {
+                        IdFuncionario = Convert.ToInt32(dr["id"]),
+                        Nome = ((string)dr["Nome"]),
+                        Sexo = ((string)dr["Sexo"]),
+                        Email = ((string)dr["Email"]),
+                        Telefone = ((string)dr["Telefone"]),
+                        Cargo = ((string)dr["Cargo"]),
+                        Cpf = ((string)dr["Cpf"]),
+                        Senha = ((string)dr["Senha"])
+                    });
+                }
+                return FuncList;
+            }
+        }
+        public tbFuncionario ObterFuncEmail(string email)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbFuncionario where Email=@email", conexao);
+                cmd.Parameters.AddWithValue("@email", email);
+                using (var dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    if (dr.Read())
+                    {
+                        return new tbFuncionario
+                        {
+                            Email = dr["Email"].ToString(),
+                            Senha = dr["Senha"].ToString()
+                        };
+                    }
+                }
+                return null;
+            }
+        }
+
+        public void ExcluirFuncionario(int Id)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("delete from tbFuncionario where IdFuncionario=@Id", conexao);
+                cmd.Parameters.AddWithValue("@IdFuncionario",Id);
+                int i = cmd.ExecuteNonQuery();
+                conexao.Close();
+            }
+        }
     }
 }

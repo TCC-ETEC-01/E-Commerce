@@ -1,0 +1,53 @@
+﻿body {
+    background: #f4f4f4;
+}
+.Imagem {
+    border: 2px solid black;
+    width: 45%;
+ 
+    position: absolute;
+    top: 0;
+    left: 0;
+    object-fit:cover;
+}
+.login-form {
+    width: 45%;
+    margin: 0;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background: #ffffff;
+    margin-left: 50%;
+    margin-top: 10%;
+}
+
+.form-control {
+    border: 1px solid black;
+    border-radius: 8px;
+
+}
+
+button{
+    text-align:center;
+    margin-top:13%;
+    width:150px;
+}
+.buto, .Titulo {
+    text-align: center;
+}
+
+.Titulo {
+    margin-bottom: 15%;
+}
+
+h2{
+    color:dodgerblue;
+}
+input {
+    border: 2px solid black;
+    border-radius: 35px;
+  
+}
+.form-group {
+    margin: 20px;
+}
