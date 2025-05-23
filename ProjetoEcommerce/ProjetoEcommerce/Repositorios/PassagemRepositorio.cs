@@ -86,11 +86,14 @@ namespace ProjetoEcommerce.Repositorios
                     {
                         IdPassagem = Convert.ToInt32(dr["IdPassagem"]),
                         IdViagem = Convert.ToInt32(dr["IdViagem"]),
-
-                    })
+                        Assento = ((string)dr["Assento"]),
+                        Valor = ((decimal)dr["Valor"]),
+                        Situacao = ((string)dr["Situacao"])
+                    });
                 }
+                return PassagemLista;
             }
         }
-            }
+    }
 }
 
