@@ -8,6 +8,22 @@ namespace ProjetoEcommerce.Repositorios
     {
         private readonly string _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
 
+        public void CadastrarCliente (tbCliente cliente)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open ();
+                MySqlCommand cmd = new MySqlCommand("insert into tbCliente (Nome,Sexo,Email,Telefone,Cpf)Values(@nome,@sexo,@email,@telefone,@cpf)", conexao);
+                cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = cliente.Nome;
+                cmd.Parameters.Add("@sexo", MySqlDbType.VarChar).Value = cliente.Sexo;
+                cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = cliente.Email;
+                cmd.Parameters.Add("@telefone", MySqlDbType.VarChar).Value = cliente.Telefone;
+                cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = cliente.Cpf;
+                cmd.ExecuteNonQuery();
+
+            }
+        }
+
         public tbCliente ObterCliente(string email)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))

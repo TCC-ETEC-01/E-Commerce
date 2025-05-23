@@ -50,7 +50,7 @@ namespace ProjetoEcommerce.Repositorios
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine($"Erro ao atualizar o funcionario: {ex.Message}");
+                Console.WriteLine($"Erro ao atualizar o Viagem: {ex.Message}");
                 return false;
             }
         }
