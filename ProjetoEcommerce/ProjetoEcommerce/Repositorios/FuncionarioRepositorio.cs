@@ -1,7 +1,6 @@
 ﻿using ProjetoEcommerce.Models;
 using MySql.Data.MySqlClient;
 using System.Data;
-using Mysqlx.Crud;
 
 
 namespace ProjetoEcommerce.Repositorios
@@ -34,7 +33,8 @@ namespace ProjetoEcommerce.Repositorios
                 using (var conexao = new MySqlConnection(_conexaoMySQL))
                 {
                     conexao.Open();
-                    MySqlCommand cmd = new MySqlCommand("update tbFuncionario set Nome=@nome,Sexo=@sexo,Email=@email,Telefone=@telefone,Cargo=@cargo,Cpf=@cpf,Senha=@senha" + "where IdFuncionario=@IdFuncionario", conexao);
+                    MySqlCommand cmd = new MySqlCommand("update tbFuncionario set Nome=@nome,Sexo=@sexo,Email=@email,Telefone=@telefone,Cargo=@cargo,Cpf=@cpf,Senha=@senha" +
+                        "where IdFuncionario=@IdFuncionario", conexao);
                     cmd.Parameters.Add("@IdFuncionario", MySqlDbType.Int32).Value = funcionario.IdFuncionario;
                     cmd.Parameters.Add("@Nome", MySqlDbType.VarChar).Value = funcionario.Nome;
                     cmd.Parameters.Add("@Sexo", MySqlDbType.VarChar).Value = funcionario.Sexo;
@@ -72,7 +72,7 @@ namespace ProjetoEcommerce.Repositorios
                 {
                     FuncList.Add(new tbFuncionario
                     {
-                        IdFuncionario = Convert.ToInt32(dr["id"]),
+                        IdFuncionario = Convert.ToInt32(dr["IdFuncionario"]),
                         Nome = ((string)dr["Nome"]),
                         Sexo = ((string)dr["Sexo"]),
                         Email = ((string)dr["Email"]),
@@ -85,7 +85,7 @@ namespace ProjetoEcommerce.Repositorios
                 return FuncList;
             }
         }
-        public tbFuncionario ObterFuncEmail(string email)
+        public tbFuncionario ObterFuncionarioEmail(string email)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -107,7 +107,7 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
-        public tbFuncionario ObterFuncID(string id)
+        public tbFuncionario ObterFuncionarioID(string id)
         {
             using ( var conexao = new MySqlConnection(_conexaoMySQL))
             {
