@@ -83,5 +83,16 @@ namespace ProjetoEcommerce.Repositorios
                 return ListaViagens;
             }
         }
+        public void ExcluirViagem(int Id)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("delete from tbViagem where IdViagem=@Id", conexao);
+                cmd.Parameters.AddWithValue("IdViagem", Id);
+                int i = cmd.ExecuteNonQuery();
+                conexao.Close();
+            }
+        }
     }
 }
