@@ -1,46 +1,61 @@
 ﻿body {
     background: #f4f4f4;
+    
 }
 .Imagem {
-    border: 2px solid black;
+    background-color:#3e528d;
+    height: 100%; /* em pixels 830 px*/
     width: 45%;
- 
     position: absolute;
-    top: 0;
-    left: 0;
-    object-fit:cover;
+    margin-top:-9.74%; /* em pixels -187px*/
+    margin-left: -16.5%; /*em pixels -315px*/
+    object-fit: cover;
 }
+
+.logo {
+    width: 100%;
+    height: 100%;
+}
+
 .login-form {
-    width: 45%;
+    width: 55%;
     margin: 0;
     padding: 25px;
     border: 1px solid #ccc;
     border-radius: 15px;
     background: #ffffff;
-    margin-left: 50%;
+    margin-left: 55%;
     margin-top: 10%;
+    font-weight: 550;
 }
 
 .form-control {
     border: 1px solid black;
     border-radius: 8px;
-
 }
 
-button{
-    text-align:center;
-    margin-top:13%;
-    width:150px;
+button {
+    text-align: center;
+    margin-top: 10%;
+    width: 180px;
+    transition: 0.3s color ease;
 }
+
+button:hover {    
+    width: 195px;
+    background-color:darkblue;
+}
+
 .buto, .Titulo {
     text-align: center;
+
 }
 
 .Titulo {
-    margin-bottom: 15%;
+    margin-bottom: 16%;
 }
 
-h2{
+h1{
     color:dodgerblue;
 }
 input {
@@ -51,3 +66,8 @@ input {
 .form-group {
     margin: 20px;
 }
+
+header, footer{
+    visibility:hidden;
+}
+
