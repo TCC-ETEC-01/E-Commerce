@@ -39,7 +39,7 @@ namespace ProjetoEcommerce.Repositorios
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
-                conexao.Open ();
+                conexao.Open();
                 MySqlCommand cmd = new MySqlCommand("insert into tbCliente (Nome,Sexo,Email,Telefone,Cpf)Values(@nome,@sexo,@email,@telefone,@cpf)", conexao);
                 cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = cliente.Nome;
                 cmd.Parameters.Add("@sexo", MySqlDbType.VarChar).Value = cliente.Sexo;
@@ -48,26 +48,55 @@ namespace ProjetoEcommerce.Repositorios
                 cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = cliente.Cpf;
                 cmd.ExecuteNonQuery();
 
-            }
+            }  
         }
 
         public bool EditarCliente(tbCliente cliente)
         {
-            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            try
             {
-                conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("update tbCliente set Nome=@nome,Sexo=@sexo,Email=@email,Telefone=@telefone,Cpf=@cpf" +
-                    "where IdCliente=@IdCliente",conexao);
-                cmd.Parameters.Add("@IdCliente", MySqlDbType.Int32).Value = cliente.IdCliente;
-                cmd.Parameters.Add("@Nome",MySqlDbType.VarChar).Value = cliente.Nome;
-                cmd.Parameters.Add("@Email", MySqlDbType.VarChar).Value = cliente.Email;
-                cmd.Parameters.Add("@Telefone", MySqlDbType.VarChar).Value = cliente.Telefone;
-                cmd.Parameters.Add("@Cpf", MySqlDbType.VarChar).Value = cliente.Cpf;
-                int linhasAfestadas = cmd.ExecuteNonQuery();
-                return linhasAfestadas > 0;
+
+                using (var conexao = new MySqlConnection(_conexaoMySQL))
+                {
+                    conexao.Open();
+                    MySqlCommand cmd = new MySqlCommand("update tbCliente set Nome=@nome,Sexo=@sexo,Email=@email,Telefone=@telefone,Cpf=@cpf" +
+                        "where IdCliente=@IdCliente", conexao);
+                    cmd.Parameters.Add("@IdCliente", MySqlDbType.Int32).Value = cliente.IdCliente;
+                    cmd.Parameters.Add("@Nome", MySqlDbType.VarChar).Value = cliente.Nome;
+                    cmd.Parameters.Add("@Email", MySqlDbType.VarChar).Value = cliente.Email;
+                    cmd.Parameters.Add("@Telefone", MySqlDbType.VarChar).Value = cliente.Telefone;
+                    cmd.Parameters.Add("@Cpf", MySqlDbType.VarChar).Value = cliente.Cpf;
+                    int linhasAfestadas = cmd.ExecuteNonQuery();
+                    return linhasAfestadas > 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao atualizar o funcionario: {ex.Message}");
+                return false;
+                
             }
         }
 
-        
+        public IEnumerable<tbCliente> TodosClientes()
+        {
+            List<tbCliente> ListaCliente = new List<tbCliente>();
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbCliente", conexao);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                
+                da.Fill(dt);
+                conexao.Close();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    ListaCliente
+                }
+            }
+
+        }
     }
 }
