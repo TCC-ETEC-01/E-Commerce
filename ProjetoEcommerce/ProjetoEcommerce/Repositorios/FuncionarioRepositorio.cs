@@ -107,6 +107,34 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
+        public tbFuncionario ObterFuncID(string id)
+        {
+            using ( var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbFUncionario where IdFuncionario=@id", conexao);
+                cmd.Parameters.AddWithValue("IdFuncionario", id);
+                using (var dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    if (dr.Read())
+                    {
+                        return new tbFuncionario
+                        {
+                            IdFuncionario = Convert.ToInt32(dr[id]),
+                            Nome = ((string)dr["Nome"]),
+                            Sexo = ((string)dr["Sexo"]),
+                            Email = ((string)dr["Email"]),
+                            Telefone = ((string)dr["Telefone"]),
+                            Cargo = ((string)dr["Cargo"]),
+                            Cpf = ((string)dr["Cpf"]),
+                            Senha = ((string)dr["Senha"])
+                        };
+                    }
+                    return null;
+                }
+            }
+        }
+
         public void ExcluirFuncionario(int Id)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
