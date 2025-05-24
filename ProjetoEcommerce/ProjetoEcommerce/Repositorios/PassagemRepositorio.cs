@@ -96,11 +96,30 @@ namespace ProjetoEcommerce.Repositorios
             }
         public void ExcluirPassagem(int id)
         {
+            tbPassagem passagem = new tbPassagem();
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
                 MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbPacote where IdPassagem=@idPassagem", conexao);
-                cmdBuscarId.Parameters.AddWithValue("@idPassagem", tbPassagem.IdPassagem);
+                cmdBuscarId.Parameters.AddWithValue("@idPassagem", id);
+                using (var drPassagemPacote = cmdBuscarId.ExecuteReader())
+                {
+                    cmdBuscarId.Parameters.AddWithValue("@idPassagem", id)
+                     if(drPassagemPacote.HasRows)
+                    {
+                        cmdB
+                    }
+
+                }
+                   
+                    else
+                    {
+                        MySqlCommand cmdExcluirPassagem = new MySqlCommand("delete from tbPassagem where IdPassagem=@Id", conexao);
+                        cmdExcluirPassagem.Parameters.AddWithValue("@Id", id);
+                    }
+                }
+                int i = cmdBuscarId.ExecuteNonQuery();
+                conexao.Close();
             }
         }
     }
