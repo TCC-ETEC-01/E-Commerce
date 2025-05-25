@@ -72,11 +72,7 @@ namespace ProjetoEcommerce.Repositorios
                 {
                     FuncList.Add(new tbFuncionario
                     {
-<<<<<<< HEAD
-                        IdFuncionario = Convert.ToInt32(dr["id"]),
-=======
                         IdFuncionario = Convert.ToInt32(dr["IdFuncionario"]),
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
                         Nome = ((string)dr["Nome"]),
                         Sexo = ((string)dr["Sexo"]),
                         Email = ((string)dr["Email"]),
@@ -89,11 +85,7 @@ namespace ProjetoEcommerce.Repositorios
                 return FuncList;
             }
         }
-<<<<<<< HEAD
-        public tbFuncionario ObterFuncEmail(string email)
-=======
         public tbFuncionario ObterFuncionarioEmail(string email)
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -114,9 +106,6 @@ namespace ProjetoEcommerce.Repositorios
                 return null;
             }
         }
-
-<<<<<<< HEAD
-=======
         public tbFuncionario ObterFuncionarioID(string id)
         {
             using ( var conexao = new MySqlConnection(_conexaoMySQL))
@@ -144,8 +133,6 @@ namespace ProjetoEcommerce.Repositorios
                 }
             }
         }
-
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
         public void ExcluirFuncionario(int Id)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
