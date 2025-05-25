@@ -1,7 +1,6 @@
 ﻿using ProjetoEcommerce.Models;
 using MySql.Data.MySqlClient;
 using System.Data;
-using Mysqlx.Crud;
 
 
 namespace ProjetoEcommerce.Repositorios
@@ -34,7 +33,8 @@ namespace ProjetoEcommerce.Repositorios
                 using (var conexao = new MySqlConnection(_conexaoMySQL))
                 {
                     conexao.Open();
-                    MySqlCommand cmd = new MySqlCommand("update tbFuncionario set Nome=@nome,Sexo=@sexo,Email=@email,Telefone=@telefone,Cargo=@cargo,Cpf=@cpf,Senha=@senha" + "where IdFuncionario=@IdFuncionario", conexao);
+                    MySqlCommand cmd = new MySqlCommand("update tbFuncionario set Nome=@nome,Sexo=@sexo,Email=@email,Telefone=@telefone,Cargo=@cargo,Cpf=@cpf,Senha=@senha" +
+                        "where IdFuncionario=@IdFuncionario", conexao);
                     cmd.Parameters.Add("@IdFuncionario", MySqlDbType.Int32).Value = funcionario.IdFuncionario;
                     cmd.Parameters.Add("@Nome", MySqlDbType.VarChar).Value = funcionario.Nome;
                     cmd.Parameters.Add("@Sexo", MySqlDbType.VarChar).Value = funcionario.Sexo;
@@ -72,7 +72,11 @@ namespace ProjetoEcommerce.Repositorios
                 {
                     FuncList.Add(new tbFuncionario
                     {
+<<<<<<< HEAD
                         IdFuncionario = Convert.ToInt32(dr["id"]),
+=======
+                        IdFuncionario = Convert.ToInt32(dr["IdFuncionario"]),
+>>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
                         Nome = ((string)dr["Nome"]),
                         Sexo = ((string)dr["Sexo"]),
                         Email = ((string)dr["Email"]),
@@ -85,7 +89,11 @@ namespace ProjetoEcommerce.Repositorios
                 return FuncList;
             }
         }
+<<<<<<< HEAD
         public tbFuncionario ObterFuncEmail(string email)
+=======
+        public tbFuncionario ObterFuncionarioEmail(string email)
+>>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -107,6 +115,37 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
+<<<<<<< HEAD
+=======
+        public tbFuncionario ObterFuncionarioID(string id)
+        {
+            using ( var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbFUncionario where IdFuncionario=@id", conexao);
+                cmd.Parameters.AddWithValue("IdFuncionario", id);
+                using (var dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    if (dr.Read())
+                    {
+                        return new tbFuncionario
+                        {
+                            IdFuncionario = Convert.ToInt32(dr[id]),
+                            Nome = ((string)dr["Nome"]),
+                            Sexo = ((string)dr["Sexo"]),
+                            Email = ((string)dr["Email"]),
+                            Telefone = ((string)dr["Telefone"]),
+                            Cargo = ((string)dr["Cargo"]),
+                            Cpf = ((string)dr["Cpf"]),
+                            Senha = ((string)dr["Senha"])
+                        };
+                    }
+                    return null;
+                }
+            }
+        }
+
+>>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
         public void ExcluirFuncionario(int Id)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
