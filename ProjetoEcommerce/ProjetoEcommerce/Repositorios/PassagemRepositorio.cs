@@ -25,7 +25,7 @@ namespace ProjetoEcommerce.Repositorios
                         Console.WriteLine("Id da viagem não existente");
                         return false;
                     }
-                
+
                     else if (drViagem.HasRows)
                     {
                         MySqlCommand cmd = new MySqlCommand("select * from tbPassagem where Assento=@assento", conexao);
@@ -56,7 +56,7 @@ namespace ProjetoEcommerce.Repositorios
 
         public bool AtualizarPassagem(tbPassagem passagem)
         {
-            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
                 MySqlCommand cmd = new MySqlCommand("update tbPassagem set Assento=@assento, Valor=@valor,Situacao=@situacao,IdViagem=@idViagem" + "where IdPassagem=@passagem", conexao);
@@ -68,19 +68,19 @@ namespace ProjetoEcommerce.Repositorios
                 return linhasAfetadas > 0;
             }
         }
-            public IEnumerable<tbPassagem> TodasPassagens()
-            {
+        public IEnumerable<tbPassagem> TodasPassagens()
+        {
             List<tbPassagem> PassagemLista = new List<tbPassagem>();
             using (var conexao = new MySqlConnection(_conexaoMySQL))
-                {
+            {
                 conexao.Open();
-              MySqlCommand cmd = new MySqlCommand("select * from tbPassagem", conexao);
-              MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-              DataTable dt = new DataTable();
+                MySqlCommand cmd = new MySqlCommand("select * from tbPassagem", conexao);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
                 da.Fill(dt);
                 conexao.Close();
 
-                foreach (DataRow dr in dt.Rows) 
+                foreach (DataRow dr in dt.Rows)
                 {
                     PassagemLista.Add(new tbPassagem
                     {
@@ -92,11 +92,10 @@ namespace ProjetoEcommerce.Repositorios
                     });
                 }
                 return PassagemLista;
-                }
             }
+        }
         public void ExcluirPassagem(int id)
         {
-            tbPassagem passagem = new tbPassagem();
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
@@ -104,18 +103,19 @@ namespace ProjetoEcommerce.Repositorios
                 cmdBuscarId.Parameters.AddWithValue("@idPassagem", id);
                 using (var drPassagemPacote = cmdBuscarId.ExecuteReader())
                 {
-                    cmdBuscarId.Parameters.AddWithValue("@idPassagem", id)
-                     if(drPassagemPacote.HasRows)
+                    cmdBuscarId.Parameters.AddWithValue("@idPassagem", id);
+                    if (drPassagemPacote.HasRows)
                     {
-                        cmdB
-                    }
 
-                }
-                   
+                        MySqlCommand cmdExcluirPassagemPacote = new MySqlCommand("delete from tbPacote where IdPassagem=@IdPassagemPacote ", conexao);
+                        cmdExcluirPassagemPacote.Parameters.AddWithValue("@IdPassagemPacote", id);
+                        cmdExcluirPassagemPacote.ExecuteNonQuery();
+                    }
                     else
                     {
-                        MySqlCommand cmdExcluirPassagem = new MySqlCommand("delete from tbPassagem where IdPassagem=@Id", conexao);
-                        cmdExcluirPassagem.Parameters.AddWithValue("@Id", id);
+                        MySqlCommand cmdExcluirPassagem = new MySqlCommand("delete from tbPassagem where IdPassagem=@IdPassagem", conexao);
+                        cmdExcluirPassagem.Parameters.AddWithValue("@IdPassagem", id);
+                        cmdExcluirPassagem.ExecuteNonQuery();
                     }
                 }
                 int i = cmdBuscarId.ExecuteNonQuery();
@@ -124,4 +124,3 @@ namespace ProjetoEcommerce.Repositorios
         }
     }
 }
-
