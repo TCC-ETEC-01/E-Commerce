@@ -10,14 +10,14 @@ namespace ProjetoEcommerce.Repositorios
 
         public bool CadastrarPacote(tbPacote pacote)
         {
-            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
 
                 MySqlCommand cmdBuscarPassagem = new MySqlCommand("select 1 from tbPassagem where IdPassagem=@idPassagem", conexao);
                 cmdBuscarPassagem.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem);
 
-                using(var drBuscarPassagem = cmdBuscarPassagem.ExecuteReader())
+                using (var drBuscarPassagem = cmdBuscarPassagem.ExecuteReader())
                 {
                     if (!drBuscarPassagem.HasRows)
                     {
@@ -27,24 +27,37 @@ namespace ProjetoEcommerce.Repositorios
                 }
                 MySqlCommand cmdBuscarProduto = new MySqlCommand("select 1 from tbProduto where IdProduto=@idProduto", conexao);
                 cmdBuscarProduto.Parameters.AddWithValue("@idProduto", pacote.IdProduto);
-         
-                using(var drBuscarProduto = cmdBuscarProduto.ExecuteReader())
+
+                using (var drBuscarProduto = cmdBuscarProduto.ExecuteReader())
                 {
-                    if(!drBuscarProduto.HasRows)
+                    if (!drBuscarProduto.HasRows)
                     {
                         Console.WriteLine("Produto não encontrado!");
                         return false;
                     }
                 }
 
-                MySqlCommand cmdInsertPassagemPacote = new MySqlCommand("insert into tbPacote IdPassagem, IdProduto, NomePacote, Descricao, Valor) values(@idPassagem, @idProduto, @nomePacote, @descricao)", conexao);
-                cmdInsertPassagemPacote.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem);
-                cmdInsertPassagemPacote.Parameters.AddWithValue("@idProduto", pacote.IdProduto);
-                cmdInsertPassagemPacote.Parameters.AddWithValue("@nomePacote", pacote.NomePacote);
-                cmdInsertPassagemPacote.Parameters.AddWithValue("@descricao", pacote.Descricao);
-                cmdInsertPassagemPacote.Parameters.AddWithValue("@valor", pacote.Valor);
-                cmdInsertPassagemPacote.ExecuteNonQuery();
+                MySqlCommand cmdInsertPacote = new MySqlCommand("insert into tbPacote IdPassagem, IdProduto, NomePacote, Descricao, Valor) values(@idPassagem, @idProduto, @nomePacote, @descricao)", conexao);
+                cmdInsertPacote.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem);
+                cmdInsertPacote.Parameters.AddWithValue("@idProduto", pacote.IdProduto);
+                cmdInsertPacote.Parameters.AddWithValue("@nomePacote", pacote.NomePacote);
+                cmdInsertPacote.Parameters.AddWithValue("@descricao", pacote.Descricao);
+                cmdInsertPacote.Parameters.AddWithValue("@valor", pacote.Valor);
+                cmdInsertPacote.ExecuteNonQuery();
                 return true;
+            }
+        }
+
+        public bool AtualizarPacote(tbPacote pacote)
+        {
+            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                MySqlCommand cmdAtualizarPacote = new MySqlCommand("update tbPacote set NomePacote=@nomePacote, Descricao=@descricao, Valor=@valor" + "where IdPacote=@idPacote");
+                cmdAtualizarPacote.Parameters.AddWithValue("@nomePacote", pacote.NomePacote);
+                cmdAtualizarPacote.Parameters.AddWithValue("@descricao", pacote.Descricao);
+                cmdAtualizarPacote.Parameters.AddWithValue("@valor", pacote.Valor);
+                int linhasAfetadas = cmdAtualizarPacote.ExecuteNonQuery();
+                return linhasAfetadas > 0;
             }
         }
     }
