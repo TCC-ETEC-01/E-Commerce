@@ -93,10 +93,28 @@ namespace ProjetoEcommerce.Repositorios
 
                 foreach (DataRow dr in dt.Rows)
                 {
-                    ListaCliente
+                    ListaCliente.Add(new tbCliente
+                    {
+                        IdCliente = Convert.ToInt32(dr["IdCliente"]),
+                        Nome = ((string)dr["Nome"]),
+                        Email = ((string)dr["Email"]),
+                        Telefone = ((string)dr["Telefone"]),
+                        Cpf = ((string)dr["Cpf"])
+                    });
                 }
+                return ListaCliente;
             }
-
+        }
+        public void ExcluirCliente( int id)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("delete from tbCliente where IdCliente=@IdCliente");
+                cmd.Parameters.AddWithValue("IdCliente", id);
+                int i = cmd.ExecuteNonQuery();
+                conexao.Close();
+            }
         }
     }
 }

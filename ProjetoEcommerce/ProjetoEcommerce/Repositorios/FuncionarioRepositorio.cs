@@ -140,7 +140,7 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("delete from tbFuncionario where IdFuncionario=@Id", conexao);
+                MySqlCommand cmd = new MySqlCommand("delete from tbFuncionario where IdFuncionario=@id", conexao);
                 cmd.Parameters.AddWithValue("@IdFuncionario",Id);
                 int i = cmd.ExecuteNonQuery();
                 conexao.Close();
