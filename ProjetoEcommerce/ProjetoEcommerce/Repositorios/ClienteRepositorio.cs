@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System.Data;
 using ProjetoEcommerce.Models;
+using System.Net.Mail;
 
 namespace ProjetoEcommerce.Repositorios
 {
@@ -35,11 +36,43 @@ namespace ProjetoEcommerce.Repositorios
                 }
             }
         }
-        public void CadastrarCliente (tbCliente cliente)
+        public bool CadastrarCliente (tbCliente cliente)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
+
+                MySqlCommand verify = new MySqlCommand("select tbCliente where Email=@email", conexao);
+                verify.Parameters.AddWithValue("@email", cliente);
+                using (var conf = verify.ExecuteReader())
+                { 
+                    if (conf.HasRows)
+                    {
+                        Console.WriteLine("Email ja cadastrado!");
+                        return false;
+                    }
+                }
+                MySqlCommand verifyCpf = new MySqlCommand("select tbCliente where Cpf=@cpf", conexao);
+                verifyCpf.Parameters.AddWithValue("@cpf", cliente);
+                using (var conf = verify.ExecuteReader())
+                {
+                    if (conf.HasRows)
+                    {
+                        Console.WriteLine("Cpf ja cadastrado!");
+                        return false;
+                    }
+                }
+                MySqlCommand verifyTelefone = new MySqlCommand("select tbCliente where Telefone=@telefone", conexao);
+                verifyTelefone.Parameters.AddWithValue("@telefone", cliente);
+                using (var conf = verify.ExecuteReader())
+                {
+                    if (conf.HasRows)
+                    {
+                        Console.WriteLine("Telefone ja cadastrado!");
+                        return false;
+                    }
+                }
+
                 MySqlCommand cmd = new MySqlCommand("insert into tbCliente (Nome,Sexo,Email,Telefone,Cpf)Values(@nome,@sexo,@email,@telefone,@cpf)", conexao);
                 cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = cliente.Nome;
                 cmd.Parameters.Add("@sexo", MySqlDbType.VarChar).Value = cliente.Sexo;
@@ -47,6 +80,7 @@ namespace ProjetoEcommerce.Repositorios
                 cmd.Parameters.Add("@telefone", MySqlDbType.VarChar).Value = cliente.Telefone;
                 cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = cliente.Cpf;
                 cmd.ExecuteNonQuery();
+                return true;
 
             }  
         }
