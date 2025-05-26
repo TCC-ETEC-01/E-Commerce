@@ -52,10 +52,12 @@ namespace ProjetoEcommerce.Repositorios
         {
             using(var conexao = new MySqlConnection(_conexaoMySQL))
             {
-                MySqlCommand cmdAtualizarPacote = new MySqlCommand("update tbPacote set NomePacote=@nomePacote, Descricao=@descricao, Valor=@valor" + "where IdPacote=@idPacote");
+                MySqlCommand cmdAtualizarPacote = new MySqlCommand("update tbPacote set NomePacote=@nomePacote, Descricao=@descricao, Valor=@valor, IdPassagem=idProduto, IdProduto=@idProduto" + "where IdPacote=@idPacote");
                 cmdAtualizarPacote.Parameters.AddWithValue("@nomePacote", pacote.NomePacote);
                 cmdAtualizarPacote.Parameters.AddWithValue("@descricao", pacote.Descricao);
                 cmdAtualizarPacote.Parameters.AddWithValue("@valor", pacote.Valor);
+                cmdAtualizarPacote.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem);
+                cmdAtualizarPacote.Parameters.AddWithValue("@valor", pacote.IdProduto);
                 int linhasAfetadas = cmdAtualizarPacote.ExecuteNonQuery();
                 return linhasAfetadas > 0;
             }
