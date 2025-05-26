@@ -1,6 +1,7 @@
 ﻿using ProjetoEcommerce.Models;
 using MySql.Data.MySqlClient;
 using System.Data;
+using MySqlX.XDevAPI;
 
 
 namespace ProjetoEcommerce.Repositorios
@@ -9,11 +10,45 @@ namespace ProjetoEcommerce.Repositorios
     {
         private readonly string _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
 
-        public void CadastrarFuncionario(tbFuncionario funcionario)
+        public bool CadastrarFuncionario(tbFuncionario funcionario)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
+
+                MySqlCommand verifyEmail = new MySqlCommand("select tbFuncionario where Email=@email", conexao);
+                verifyEmail.Parameters.AddWithValue("@email", funcionario);
+                using (var conf = verifyEmail.ExecuteReader())
+                {
+                    if (conf.HasRows)
+                    {
+                        Console.WriteLine("Email já cadastrado!");
+                        return false;
+                    }
+                }
+
+                MySqlCommand verifyCpf = new MySqlCommand("select tbFuncionario where Cpf=@cpf", conexao);
+                verifyCpf.Parameters.AddWithValue("@cpf", funcionario);
+                using (var conf = verifyCpf.ExecuteReader())
+                {
+                    if (conf.HasRows)
+                    {
+                        Console.WriteLine("Cpf já cadastrado!");
+                        return false;
+                    }
+                }
+
+                MySqlCommand verifyTelefone = new MySqlCommand("select tbFuncionario where Email=@email", conexao);
+                verifyTelefone.Parameters.AddWithValue("@email", funcionario);
+                using (var conf = verifyTelefone.ExecuteReader())
+                {
+                    if (conf.HasRows)
+                    {
+                        Console.WriteLine("Telefone já cadastrado!");
+                        return false;
+                    }
+                }
+
                 MySqlCommand cmd = new MySqlCommand("insert into tbFuncionario(Nome,Sexo,Email,Telefone,Cargo,Cpf,Senha)values(@nome,@sexo,@email,@telefone,@cargo,@cpf,@senha", conexao);
                 cmd.Parameters.Add("@nome",MySqlDbType.VarChar).Value = funcionario.Nome;
                 cmd.Parameters.Add("@sexo", MySqlDbType.VarChar).Value = funcionario.Sexo;
@@ -23,6 +58,8 @@ namespace ProjetoEcommerce.Repositorios
                 cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = funcionario.Cpf;
                 cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = funcionario.Senha;
                 cmd.ExecuteNonQuery();
+
+                return true;
             }
         }
 
