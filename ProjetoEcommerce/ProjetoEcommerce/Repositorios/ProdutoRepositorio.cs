@@ -17,6 +17,24 @@ namespace ProjetoEcommerce.Repositorios
                 cmd.Parameters.AddWithValue("@valor", produto.Valor);
                 cmd.Parameters.AddWithValue("@descricao", produto.Descricao);
                 cmd.Parameters.AddWithValue("@quantidade", produto.Quantidade);
+                cmd.ExecuteNonQuery();
+                conexao.Close();
+            }
+        }
+
+        public bool AtualizarProduto(tbProduto produto)
+        {
+            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open(); 
+                MySqlCommand cmd = new MySqlCommand("update from tbProduto set NomeProduto=@nomeProduto, Valor=@valor, Descricao=@descricao, Quantidade=@quantidade" + "where IdProduto=@idProduto", conexao);
+                cmd.Parameters.AddWithValue("@nomeProduto", produto.NomeProduto);
+                cmd.Parameters.AddWithValue("@valor", produto.Valor);
+                cmd.Parameters.AddWithValue("@descricao", produto.Descricao);
+                cmd.Parameters.AddWithValue("@quantidade", produto.Quantidade);
+                int linhasAfetadas = cmd.ExecuteNonQuery();
+                return linhasAfetadas > 0;
+
             }
         }
     }
