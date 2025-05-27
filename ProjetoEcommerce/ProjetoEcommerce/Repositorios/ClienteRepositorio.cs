@@ -79,25 +79,25 @@ namespace ProjetoEcommerce.Repositorios
           }
       }
 
-      public IEnumerable<tbCliente> TodosClientes()
-      {
-          List<tbCliente> ListaCliente = new List<tbCliente>();
-          using (var conexao = new MySqlConnection(_conexaoMySQL))
-          {
-              conexao.Open();
-              MySqlCommand cmd = new MySqlCommand("select * from tbCliente", conexao);
-              MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-              DataTable dt = new DataTable();
+      //public IEnumerable<tbCliente> TodosClientes()
+      //{
+      //    List<tbCliente> ListaCliente = new List<tbCliente>();
+      //    using (var conexao = new MySqlConnection(_conexaoMySQL))
+      //    {
+      //        conexao.Open();
+      //        MySqlCommand cmd = new MySqlCommand("select * from tbCliente", conexao);
+      //        MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+      //        DataTable dt = new DataTable();
 
-              da.Fill(dt);
-              conexao.Close();
+      //        da.Fill(dt);
+      //        conexao.Close();
 
-              foreach (DataRow dr in dt.Rows)
-              {
-                  ListaCliente
-              }
-          }
+      //        foreach (DataRow dr in dt.Rows)
+      //        {
+      //            ListaCliente
+      //        }
+          //}
 
-      }
+      //}
   }
 }

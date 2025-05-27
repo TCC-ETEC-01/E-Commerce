@@ -3,41 +3,35 @@
 
 
 <body>
-	<div class="Imagem">
-<<<<<<< HEAD
-		<img src="~/imagem/logo.jpg" />
-=======
-		<img src="~/imagem/logo2.jpg"  class="img-fluid logo"/>
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
-	</div>
+    <section class="row pt-5 ">
+        
+        <div class="col-6 pt-5 ">
+            <div class="Imagem">
+                <img src="~/imagem/logo.png" class="logo" />
+                <label class="anu"><h1>Anu Viagens</h1></label>
+                <label class="anu2">O Brasil que você nunca imaginou</label>
+            </div>
+        </div>
+        <div class="col">
+            <form asp-action="Login" method="post" class="login-form">
+                <div class="Titulo">
+                    <h1>Anu Viagens</h1>
+                    <h5>Acesso ao Sistema</h5>
+                </div>
+                <div class="form-group">
+                    <label>EMAIL</label>
+                    <input type="email" name="email" required class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label>SENHA</label>
+                    <input type="password" name="senha" required class="form-control" />
+                </div>
+                <div class="buto">
+                    <button type="submit" class="btn btn-primary">Entrar</button>
+                </div>
 
-	 <form asp-action="Login" method="post" class="login-form">
-		 <div class="Titulo">
-<<<<<<< HEAD
-			 <h2>Anu Viagens</h2>
-			 <h6>Acesso ao Sistema</h6>
-		 </div>
-		 <div class="form-group">
-			 <label>Email:</label>
-			 <input type="email" name="email" required class="form-control" />
-		 </div>
-		<div class="form-group">
-			<label>Senha:</label>
-=======
-			 <h1>Anu Viagens</h1>
-			 <h5>Acesso ao Sistema</h5>
-		 </div>
-		 <div class="form-group">
-			 <label>EMAIL</label>
-			 <input type="email" name="email" required class="form-control" />
-		 </div>
-		<div class="form-group">
-			<label>SENHA</label>
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
-			<input type="password" name="senha" required class="form-control" />
-		</div>
-		<div class="buto">
-			<button type="submit" class="btn btn-primary">Entrar</button>
-		</div>
-	 </form>
+            </form>
+        </div>
+    </section>
+
 </body>

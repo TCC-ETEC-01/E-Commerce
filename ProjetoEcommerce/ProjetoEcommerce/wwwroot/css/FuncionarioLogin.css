@@ -1,76 +1,45 @@
-﻿body {
-    background: #f4f4f4;
-<<<<<<< HEAD
-}
-.Imagem {
-    border: 2px solid black;
-    width: 45%;
- 
-    position: absolute;
-    top: 0;
-    left: 0;
-    object-fit:cover;
-}
-.login-form {
-    width: 45%;
-=======
-    
-}
-.Imagem {
-    background-color:#3e528d;
-    height: 100%; /* em pixels 830 px*/
-    width: 45%;
-    position: absolute;
-    margin-top:-9.74%; /* em pixels -187px*/
-    margin-left: -16.5%; /*em pixels -315px*/
-    object-fit: cover;
+﻿.Imagem{
+    position:absolute;
+    top:0%;
+    left:0%;
+    background-color:rgb(33, 148, 206);
+    width:45%;
+    height:100%;
 }
 
 .logo {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 15%;
+    left:11.5%;
+}
+.anu {
+    position: absolute;
+    top: 65%;
+    left: 34%;
+    color: #382a75;
+}
+.anu2 {
+    position: absolute;
+    top: 72%;
+    left: 21.5%;
+    text-align: center;
+    font-size: 30px;
+    color: #102157 !important;
 }
 
 .login-form {
-    width: 55%;
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
+    width: 100%;
     margin: 0;
     padding: 25px;
     border: 1px solid #ccc;
     border-radius: 15px;
     background: #ffffff;
-<<<<<<< HEAD
-    margin-left: 50%;
-    margin-top: 10%;
-=======
-    margin-left: 55%;
-    margin-top: 10%;
-    font-weight: 550;
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
+    font-weight:550;
 }
 
-.form-control {
-    border: 1px solid black;
-    border-radius: 8px;
-<<<<<<< HEAD
-
-}
-
-button{
-    text-align:center;
-    margin-top:13%;
-    width:150px;
-}
-.buto, .Titulo {
-    text-align: center;
-}
-
-.Titulo {
-    margin-bottom: 15%;
-}
-
-h2{
-=======
+.form-control{
+    border:1px solid black;
+    border-radius:8px;
 }
 
 button {
@@ -80,38 +49,16 @@ button {
     transition: 0.3s color ease;
 }
 
-button:hover {    
-    width: 195px;
-    background-color:darkblue;
-}
+
+    button:hover {
+        width: 195px;
+        background-color: darkblue;
+    }
 
 .buto, .Titulo {
     text-align: center;
-
 }
 
-.Titulo {
-    margin-bottom: 16%;
-}
-
-h1{
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
-    color:dodgerblue;
-}
-input {
-    border: 2px solid black;
-    border-radius: 35px;
-  
-}
-.form-group {
-    margin: 20px;
-<<<<<<< HEAD
-}
-=======
-}
-
-header, footer{
+footer , header{
     visibility:hidden;
 }
-
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
