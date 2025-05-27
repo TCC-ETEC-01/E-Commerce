@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using ProjetoEcommerce.Models;
+using System.Data;
 
 namespace ProjetoEcommerce.Repositorios
 {
@@ -34,6 +35,20 @@ namespace ProjetoEcommerce.Repositorios
                 cmd.Parameters.AddWithValue("@quantidade", produto.Quantidade);
                 int linhasAfetadas = cmd.ExecuteNonQuery();
                 return linhasAfetadas > 0;
+
+            }
+        }
+
+        public IEnumerable<tbPacote> TodosProdutos()
+        {
+            List<tbProduto> ProdutoLista = new List<tbProduto>();
+            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbProduto", conexao);
+               MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+               DataTable dt = new DataTable();
+                da.Fill(dt);
 
             }
         }
