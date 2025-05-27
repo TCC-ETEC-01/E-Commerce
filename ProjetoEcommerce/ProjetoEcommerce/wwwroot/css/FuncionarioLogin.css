@@ -1,23 +1,25 @@
-﻿.Imagem{
-    position:absolute;
-    top:0%;
-    left:0%;
-    background-color:rgb(33, 148, 206);
-    width:45%;
-    height:100%;
+﻿.Imagem {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    background-color: rgb(33, 148, 206);
+    width: 45%;
+    height: 100%;
 }
 
 .logo {
     position: absolute;
     top: 15%;
-    left:11.5%;
+    left: 11.5%;
 }
+
 .anu {
     position: absolute;
     top: 65%;
     left: 34%;
     color: #382a75;
 }
+
 .anu2 {
     position: absolute;
     top: 72%;
@@ -29,36 +31,77 @@
 
 .login-form {
     width: 100%;
-    margin: 0;
+    margin: 0px;
     padding: 25px;
     border: 1px solid #ccc;
     border-radius: 15px;
     background: #ffffff;
-    font-weight:550;
+    font-weight: 550;
 }
 
-.form-control{
-    border:1px solid black;
-    border-radius:8px;
+.form-group {
+    padding: 35px;
 }
+
+.form-control {
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
 
 button {
+    background: #102157;
+    border-radius: 8px;
     text-align: center;
     margin-top: 10%;
-    width: 180px;
-    transition: 0.3s color ease;
+    width: 140px;
+    height: 40px;
+    transition: all 0.7s;
+    font-weight: bolder;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
+    button::before {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: rgb(33, 148, 206);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+        transition: all 0.7s;
+    }
 
-    button:hover {
-        width: 195px;
-        background-color: darkblue;
+    button:hover::before {
+        top: -30px;
+        left: -30px;
+    }
+
+    button:active::before {
+        background: #382a75;
+        transition: background 0s;
     }
 
 .buto, .Titulo {
     text-align: center;
+    color:darkseagreen;
 }
 
-footer , header{
-    visibility:hidden;
+.title {
+    color: rgb(14, 76, 224);
+}
+
+.Titulo {
+    margin-bottom: 16%;
+}
+
+footer, header {
+    visibility: hidden;
 }
