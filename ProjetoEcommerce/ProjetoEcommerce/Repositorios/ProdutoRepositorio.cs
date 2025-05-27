@@ -65,5 +65,14 @@ namespace ProjetoEcommerce.Repositorios
                 return ProdutoLista;
             }
         }
+
+        public void ExcluirProduto(int id)
+        {
+            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmdBuscarId("select 1 from tbPacote")
+            }
+        }
     }
 }
