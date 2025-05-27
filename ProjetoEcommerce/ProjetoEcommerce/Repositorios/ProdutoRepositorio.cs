@@ -71,7 +71,15 @@ namespace ProjetoEcommerce.Repositorios
             using(var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmdBuscarId("select 1 from tbPacote")
+                MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbPacote where IdProduto=@idProduto", conexao);
+                cmdBuscarId.Parameters.AddWithValue("@idProduto", id);
+                using (var drProduto = cmdBuscarId.ExecuteReader())
+                {
+                    if(drProduto.HasRows)
+                    {
+                        MySqlCommand cmdExcluirProdutoPacote = new MySqlCommand("delete from tbPacote where IdProduto=@idProduto", conexao)
+                    }
+                }
             }
         }
     }
