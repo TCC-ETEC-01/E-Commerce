@@ -39,7 +39,7 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
-        public IEnumerable<tbPacote> TodosProdutos()
+        public IEnumerable<tbProduto> TodosProdutos()
         {
             List<tbProduto> ProdutoLista = new List<tbProduto>();
             using (var conexao = new MySqlConnection(_conexaoMySQL))
@@ -51,18 +51,18 @@ namespace ProjetoEcommerce.Repositorios
                 da.Fill(dt);
                 conexao.Close();
 
-                foreach(DataRow dr in dt.Rows)
+                foreach (DataRow dr in dt.Rows)
                 {
                     ProdutoLista.Add(new tbProduto
                     {
                         IdProduto = Convert.ToInt32(dr["IdProduto"]),
-                        Quantidade= Convert.ToInt32(dr["Quantidade"]),
+                        Quantidade = Convert.ToInt32(dr["Quantidade"]),
                         NomeProduto = ((string)dr["NomeProduto"]),
                         Valor = ((decimal)dr["Valor"]),
-                       Descricao = ((string)dr["Descricao"])
+                        Descricao = ((string)dr["Descricao"])
                     });
                 }
-
+                return ProdutoLista;
             }
         }
     }
