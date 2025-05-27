@@ -25,9 +25,9 @@ namespace ProjetoEcommerce.Repositorios
 
         public bool AtualizarProduto(tbProduto produto)
         {
-            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
-                conexao.Open(); 
+                conexao.Open();
                 MySqlCommand cmd = new MySqlCommand("update from tbProduto set NomeProduto=@nomeProduto, Valor=@valor, Descricao=@descricao, Quantidade=@quantidade" + "where IdProduto=@idProduto", conexao);
                 cmd.Parameters.AddWithValue("@nomeProduto", produto.NomeProduto);
                 cmd.Parameters.AddWithValue("@valor", produto.Valor);
@@ -42,13 +42,26 @@ namespace ProjetoEcommerce.Repositorios
         public IEnumerable<tbPacote> TodosProdutos()
         {
             List<tbProduto> ProdutoLista = new List<tbProduto>();
-            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
                 MySqlCommand cmd = new MySqlCommand("select * from tbProduto", conexao);
-               MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-               DataTable dt = new DataTable();
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
                 da.Fill(dt);
+                conexao.Close();
+
+                foreach(DataRow dr in dt.Rows)
+                {
+                    ProdutoLista.Add(new tbProduto
+                    {
+                        IdProduto = Convert.ToInt32(dr["IdProduto"]),
+                        Quantidade= Convert.ToInt32(dr["Quantidade"]),
+                        NomeProduto = ((string)dr["NomeProduto"]),
+                        Valor = ((decimal)dr["Valor"]),
+                       Descricao = ((string)dr["Descricao"])
+                    });
+                }
 
             }
         }
