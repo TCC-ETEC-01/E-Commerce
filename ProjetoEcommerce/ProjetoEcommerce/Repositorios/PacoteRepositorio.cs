@@ -90,5 +90,16 @@ namespace ProjetoEcommerce.Repositorios
                 return PacoteLista;
             }
         }
+        public void ExcluirPacote(int Id)
+        {
+            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("delete from tbPacote where IdPacote=@idPacote", conexao);
+                cmd.Parameters.AddWithValue("@IdPacote", Id);
+                int i = cmd.ExecuteNonQuery();
+                conexao.Close() ;
+            }
+        }
     }
 }
