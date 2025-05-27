@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using ProjetoEcommerce.Models;
+using System.Data;
 
 namespace ProjetoEcommerce.Repositorios
 {
@@ -57,9 +58,36 @@ namespace ProjetoEcommerce.Repositorios
                 cmdAtualizarPacote.Parameters.AddWithValue("@descricao", pacote.Descricao);
                 cmdAtualizarPacote.Parameters.AddWithValue("@valor", pacote.Valor);
                 cmdAtualizarPacote.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem);
-                cmdAtualizarPacote.Parameters.AddWithValue("@valor", pacote.IdProduto);
+                cmdAtualizarPacote.Parameters.AddWithValue("@idProduto", pacote.IdProduto);
                 int linhasAfetadas = cmdAtualizarPacote.ExecuteNonQuery();
                 return linhasAfetadas > 0;
+            }
+        }
+        public IEnumerable<tbPacote> TodosPacotes()
+        {
+            List<tbPacote> PacoteLista = new List<tbPacote>();
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbPacote", conexao);
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                conexao.Close();
+
+                foreach (DataRow dr in dt.Rows)
+                {
+                    PacoteLista.Add(new tbPacote
+                    {
+                        IdPassagem = Convert.ToInt32(dr["IdPassagem"]),
+                        IdProduto = Convert.ToInt32(dr["IdProduto"]),
+                        NomePacote = ((string)dr["NomePacote"]),
+                        Descricao = ((string)dr["Descricao"]),
+                        Valor = ((decimal)dr["Valor"])
+                       
+                    });
+                }
+                return PacoteLista;
             }
         }
     }
