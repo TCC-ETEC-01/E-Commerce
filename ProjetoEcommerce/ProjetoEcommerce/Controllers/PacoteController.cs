@@ -36,8 +36,13 @@ namespace ProjetoEcommerce.Controllers
 
         public IActionResult EditarPacote(int id)
         {
-            var pacote = _PacoteRepositorio.ObterPacote
-            return View();
+            var pacote = _PacoteRepositorio.ObterPacote(id);
+
+            if (pacote == null)
+            {
+                return NotFound();
+            }
+            return View(pacote);
         }
 
         public IActionResult ExcluirPacote()
