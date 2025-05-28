@@ -1,117 +1,114 @@
-﻿body {
-    background: #f4f4f4;
-<<<<<<< HEAD
-}
-.Imagem {
-    border: 2px solid black;
-    width: 45%;
- 
+﻿.Imagem {
     position: absolute;
-    top: 0;
-    left: 0;
-    object-fit:cover;
-}
-.login-form {
+    top: 0%;
+    left: 0%;
+    background-color: rgb(33, 148, 206);
     width: 45%;
-=======
-    
-}
-.Imagem {
-    background-color:#3e528d;
-    height: 100%; /* em pixels 830 px*/
-    width: 45%;
-    position: absolute;
-    margin-top:-9.74%; /* em pixels -187px*/
-    margin-left: -16.5%; /*em pixels -315px*/
-    object-fit: cover;
-}
-
-.logo {
-    width: 100%;
     height: 100%;
 }
 
+.logo {
+    position: absolute;
+    top: 15%;
+    left: 11.5%;
+}
+
+.anu {
+    position: absolute;
+    top: 65%;
+    left: 34%;
+    color: #382a75;
+}
+h5 {
+    color: #102157;
+}
+
+.anu2 {
+    position: absolute;
+    top: 72%;
+    left: 21.5%;
+    text-align: center;
+    font-size: 30px;
+    color: #102157 !important;
+}
+
 .login-form {
-    width: 55%;
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
-    margin: 0;
+    width: 100%;
+    margin: 0px;
     padding: 25px;
     border: 1px solid #ccc;
     border-radius: 15px;
     background: #ffffff;
-<<<<<<< HEAD
-    margin-left: 50%;
-    margin-top: 10%;
-=======
-    margin-left: 55%;
-    margin-top: 10%;
     font-weight: 550;
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
+    margin-left:18%;
+    margin-top:10%;
+}
+
+.form-group {
+    padding: 35px;
 }
 
 .form-control {
     border: 1px solid black;
     border-radius: 8px;
-<<<<<<< HEAD
-
 }
 
-button{
-    text-align:center;
-    margin-top:13%;
-    width:150px;
-}
-.buto, .Titulo {
-    text-align: center;
-}
-
-.Titulo {
-    margin-bottom: 15%;
-}
-
-h2{
-=======
-}
 
 button {
+    background: #102157;
+    border-radius: 8px;
     text-align: center;
     margin-top: 10%;
-    width: 180px;
-    transition: 0.3s color ease;
+    width: 140px;
+    height: 40px;
+    transition: all 0.7s;
+    font-weight: bolder;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    border: none;
+    cursor: pointer;
+   
 }
 
-button:hover {    
-    width: 195px;
-    background-color:darkblue;
-}
+    button::before {
+        content: "";
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: rgb(33, 148, 206);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+        transition: all 0.7s;
+    }
+
+    button:hover::before {
+        top: -30px;
+        left: -30px;
+    }
+
+    button:active::before {
+        background: #382a75;
+        transition: background 0s;
+    }
 
 .buto, .Titulo {
     text-align: center;
+    color:darkseagreen;
+}
 
+.title {
+    color: rgb(14, 76, 224);
 }
 
 .Titulo {
-    margin-bottom: 16%;
+    
+
 }
 
-h1{
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24
-    color:dodgerblue;
+footer, header {
+    visibility: hidden;
 }
-input {
-    border: 2px solid black;
-    border-radius: 35px;
-  
-}
-.form-group {
-    margin: 20px;
-<<<<<<< HEAD
-}
-=======
-}
-
-header, footer{
-    visibility:hidden;
-}
-
->>>>>>> 1ceb33941b22d2c64fc4df7d13e6ea879a7e5d24

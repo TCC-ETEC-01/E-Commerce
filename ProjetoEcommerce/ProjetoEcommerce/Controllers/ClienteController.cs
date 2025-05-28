@@ -21,12 +21,12 @@ namespace ProjetoEcommerce.Controllers
             return View();
         }
 
-        public IActionResult EditarFuncionario()
+        public IActionResult EditarCliente()
         {
             return View();
         }
 
-        public IActionResult ExcluirFuncionario()
+        public IActionResult ExcluirCliente()
         {
             return View();
         }
