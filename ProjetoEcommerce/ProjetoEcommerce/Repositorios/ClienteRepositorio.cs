@@ -54,6 +54,7 @@ namespace ProjetoEcommerce.Repositorios
                     }
                 }
                 MySqlCommand verifyCpf = new MySqlCommand("select tbCliente where Cpf=@cpf", conexao);
+              
                 verifyCpf.Parameters.AddWithValue("@cpf", cliente.Cpf);
                 using (var conf = verify.ExecuteReader())
                 {
