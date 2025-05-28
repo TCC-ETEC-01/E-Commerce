@@ -45,6 +45,10 @@ namespace ProjetoEcommerce.Controllers
             return View(pacote);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditarPacote(int id, [Bind("Id")])
+
         public IActionResult ExcluirPacote()
         {
             return View();
