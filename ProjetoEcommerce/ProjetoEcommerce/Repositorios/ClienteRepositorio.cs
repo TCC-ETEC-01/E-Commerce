@@ -44,7 +44,7 @@ namespace ProjetoEcommerce.Repositorios
                 conexao.Open();
 
                 MySqlCommand verify = new MySqlCommand("select tbCliente where Email=@email", conexao);
-                verify.Parameters.AddWithValue("@email", cliente);
+                verify.Parameters.AddWithValue("@email", cliente.Email);
                 using (var conf = verify.ExecuteReader())
                 { 
                     if (conf.HasRows)
@@ -54,7 +54,7 @@ namespace ProjetoEcommerce.Repositorios
                     }
                 }
                 MySqlCommand verifyCpf = new MySqlCommand("select tbCliente where Cpf=@cpf", conexao);
-                verifyCpf.Parameters.AddWithValue("@cpf", cliente);
+                verifyCpf.Parameters.AddWithValue("@cpf", cliente.Cpf);
                 using (var conf = verify.ExecuteReader())
                 {
                     if (conf.HasRows)
@@ -64,10 +64,10 @@ namespace ProjetoEcommerce.Repositorios
                     }
                 }
                 MySqlCommand verifyTelefone = new MySqlCommand("select tbCliente where Telefone=@telefone", conexao);
-                verifyTelefone.Parameters.AddWithValue("@telefone", cliente);
+                verifyTelefone.Parameters.AddWithValue("@telefone", cliente.Telefone);
                 using (var conf = verify.ExecuteReader())
                 {
-                    if (conf.HasRows)
+                    if (conf.HasRows )
                     {
                         Console.WriteLine("Telefone ja cadastrado!");
                         return false;
