@@ -36,11 +36,7 @@ namespace ProjetoEcommerce.Repositorios
                 }
             }
         }
-<<<<<<< HEAD
-       public bool CadastrarCliente (tbCliente cliente)
-=======
         public bool CadastrarCliente(tbCliente cliente)
->>>>>>> e295e0bb57472cc321f977e3e744dae74574c2cc
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -113,15 +109,8 @@ namespace ProjetoEcommerce.Repositorios
             {
                 Console.WriteLine($"Erro ao atualizar o funcionario: {ex.Message}");
                 return false;
-
-<<<<<<< HEAD
-          }
-      }
-=======
             }
         }
-
->>>>>>> e295e0bb57472cc321f977e3e744dae74574c2cc
         public IEnumerable<tbCliente> TodosClientes()
         {
             List<tbCliente> ListaCliente = new List<tbCliente>();
@@ -131,15 +120,8 @@ namespace ProjetoEcommerce.Repositorios
                 MySqlCommand cmd = new MySqlCommand("select * from tbCliente", conexao);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
-<<<<<<< HEAD
                 da.Fill(dt);
                 conexao.Close();
-=======
-
-                da.Fill(dt);
-                conexao.Close();
-
->>>>>>> e295e0bb57472cc321f977e3e744dae74574c2cc
                 foreach (DataRow dr in dt.Rows)
                 {
                     ListaCliente.Add(new tbCliente
@@ -154,12 +136,7 @@ namespace ProjetoEcommerce.Repositorios
                 return ListaCliente;
             }
         }
-<<<<<<< HEAD
-        
         public void ExcluirCliente( int id)
-=======
-        public void ExcluirCliente(int id)
->>>>>>> e295e0bb57472cc321f977e3e744dae74574c2cc
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -171,8 +148,5 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> e295e0bb57472cc321f977e3e744dae74574c2cc
+
