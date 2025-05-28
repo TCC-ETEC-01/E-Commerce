@@ -19,6 +19,9 @@
     left: 34%;
     color: #382a75;
 }
+h5 {
+    color: #102157;
+}
 
 .anu2 {
     position: absolute;
@@ -37,6 +40,8 @@
     border-radius: 15px;
     background: #ffffff;
     font-weight: 550;
+    margin-left:18%;
+    margin-top:10%;
 }
 
 .form-group {
@@ -63,6 +68,7 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+   
 }
 
     button::before {
@@ -99,7 +105,8 @@ button {
 }
 
 .Titulo {
-    margin-bottom: 16%;
+    
+
 }
 
 footer, header {
