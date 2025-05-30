@@ -8,5 +8,19 @@ namespace ProjetoEcommerce.Controllers
         {
             return View();
         }
+
+        public IActionResult CadastrarPassagem()
+        {
+            return View();
+        }
+
+        public IActionResult EditarPassagem()
+        {
+            return View();
+        }
+        public IActionResult ExcluirPassagem()
+        {
+            return View();
+        }
     }
 }
