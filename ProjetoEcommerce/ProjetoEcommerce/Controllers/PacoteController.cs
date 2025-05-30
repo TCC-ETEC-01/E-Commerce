@@ -47,8 +47,20 @@ namespace ProjetoEcommerce.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditarPacote(int id, [Bind("Id")])
-
+        public IActionResult EditarPacote(int id, [Bind("IdPacote,IdProduto, IdPassagem, NomePacote, Descricao, Valor,")]tbPacote pacote)
+        { 
+            ModelState.Clear();
+            if (id != pacote.IdPacote)
+            {
+                return BadRequest();
+            }
+            if(ModelState.IsValid)
+            {
+                _PacoteRepositorio.AtualizarPacote(pacote);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(pacote);
+        }
         public IActionResult ExcluirPacote()
         {
             return View();
