@@ -32,6 +32,13 @@ namespace ProjetoEcommerce.Controllers
             }
            return View();
         }
+        public IActionResult EditarPassagem(int id)
+        {
+            var passagem = _passagemRepositorio.ObterPassagem(id);
+            return View();
+        }
+
+        [HttpPost]
         public IActionResult EditarPassagem()
         {
             return View();
