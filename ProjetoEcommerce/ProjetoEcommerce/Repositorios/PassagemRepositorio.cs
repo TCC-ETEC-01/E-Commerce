@@ -122,7 +122,7 @@ namespace ProjetoEcommerce.Repositorios
                 conexao.Close();
             }
         }
-        public tbPacote ObterPassagem(int Codigo)
+        public tbPassagem ObterPassagem(int Codigo)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -139,13 +139,12 @@ namespace ProjetoEcommerce.Repositorios
                 while (dr.Read())
                 {
                     passagem.IdPassagem = Convert.ToInt32(dr["IdPassagem"]);
-                    pacote.NomePacote = ((string)dr["NomePacote"]);
-                    pacote.Descricao = ((string)dr["Descricao"]);
-                    pacote.Valor = (decimal)(dr["Preco"]);
-                    pacote.IdPassagem = Convert.ToInt32(dr["IdPassagem"]);
-                    pacote.IdProduto = Convert.ToInt32(dr["IdProduto"]);
+                    passagem.Assento = ((string)dr["Assento"]);
+                    passagem.Situacao = ((string)dr["Situacao"]);
+                    passagem.Valor = (decimal)(dr["Valor"]);
+                    passagem.IdViagem = Convert.ToInt32(dr["IdPassagem"]);
                 }
-                return pacote;
+                return passagem;
             }
         }
     }
