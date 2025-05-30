@@ -35,12 +35,20 @@ namespace ProjetoEcommerce.Controllers
         public IActionResult EditarPassagem(int id)
         {
             var passagem = _passagemRepositorio.ObterPassagem(id);
-            return View();
+
+            if (passagem == null)
+            {
+                return NotFound();
+            }
+            return View(passagem);
         }
 
         [HttpPost]
-        public IActionResult EditarPassagem()
+        public IActionResult EditarPassagem(int id, [Bind("IdPassagem, Valor, Assento, IdViagem, Situacao")])
         {
+            ModelState.Clear();
+
+                
             return View();
         }
         public IActionResult ExcluirPassagem()
