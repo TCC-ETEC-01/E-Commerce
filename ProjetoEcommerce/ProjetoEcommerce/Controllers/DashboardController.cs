@@ -8,5 +8,9 @@ namespace ProjetoEcommerce.Controllers
         {
             return View();
         }
+        public IActionResult CadastroHome()
+        {
+            return View();
+        }
     }
 }
