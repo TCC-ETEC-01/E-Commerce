@@ -124,7 +124,7 @@ namespace ProjetoEcommerce.Repositorios
                     pacote.IdPassagem = Convert.ToInt32(dr["IdPassagem"]);
                     pacote.IdProduto = Convert.ToInt32(dr["IdProduto"]);
                 }
-                return produto;
+                return pacote;
             }
         }
     }
