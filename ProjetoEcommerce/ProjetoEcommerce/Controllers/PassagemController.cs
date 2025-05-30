@@ -14,17 +14,23 @@ namespace ProjetoEcommerce.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(_passagemRepositorio.TodasPassagens);
         }
 
         public IActionResult CadastrarPassagem()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult CadastrarPassagem(tbPassagem passagem)
         {
-            return View(_pass);
+           if(_passagemRepositorio.CadastrarPassagem(passagem))
+            {
+                _passagemRepositorio.CadastrarPassagem(passagem);
+                 return RedirectToAction(nameof(Index));  
+            }
+           return View();
         }
         public IActionResult EditarPassagem()
         {
