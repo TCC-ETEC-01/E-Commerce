@@ -63,9 +63,10 @@ namespace ProjetoEcommerce.Controllers
                 
             return View();
         }
-        public IActionResult ExcluirPassagem()
+        public IActionResult ExcluirPassagem(int id)
         {
-            return View();
+            _passagemRepositorio.ExcluirPassagem(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
