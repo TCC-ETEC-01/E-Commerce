@@ -95,7 +95,7 @@ button {
         transition: background 0s;
     }
 
-.buto, .Titulo {
+.buttonLogin, .Titulo {
     text-align: center;
     color:darkseagreen;
 }
