@@ -122,5 +122,30 @@ namespace ProjetoEcommerce.Repositorios
                 conexao.Close();
             }
         }
+        public tbPassagem ObterPassagem(int Codigo)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbPassagem where IdPassagem=@codigo", conexao);
+                cmd.Parameters.AddWithValue("@codigo", Codigo);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                MySqlDataReader dr;
+                tbPassagem passagem = new tbPassagem();
+
+                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dr.Read())
+                {
+                    passagem.IdPassagem = Convert.ToInt32(dr["IdPassagem"]);
+                    passagem.Assento = ((string)dr["Assento"]);
+                    passagem.Situacao = ((string)dr["Situacao"]);
+                    passagem.Valor = (decimal)(dr["Valor"]);
+                    passagem.IdViagem = Convert.ToInt32(dr["IdPassagem"]);
+                }
+                return passagem;
+            }
+        }
     }
 }
