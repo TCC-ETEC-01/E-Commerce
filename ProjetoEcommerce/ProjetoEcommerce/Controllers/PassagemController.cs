@@ -44,10 +44,22 @@ namespace ProjetoEcommerce.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditarPassagem(int id, [Bind("IdPassagem, Valor, Assento, IdViagem, Situacao")])
+        public IActionResult EditarPassagem(int id, [Bind("IdPassagem, Valor, Assento, IdViagem, Situacao")] tbPassagem passagem)
         {
             ModelState.Clear();
+            if(id != passagem.IdPassagem)
+            {
+                return BadRequest();
+            }
+                if(ModelState.IsValid)
+            {
+                if(_passagemRepositorio.AtualizarPassagem(passagem))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
 
+                return View(passagem);
+            }
                 
             return View();
         }
