@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
 
 namespace ProjetoEcommerce.Controllers
@@ -19,6 +20,13 @@ namespace ProjetoEcommerce.Controllers
 
         public IActionResult CadastrarProduto()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CadastrarProduto(tbProduto produto)
+        {
+
             return View();
         }
 
