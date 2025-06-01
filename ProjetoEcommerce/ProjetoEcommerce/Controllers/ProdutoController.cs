@@ -14,7 +14,7 @@ namespace ProjetoEcommerce.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return View(_produtoRepositorio.TodosProdutos);
         }
 
         public IActionResult CadastrarProduto()
