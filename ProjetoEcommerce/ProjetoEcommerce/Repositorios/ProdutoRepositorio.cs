@@ -92,29 +92,29 @@ namespace ProjetoEcommerce.Repositorios
                 }
             }
         }
-        public tbPassagem ObterPassagem(int Codigo)
+        public tbProduto ObterProduto(int Codigo)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from tbPassagem where IdPassagem=@codigo", conexao);
+                MySqlCommand cmd = new MySqlCommand("select * from tbProduto where IdProduto=@codigo", conexao);
                 cmd.Parameters.AddWithValue("@codigo", Codigo);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 MySqlDataReader dr;
-                tbPassagem passagem = new tbPassagem();
+               tbProduto produto = new tbProduto();
 
                 dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (dr.Read())
                 {
-                    passagem.IdPassagem = Convert.ToInt32(dr["IdPassagem"]);
-                    passagem.Assento = ((string)dr["Assento"]);
-                    passagem.Situacao = ((string)dr["Situacao"]);
-                    passagem.Valor = (decimal)(dr["Valor"]);
-                    passagem.IdViagem = Convert.ToInt32(dr["IdPassagem"]);
+                    produto.IdProduto = Convert.ToInt32(dr["IdProduto"]);
+                    produto.Descricao = ((string)dr["Descricao"]);
+                    produto.NomeProduto = ((string)dr["NomeProduto"]);
+                    produto.Valor = (decimal)(dr["Valor"]);
+                    produto.Quantidade = Convert.ToInt32(dr["Quantidade"]);
                 }
-                return passagem;
+                return produto;
             }
         }
     }
