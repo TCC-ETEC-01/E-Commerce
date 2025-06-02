@@ -34,6 +34,10 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public IActionResult CadastrarFuncionario(tbFuncionario funcionario)
         {
+            if (!int.TryParse(funcionario.Cpf, out _))
+            {
+                Console.WriteLine("No campo CPF, apenas números!");
+            }
             return View();
         }
 
