@@ -1,12 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjetoEcommerce.Models;
+using ProjetoEcommerce.Repositorios;
 
 namespace ProjetoEcommerce.Controllers
 {
     public class FuncionarioController : Controller
     {
+        private readonly FuncionarioRepositorio _funcionarioRepositorio;
+
+        public FuncionarioController (FuncionarioRepositorio funcionario)
+        {
+            _funcionarioRepositorio = funcionario;
+        }
         public IActionResult Index()
         {
-            return View();
+            return View(_funcionarioRepositorio.TodosFuncionarios());
         }
 
         public IActionResult Login()
@@ -20,6 +28,11 @@ namespace ProjetoEcommerce.Controllers
         }
 
         public IActionResult CadastrarFuncionario()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CadastrarFuncionario(tbFuncionario funcionario)
         {
             return View();
         }
