@@ -27,7 +27,6 @@ namespace ProjetoEcommerce.Controllers
         {
            if(_passagemRepositorio.CadastrarPassagem(passagem))
             {
-                _passagemRepositorio.CadastrarPassagem(passagem);
                  return RedirectToAction(nameof(Index));  
             }
            return View();

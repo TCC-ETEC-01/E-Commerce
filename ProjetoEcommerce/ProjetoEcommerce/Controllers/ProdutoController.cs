@@ -20,14 +20,19 @@ namespace ProjetoEcommerce.Controllers
 
         public IActionResult CadastrarProduto()
         {
+           
             return View();
         }
 
         [HttpPost]
         public IActionResult CadastrarProduto(tbProduto produto)
         {
-
-            return View();
+            if (ModelState.IsValid)
+            {
+                _produtoRepositorio.CadastrarProduto(produto);
+                return RedirectToAction(nameof(Index));
+            }
+                return View();
         }
 
         public IActionResult EditarProduto()
