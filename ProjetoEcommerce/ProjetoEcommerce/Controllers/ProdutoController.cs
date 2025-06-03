@@ -35,9 +35,15 @@ namespace ProjetoEcommerce.Controllers
                 return View();
         }
 
-        public IActionResult EditarProduto()
+        public IActionResult EditarProduto(int id)
         {
-            return View();
+            var produto = _produtoRepositorio.ObterProduto(id);
+
+            if (produto == null)
+            {
+                return NotFound();
+            }
+            return View(produto);
         }
 
         public IActionResult ExcluirProduto()
