@@ -46,6 +46,27 @@ namespace ProjetoEcommerce.Controllers
             return View(produto);
         }
 
+        [HttpPost]
+        public IActionResult EditarProduto(int id, [Bind("IdProduto,Valor,NomeProduto,Descricao,Quantidade")] tbProduto produto)
+        {
+            ModelState.Clear();
+            if (id != produto.IdProduto)
+            {
+                return BadRequest();
+            }
+            if (ModelState.IsValid)
+            {
+                if (_produtoRepositorio.AtualizarProduto(produto))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return View(produto);
+            }
+
+            return View();
+        }
+
         public IActionResult ExcluirProduto()
         {
             return View();
