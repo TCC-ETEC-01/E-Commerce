@@ -27,9 +27,11 @@ namespace ProjetoEcommerce.Controllers
         {
            if(_passagemRepositorio.CadastrarPassagem(passagem))
             {
-                 return RedirectToAction(nameof(Index));  
+                ViewData["MensagemSucesso"] = "Passagem cadastrada com Sucesso";
+                return RedirectToAction(nameof(Index));  
             }
-           return View();
+            ViewData["MensagemErro"] = "Erro ao cadastrar passagem";
+            return View();
         }
         public IActionResult EditarPassagem(int id)
         {
@@ -54,9 +56,10 @@ namespace ProjetoEcommerce.Controllers
             {
                 if(_passagemRepositorio.AtualizarPassagem(passagem))
                 {
+                    ViewData["MensagemSucesso"] = "Passagem atualizada com Sucesso";
                     return RedirectToAction(nameof(Index));
                 }
-
+                ViewData["MensagemErro"] = "Erro ao atualizar passagem";
                 return View(passagem);
             }
                 
@@ -64,6 +67,7 @@ namespace ProjetoEcommerce.Controllers
         }
         public IActionResult ExcluirPassagem(int id)
         {
+            ViewData["MensagemSucesso"] = "Passagem excluida com Sucesso";
             _passagemRepositorio.ExcluirPassagem(id);
             return RedirectToAction(nameof(Index));
         }
