@@ -54,7 +54,7 @@ h5 {
 }
 
 
-button {
+.btnLogin {
     background: #102157;
     border-radius: 8px;
     text-align: center;
@@ -68,31 +68,36 @@ button {
     color: white;
     border: none;
     cursor: pointer;
-   
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-    button::before {
-        content: "";
-        position: absolute;
-        width: 100px;
-        height: 100px;
-        background: rgb(33, 148, 206);
-        border-radius: 50%;
+.btnLogin h4 {
+    position:absolute;
+    z-index:2;
+}
+
+.btnLogin::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: rgb(33, 148, 206);
+    border-radius: 50%;
+    top: -50%;
+    left: -50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.7s;
+}
+
+    .btnLogin:hover::before {
+        width:300px;
+        height:200px;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
         z-index: 0;
-        transition: all 0.7s;
-    }
-
-    button:hover::before {
-        top: -30px;
-        left: -30px;
-    }
-
-    button:active::before {
-        background: #382a75;
-        transition: background 0s;
     }
 
 .buttonLogin, .Titulo {
