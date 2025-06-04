@@ -46,6 +46,12 @@ namespace ProjetoEcommerce.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult EditarFuncionario()
+        {
+
+        }
+
         public IActionResult ExcluirFuncionario()
         {
             return View();
