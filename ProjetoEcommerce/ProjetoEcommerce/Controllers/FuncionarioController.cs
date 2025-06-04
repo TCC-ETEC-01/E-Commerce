@@ -41,20 +41,42 @@ namespace ProjetoEcommerce.Controllers
             return View();
         }
 
-        public IActionResult EditarFuncionario()
+        public IActionResult EditarFuncionario(int Id)
         {
-            return View();
+            var funcionario = _funcionarioRepositorio.ObterFuncionarioID(Id);
+            if(funcionario == null)
+            {
+                return NotFound();
+            }
+            return View(funcionario);
         }
 
         [HttpPost]
-        public IActionResult EditarFuncionario()
+        public IActionResult EditarFuncionario(int Id, [Bind("IdFuncionario,Nome,Sexo,Email,Telefone,Cargo,Cpf,Senha")] tbFuncionario funcionario)
         {
-
+            if(Id != funcionario.IdFuncionario)
+            {
+                return BadRequest();
+            } if(ModelState.IsValid)
+            {
+                try
+                {
+                    if (_funcionarioRepositorio.EditarFuncionario(funcionario))
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                } catch (Exception)
+                {
+                    ModelState.AddModelError("", "Ocorreu um erro ao atualizar, tente novamente! ");
+                }
+            }
+            return View(funcionario);
         }
 
-        public IActionResult ExcluirFuncionario()
+        public IActionResult ExcluirFuncionario(int Id)
         {
-            return View();
+            _funcionarioRepositorio.ExcluirFuncionario(Id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
