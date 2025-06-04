@@ -1,10 +1,18 @@
-﻿body {
+﻿
+.container{
+    background-color:lightgray;
+    margin-top:12%;
+    font-size:25px;
+    display:grid;
+    align-content:center !important ;
+    align-items:center !important;
+    align-self:center !important;
 }
- #compa{
-    background-color: gray;
-    width: 100%;
+input {
+    padding-top: 20px !important;
+    padding-left: 20px !important;
+    font-size: 25px !important;
 }
+button[type="submit"]{
 
-#cabe{
-    background-color:aqua;
 }

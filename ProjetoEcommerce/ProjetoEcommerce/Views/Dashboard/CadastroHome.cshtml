@@ -1,25 +1,52 @@
-﻿<link href="~/css/cadastrohome.css" rel="stylesheet" />
-    
-<body>
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-file-earmark-text" viewBox="0 0 16 16">
-        <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5" />
-        <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5zm0 1v2A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1z" />
-    </svg><label>Cadastros</label> <br />
-       <label>Registros novos itens no sistema</label>
-    <div id="compa">
-        <header id="cabe">Pou</header>
-            <label>Cadastrar Cliente</label>
-             <table>
-    <tr>
-                <td>Email   <input type="email" /></td>
+﻿@model ProjetoEcommerce.Models.tbCliente;
 
-                <td>Nome Completo   <input type="text" /></td>
-    </tr>
-    <tr>
-                <td>CPF   <input type="text" /></td>
-                <td>RG   <input type="text" /></td>
-    </tr>
-</table>
-        <button type="submit">Registrar Cliente</button>
+<link href="~/css/cadastrohome.css" rel="stylesheet" />
+
+
+<form asp-action="CadastroHome">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="container w-100 h-100">
+        <div class="row">
+            <div class="col  form-group">
+            
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="col form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+         
+            <div class="col row-cols-2 w-100 form-group">
+                <label asp-for="Sexo" class="control-label"></label>
+                <select asp-for="Sexo" class=" w-100 h-75">
+                    <option value="Masculino">Masculino</option>
+                    <option value="Feminino">Feminino</option>
+                    <option value="Indefinido">Indefinido</option>
+                </select>
+                <span asp-validation-for="Sexo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col row-cols-2 form-group">
+                <label asp-for="Cpf" class="control-label">CPF</label>
+                <input asp-for="Cpf" class="form-control" />
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+            </div>
+            <div class="col row-cols-2 form-group">
+                <label asp-for="Telefone" class="control-label"></label>
+                <input asp-for="Telefone" class="form-control" />
+                <span asp-validation-for="Telefone" class="text-danger"></span>
+            </div>
+        </div>
     </div>
-</body>
+       
+            <div class=" btn form-group justify-content-center align-items-center ps-5 pe-5  d-flex ">
+           
+                 <button type="submit"  class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" />Cadastrar</button>
+            </div>
+
+</form>
+
