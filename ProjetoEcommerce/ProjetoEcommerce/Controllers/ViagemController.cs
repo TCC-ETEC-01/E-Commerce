@@ -19,6 +19,9 @@ using ProjetoEcommerce.Repositorios;
 //        }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Daniel-dev
 //        public IActionResult Index()
 //        {
 //            return View(_viagemRepositorio.TodasViagens());
@@ -28,6 +31,7 @@ using ProjetoEcommerce.Repositorios;
 //            return View();
 //        }
 //        [HttpPost]
+<<<<<<< HEAD
 //    //}
 //}
 =======
@@ -82,3 +86,7 @@ using ProjetoEcommerce.Repositorios;
     }
 }
 >>>>>>> a88ad792c7b76e431d8162583aa7720293637e7c
+=======
+//    }
+//}
+>>>>>>> Daniel-dev
