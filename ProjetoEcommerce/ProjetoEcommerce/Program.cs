@@ -29,6 +29,10 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
+<<<<<<< HEAD
     pattern: "{controller=Dashboard}/{action=CadastroHome}/{id?}");
+=======
+    pattern: "{controller=DashBoard}/{action=Index}/{id?}");
+>>>>>>> CauaRefatorando
 
 app.Run();

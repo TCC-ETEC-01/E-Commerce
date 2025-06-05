@@ -28,7 +28,7 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("update from tbProduto set NomeProduto=@nomeProduto, Valor=@valor, Descricao=@descricao, Quantidade=@quantidade" + "where IdProduto=@idProduto", conexao);
+                MySqlCommand cmd = new MySqlCommand("update tbProduto set NomeProduto=@nomeProduto, Valor=@valor, Descricao=@descricao, Quantidade=@quantidade" + "where IdProduto=@idProduto", conexao);
                 cmd.Parameters.AddWithValue("@nomeProduto", produto.NomeProduto);
                 cmd.Parameters.AddWithValue("@valor", produto.Valor);
                 cmd.Parameters.AddWithValue("@descricao", produto.Descricao);
@@ -97,7 +97,7 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from tbProduto where IdProduto=@codigo", conexao);
+                MySqlCommand cmd = new MySqlCommand("select 1 from tbProduto where IdProduto=@codigo", conexao);
                 cmd.Parameters.AddWithValue("@codigo", Codigo);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);

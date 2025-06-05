@@ -28,9 +28,10 @@ namespace ProjetoEcommerce.Controllers
         {
             if(_PacoteRepositorio.CadastrarPacote(pacote))
             {
-                _PacoteRepositorio.CadastrarPacote(pacote);
+                TempData["MensagemSucesso"] = "Pacote cadastrado com Sucesso";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["MensagemSucesso"] = "Erro ao cadastrar pacote";
             return View();
         }
 
@@ -57,13 +58,16 @@ namespace ProjetoEcommerce.Controllers
             if(ModelState.IsValid)
             {
                 _PacoteRepositorio.AtualizarPacote(pacote);
+                TempData["MensagemSucesso"] = "Pacote atualizado com Sucesso";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["MensagemErro"] = "Erro ao atualizar pacote";
             return View(pacote);
         }
         public IActionResult ExcluirPacote(int id)
         {
             _PacoteRepositorio.ExcluirPacote(id);
+            TempData["MensagemSucesso"] = "Pacote exluido com sucesso";
             return RedirectToAction(nameof(Index)); 
         }
 

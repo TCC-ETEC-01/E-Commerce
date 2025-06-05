@@ -30,8 +30,12 @@ namespace ProjetoEcommerce.Controllers
                 {
                 ViewData["MensagemErro"] = "No campo CPF e Telefone são aceitos apenas numeros, digite novamente!";
                 }
+<<<<<<< HEAD
             
             return RedirectToAction(nameof(Index));
+=======
+            return View();
+>>>>>>> CauaRefatorando
         }
         
         public IActionResult EditarCliente(int Id)
@@ -56,6 +60,7 @@ namespace ProjetoEcommerce.Controllers
                 {
                     if (_clienteRepositorio.EditarCliente(cliente))
                     {
+                        ViewData["MensagemSucesso"] = "Cliente atualizado com sucesso";
                         return RedirectToAction(nameof(Index));
                     }
                 }
@@ -69,6 +74,7 @@ namespace ProjetoEcommerce.Controllers
         public IActionResult ExcluirCliente(int Id)
         {
             _clienteRepositorio.ExcluirCliente(Id);
+
             return RedirectToAction(nameof(Index));
         }
     }

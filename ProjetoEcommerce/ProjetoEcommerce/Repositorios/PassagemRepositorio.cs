@@ -15,7 +15,7 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmdBuscarId = new MySqlCommand("select * from tbViagem where IdViagem=@idViagem", conexao);
+                MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbViagem where IdViagem=@idViagem", conexao);
                 cmdBuscarId.Parameters.AddWithValue("@idViagem", passagem.IdViagem);
 
                 using (var drViagem = cmdBuscarId.ExecuteReader())
@@ -28,7 +28,7 @@ namespace ProjetoEcommerce.Repositorios
 
                     else if (drViagem.HasRows)
                     {
-                        MySqlCommand cmd = new MySqlCommand("select * from tbPassagem where Assento=@assento", conexao);
+                        MySqlCommand cmd = new MySqlCommand("select 1 from tbPassagem where Assento=@assento", conexao);
                         cmd.Parameters.AddWithValue("@assento", passagem.Assento);
                         using (var drAssento = cmd.ExecuteReader())
                         {
@@ -127,7 +127,7 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from tbPassagem where IdPassagem=@codigo", conexao);
+                MySqlCommand cmd = new MySqlCommand("select 1 from tbPassagem where IdPassagem=@codigo", conexao);
                 cmd.Parameters.AddWithValue("@codigo", Codigo);
 
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
