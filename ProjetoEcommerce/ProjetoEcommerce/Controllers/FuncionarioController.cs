@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
 
@@ -22,9 +23,25 @@ namespace ProjetoEcommerce.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Login(string email, string senha)
+        {
+            var funcionario = _funcionarioRepositorio.ObterFuncionarioEmail(email);
+            if (funcionario != null && funcionario.Senha == senha)
+            {
+                HttpContext.Session.SetString("FuncionarioLogado", funcionario.Email);
+                TempData["Mensagem"] = "Bem vindo" + {funcionario.Email};
+                RedirectToAction("Index", "Funcionario");
+            }
+            ViewBag.Erro = "Dados incorretos, tente novamente!";
+            return View();
+        }
+
         public IActionResult Logout()
         {
-            return View();
+            HttpContext.Session.Clear();
+            TempData["Mesangem"] = "Você está indo embora? Até breve!";
+            return RedirectToAction("Login","Funcionario");
         }
 
         public IActionResult CadastrarFuncionario()
