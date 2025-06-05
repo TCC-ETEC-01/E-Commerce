@@ -14,7 +14,7 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new("select * from tbCliente where IdCliente = @idCliente", conexao);
+                MySqlCommand cmd = new MySqlCommand ("select * from tbCliente where IdCliente = @idCliente", conexao);
                 cmd.Parameters.Add("@idCliente", MySqlDbType.VarChar).Value = Id;
 
                 using (MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
