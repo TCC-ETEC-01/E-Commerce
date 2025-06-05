@@ -94,5 +94,32 @@ namespace ProjetoEcommerce.Repositorios
                 conexao.Close();
             }
         }
+        public tbViagem ObterViagem(int Id)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbViagem where IdViagem=@IdViagem", conexao);
+                cmd.Parameters.Add("IdViagem",MySqlDbType.VarChar).Value = Id;
+
+                using(MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    tbViagem viagem = null;
+                    if(dr.Read())
+                    {
+                        viagem = new tbViagem
+                        {
+                            IdViagem = Convert.ToInt32(dr["IdViagem"]),
+                            DataRetorno = ((DateTime)dr["DataRetorno"]),
+                            Descricao = ((string)dr["Descricao"]),
+                            Origem = ((string)dr["Origem"]),
+                            Destino = ((string)dr["Destino"]),
+                            TipoTransporte = ((string)dr["TipoTransporte"]),
+                            DataPartida = ((DateTime)dr["DataPartida"])
+                        };
+                    } return viagem;
+                }
+            }
+        }
     }
 }
