@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
 
+
 namespace ProjetoEcommerce.Controllers
 {
     public class FuncionarioController : Controller
     {
         private readonly FuncionarioRepositorio _funcionarioRepositorio;
 
-        public FuncionarioController (FuncionarioRepositorio funcionario)
+        public FuncionarioController(FuncionarioRepositorio funcionario)
         {
             _funcionarioRepositorio = funcionario;
         }
@@ -30,11 +31,7 @@ namespace ProjetoEcommerce.Controllers
             if (funcionario != null && funcionario.Senha == senha)
             {
                 HttpContext.Session.SetString("FuncionarioLogado", funcionario.Email);
-<<<<<<< HEAD
                 ViewData["Mensagem"] = "Bem vindo" + funcionario.Email;
-=======
-                TempData["Mensagem"] = "Bem vindo" + funcionario.Email;
->>>>>>> Daniel-dev
                 RedirectToAction("Index", "Funcionario");
             }
             ViewBag.Erro = "Dados incorretos, tente novamente!";
@@ -45,7 +42,7 @@ namespace ProjetoEcommerce.Controllers
         {
             HttpContext.Session.Clear();
             ViewData["Mesangem"] = "Você está indo embora? Até breve!";
-            return RedirectToAction("Login","Funcionario");
+            return RedirectToAction("Login", "Funcionario");
         }
 
         public IActionResult CadastrarFuncionario()
@@ -55,17 +52,19 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public IActionResult CadastrarFuncionario(tbFuncionario funcionario)
         {
+
             if (!int.TryParse(funcionario.Cpf, out _) && !int.TryParse(funcionario.Telefone, out _))
             {
                 ViewData["MensagemErro"] = "No campo CPF  e Telefone apenas numeros!";
             }
+
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult EditarFuncionario(string Id)
+        public IActionResult EditarFuncionario(int Id)
         {
             var funcionario = _funcionarioRepositorio.ObterFuncionarioID(Id);
-            if(funcionario == null)
+            if (funcionario == null)
             {
                 return NotFound();
             }
@@ -75,10 +74,11 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public IActionResult EditarFuncionario(int Id, [Bind("IdFuncionario,Nome,Sexo,Email,Telefone,Cargo,Cpf,Senha")] tbFuncionario funcionario)
         {
-            if(Id != funcionario.IdFuncionario)
+            if (Id != funcionario.IdFuncionario)
             {
                 return BadRequest();
-            } if(ModelState.IsValid)
+            }
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -86,7 +86,8 @@ namespace ProjetoEcommerce.Controllers
                     {
                         return RedirectToAction(nameof(Index));
                     }
-                } catch (Exception)
+                }
+                catch (Exception)
                 {
                     ModelState.AddModelError("", "Ocorreu um erro ao atualizar, tente novamente! ");
                 }

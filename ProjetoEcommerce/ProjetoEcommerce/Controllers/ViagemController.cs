@@ -1,40 +1,27 @@
-<<<<<<< HEAD
-﻿//using Microsoft.AspNetCore.Mvc;
-//using ProjetoEcommerce.Repositorios;
-=======
+
+
+
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
->>>>>>> a88ad792c7b76e431d8162583aa7720293637e7c
 
-//namespace ProjetoEcommerce.Controllers
-//{
-//    public class ViagemController : Controller
-//    {
-//        private readonly ViagemRepositorio _viagemRepositorio;
+namespace ProjetoEcommerce.Controllers
+    {
+    public class ViagemController : Controller
+  {
+     private readonly ViagemRepositorio _viagemRepositorio;
 
-//        public ViagemController(ViagemRepositorio viagemRepositorio)
-//        {
-//            _viagemRepositorio = viagemRepositorio;
-//        }
+      public ViagemController(ViagemRepositorio viagemRepositorio)
+       {
+           _viagemRepositorio = viagemRepositorio;
+      }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Daniel-dev
-//        public IActionResult Index()
-//        {
-//            return View(_viagemRepositorio.TodasViagens());
-//        }
-//        public IActionResult CadastrarViagem()
-//        {
-//            return View();
-//        }
-//        [HttpPost]
-<<<<<<< HEAD
-//    //}
-//}
-=======
+
+
+
+
+
+
         public IActionResult Index()
         {
             return View(_viagemRepositorio.TodasViagens());
@@ -85,8 +72,4 @@ using ProjetoEcommerce.Repositorios;
         }
     }
 }
->>>>>>> a88ad792c7b76e431d8162583aa7720293637e7c
-=======
-//    }
-//}
->>>>>>> Daniel-dev
+
