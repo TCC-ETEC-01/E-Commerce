@@ -16,7 +16,10 @@ namespace ProjetoEcommerce.Controllers
         {
             return View(_viagemRepositorio.TodasViagens());
         }
-
-
+        public IActionResult CadastrarViagem()
+        {
+            return View();
+        }
+        [HttpPost]
     }
 }
