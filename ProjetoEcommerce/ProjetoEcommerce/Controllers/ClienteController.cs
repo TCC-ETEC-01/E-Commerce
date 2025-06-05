@@ -30,12 +30,11 @@ namespace ProjetoEcommerce.Controllers
                 {
                 ViewData["MensagemErro"] = "No campo CPF e Telefone são aceitos apenas numeros, digite novamente!";
                 }
-<<<<<<< HEAD
+
             
             return RedirectToAction(nameof(Index));
-=======
-            return View();
->>>>>>> CauaRefatorando
+
+
         }
         
         public IActionResult EditarCliente(int Id)
