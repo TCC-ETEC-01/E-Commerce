@@ -143,7 +143,7 @@ namespace ProjetoEcommerce.Repositorios
                 return null;
             }
         }
-        public tbFuncionario ObterFuncionarioID(string id)
+        public tbFuncionario ObterFuncionarioID(int id)
         {
             using ( var conexao = new MySqlConnection(_conexaoMySQL))
             {

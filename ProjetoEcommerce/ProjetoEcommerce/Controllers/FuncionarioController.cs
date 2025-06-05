@@ -30,7 +30,7 @@ namespace ProjetoEcommerce.Controllers
             if (funcionario != null && funcionario.Senha == senha)
             {
                 HttpContext.Session.SetString("FuncionarioLogado", funcionario.Email);
-                TempData["Mensagem"] = "Bem vindo" + {funcionario.Email};
+                ViewData["Mensagem"] = "Bem vindo" + funcionario.Email;
                 RedirectToAction("Index", "Funcionario");
             }
             ViewBag.Erro = "Dados incorretos, tente novamente!";
@@ -40,7 +40,7 @@ namespace ProjetoEcommerce.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            TempData["Mesangem"] = "Você está indo embora? Até breve!";
+            ViewData["Mesangem"] = "Você está indo embora? Até breve!";
             return RedirectToAction("Login","Funcionario");
         }
 
@@ -51,9 +51,9 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public IActionResult CadastrarFuncionario(tbFuncionario funcionario)
         {
-            if (!int.TryParse(funcionario.Cpf, out _))
+            if (!int.TryParse(funcionario.Cpf, out _)|| !int.TryParse(funcionario.Telefone, out _))
             {
-                Console.WriteLine("No campo CPF, apenas números!");
+                ViewData["MensagemErro"] = "No campo CPF  e Telefone apenas numeros!";
             }
             return View();
         }
