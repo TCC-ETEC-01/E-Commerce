@@ -30,7 +30,6 @@ namespace ProjetoEcommerce.Controllers
                 {
                     Console.WriteLine("Apenas números");
                 }
-            
             return View();
         }
         
@@ -56,6 +55,7 @@ namespace ProjetoEcommerce.Controllers
                 {
                     if (_clienteRepositorio.EditarCliente(cliente))
                     {
+                        ViewData["MensagemSucesso"] = "Cliente atualizado com sucesso";
                         return RedirectToAction(nameof(Index));
                     }
                 }
@@ -69,6 +69,7 @@ namespace ProjetoEcommerce.Controllers
         public IActionResult ExcluirCliente(int Id)
         {
             _clienteRepositorio.ExcluirCliente(Id);
+
             return RedirectToAction(nameof(Index));
         }
     }
