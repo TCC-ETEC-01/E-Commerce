@@ -30,7 +30,7 @@ namespace ProjetoEcommerce.Controllers
             if (funcionario != null && funcionario.Senha == senha)
             {
                 HttpContext.Session.SetString("FuncionarioLogado", funcionario.Email);
-                TempData["Mensagem"] = "Bem vindo" + {funcionario.Email};
+                TempData["Mensagem"] = "Bem vindo" + funcionario.Email;
                 RedirectToAction("Index", "Funcionario");
             }
             ViewBag.Erro = "Dados incorretos, tente novamente!";
@@ -58,7 +58,7 @@ namespace ProjetoEcommerce.Controllers
             return View();
         }
 
-        public IActionResult EditarFuncionario(int Id)
+        public IActionResult EditarFuncionario(string Id)
         {
             var funcionario = _funcionarioRepositorio.ObterFuncionarioID(Id);
             if(funcionario == null)
