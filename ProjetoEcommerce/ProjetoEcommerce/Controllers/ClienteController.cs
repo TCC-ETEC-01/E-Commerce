@@ -28,14 +28,9 @@ namespace ProjetoEcommerce.Controllers
                 //out _ é o retorno do parametro, nesse caso está sendo indicado que não tem a necessidade do retorno ser especificado.
                 if (!int.TryParse(cliente.Cpf, out _) && !int.TryParse(cliente.Telefone, out _))
                 {
-                ViewData["MensagemErro"] = "No campo CPF e Telefone são aceitos apenas numeros, digite novamente!";
-                }
-<<<<<<< HEAD
-            
+                TempData["MensagemErro"] = "No campo CPF e Telefone são aceitos apenas numeros, digite novamente!";
+                }            
             return RedirectToAction(nameof(Index));
-=======
-            return View();
->>>>>>> CauaRefatorando
         }
         
         public IActionResult EditarCliente(int Id)
@@ -60,7 +55,7 @@ namespace ProjetoEcommerce.Controllers
                 {
                     if (_clienteRepositorio.EditarCliente(cliente))
                     {
-                        ViewData["MensagemSucesso"] = "Cliente atualizado com sucesso";
+                        TempData["MensagemSucesso"] = "Cliente atualizado com sucesso";
                         return RedirectToAction(nameof(Index));
                     }
                 }

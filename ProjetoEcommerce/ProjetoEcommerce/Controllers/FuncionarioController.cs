@@ -31,7 +31,7 @@ namespace ProjetoEcommerce.Controllers
             if (funcionario != null && funcionario.Senha == senha)
             {
                 HttpContext.Session.SetString("FuncionarioLogado", funcionario.Email);
-                ViewData["Mensagem"] = "Bem vindo" + funcionario.Email;
+                TempData["Mensagem"] = "Bem vindo" + funcionario.Email;
                 RedirectToAction("Index", "Funcionario");
             }
             ViewBag.Erro = "Dados incorretos, tente novamente!";
@@ -41,7 +41,7 @@ namespace ProjetoEcommerce.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            ViewData["Mesangem"] = "Você está indo embora? Até breve!";
+            TempData["Mesangem"] = "Você está indo embora? Até breve!";
             return RedirectToAction("Login", "Funcionario");
         }
 
@@ -55,7 +55,7 @@ namespace ProjetoEcommerce.Controllers
 
             if (!int.TryParse(funcionario.Cpf, out _) && !int.TryParse(funcionario.Telefone, out _))
             {
-                ViewData["MensagemErro"] = "No campo CPF  e Telefone apenas numeros!";
+                TempData["MensagemErro"] = "No campo CPF  e Telefone apenas numeros!";
             }
 
             return RedirectToAction(nameof(Index));
