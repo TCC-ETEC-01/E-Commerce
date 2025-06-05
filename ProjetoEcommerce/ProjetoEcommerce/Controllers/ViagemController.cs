@@ -1,25 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ProjetoEcommerce.Repositorios;
+﻿//using Microsoft.AspNetCore.Mvc;
+//using ProjetoEcommerce.Repositorios;
 
-namespace ProjetoEcommerce.Controllers
-{
-    public class ViagemController : Controller
-    {
-        private readonly ViagemRepositorio _viagemRepositorio;
+//namespace ProjetoEcommerce.Controllers
+//{
+//    public class ViagemController : Controller
+//    {
+//        private readonly ViagemRepositorio _viagemRepositorio;
 
-        public ViagemController(ViagemRepositorio viagemRepositorio)
-        {
-            _viagemRepositorio = viagemRepositorio;
-        }
+//        public ViagemController(ViagemRepositorio viagemRepositorio)
+//        {
+//            _viagemRepositorio = viagemRepositorio;
+//        }
 
-        public IActionResult Index()
-        {
-            return View(_viagemRepositorio.TodasViagens());
-        }
-        public IActionResult CadastrarViagem()
-        {
-            return View();
-        }
-        [HttpPost]
-    }
-}
+//        public IActionResult Index()
+//        {
+//            return View(_viagemRepositorio.TodasViagens());
+//        }
+//        public IActionResult CadastrarViagem()
+//        {
+//            return View();
+//        }
+//        [HttpPost]
+//    //}
+//}
