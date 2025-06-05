@@ -26,12 +26,12 @@ namespace ProjetoEcommerce.Controllers
         {       
                 //verifica se é possivel converter o valor para numérico, 
                 //out _ é o retorno do parametro, nesse caso está sendo indicado que não tem a necessidade do retorno ser especificado.
-                if (!int.TryParse(cliente.Cpf, out _))
+                if (!int.TryParse(cliente.Cpf, out _) && !int.TryParse(cliente.Telefone, out _))
                 {
-                    Console.WriteLine("Apenas números");
+                ViewData["MensagemErro"] = "No campo CPF e Telefone são aceitos apenas numeros, digite novamente!";
                 }
             
-            return View();
+            return RedirectToAction(nameof(Index));
         }
         
         public IActionResult EditarCliente(int Id)

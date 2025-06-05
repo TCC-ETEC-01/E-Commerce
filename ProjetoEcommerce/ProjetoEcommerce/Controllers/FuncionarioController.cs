@@ -51,11 +51,11 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public IActionResult CadastrarFuncionario(tbFuncionario funcionario)
         {
-            if (!int.TryParse(funcionario.Cpf, out _)|| !int.TryParse(funcionario.Telefone, out _))
+            if (!int.TryParse(funcionario.Cpf, out _) && !int.TryParse(funcionario.Telefone, out _))
             {
                 ViewData["MensagemErro"] = "No campo CPF  e Telefone apenas numeros!";
             }
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult EditarFuncionario(int Id)
