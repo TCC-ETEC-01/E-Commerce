@@ -30,9 +30,11 @@ namespace ProjetoEcommerce.Controllers
             if (ModelState.IsValid)
             {
                 _produtoRepositorio.CadastrarProduto(produto);
+                TempData["MensagemSucesso"] = "Produto cadastrado com Sucesso";
                 return RedirectToAction(nameof(Index));
             }
-                return View();
+            TempData["MensagemErro"] = "Erro ao cadastrar produto";
+            return View();
         }
 
         public IActionResult EditarProduto(int id)
@@ -58,18 +60,19 @@ namespace ProjetoEcommerce.Controllers
             {
                 if (_produtoRepositorio.AtualizarProduto(produto))
                 {
+                    TempData["MensagemSucesso"] = "Produto cadastrado com Sucesso";
                     return RedirectToAction(nameof(Index));
                 }
-
-                return View(produto);
             }
-
-            return View();
+             
+            TempData["MensagemErro"] = "Erro ao atualizar produto";
+            return View(produto);
         }
 
         public IActionResult ExcluirProduto(int id)
         {
             _produtoRepositorio.ExcluirProduto(id);
+            TempData["MensagemSucesso"] = "Produto excluido com sucesso";
             return RedirectToAction(nameof(Index));
         }
 
