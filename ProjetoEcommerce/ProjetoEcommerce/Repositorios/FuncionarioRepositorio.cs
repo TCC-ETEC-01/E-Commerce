@@ -38,7 +38,7 @@ namespace ProjetoEcommerce.Repositorios
                     }
                 }
 
-                MySqlCommand verifyTelefone = new MySqlCommand("select tbFuncionario where Telefone=@telefone", conexao);
+                MySqlCommand verifyTelefone = new MySqlCommand("select  tbFuncionario where Telefone=@telefone", conexao);
                 verifyTelefone.Parameters.AddWithValue("@telefone", funcionario);
                 using (var conf = verifyTelefone.ExecuteReader())
                 {

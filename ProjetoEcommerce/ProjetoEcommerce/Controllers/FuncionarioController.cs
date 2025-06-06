@@ -57,7 +57,7 @@ namespace ProjetoEcommerce.Controllers
             {
                 TempData["MensagemErro"] = "No campo CPF  e Telefone apenas numeros!";
             }
-
+            TempData["MensagemErro"] = "Cadastro Realizado com sucesso";
             return RedirectToAction(nameof(Index));
         }
 
