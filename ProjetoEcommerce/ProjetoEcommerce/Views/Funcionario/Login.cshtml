@@ -1,4 +1,6 @@
-﻿<link href="~/css/funcionariologin.css" rel="stylesheet" />
+﻿@model ProjetoEcommerce.Models.tbFuncionario
+
+<link href="~/css/funcionariologin.css" rel="stylesheet" />
 <body>
     <section class="row pt-5 ">       
         <div class="col-6 pt-5 ">
@@ -15,12 +17,12 @@
                     <h5>Acesso ao Sistema</h5>
                 </div>
                 <div class="form-group">
-                    <label>EMAIL</label>
-                    <input type="email" name="email" required class="form-control" />
+                    <label asp-for="Email">EMAIL</label>
+                    <input asp-for="Email" type="email" name="email" required class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label>SENHA</label>
-                    <input type="password" name="senha" required class="form-control" />
+                    <label asp-for="Senha">SENHA</label>
+                    <input asp-for="Senha" type="password" name="senha" required class="form-control" />
                 </div>
                 <div class="buttonLogin d-flex justify-content-center">
                     <button type="submit" class="btn "><h5>Entrar</h5></button>

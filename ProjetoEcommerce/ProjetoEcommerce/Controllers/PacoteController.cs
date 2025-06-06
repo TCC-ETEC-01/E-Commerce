@@ -31,7 +31,7 @@ namespace ProjetoEcommerce.Controllers
                 TempData["MensagemSucesso"] = "Pacote cadastrado com Sucesso";
                 return RedirectToAction(nameof(Index));
             }
-            TempData["MensagemSucesso"] = "Erro ao cadastrar pacote";
+            TempData["MensagemErro"] = "Erro ao cadastrar pacote";
             return View();
         }
 

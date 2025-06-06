@@ -16,12 +16,6 @@ namespace ProjetoEcommerce.Controllers
            _viagemRepositorio = viagemRepositorio;
       }
 
-
-
-
-
-
-
         public IActionResult Index()
         {
             return View(_viagemRepositorio.TodasViagens());

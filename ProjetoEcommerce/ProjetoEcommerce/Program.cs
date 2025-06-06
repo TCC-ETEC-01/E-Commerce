@@ -13,9 +13,9 @@ builder.Services.AddScoped<ProdutoRepositorio>();
 builder.Services.AddScoped<ViagemRepositorio>();
 builder.Services.AddScoped<PassagemRepositorio>();
 
-
+builder.Services.AddSession();
 var app = builder.Build();
-
+app.UseSession();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -29,9 +29,13 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
+<<<<<<< HEAD
 
     pattern: "{controller=Dashboard}/{action=CadastroHome}/{id?}");
 
 
 
+=======
+    pattern: "{controller=DashBoard}/{action=Index}/{id?}");
+>>>>>>> CauaEstruturandoViews
 app.Run();

@@ -8,7 +8,7 @@ namespace ProjetoEcommerce.Repositorios
     {
         private readonly string _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
 
-        public void CadastrarProduto(tbProduto produto)
+        public bool CadastrarProduto(tbProduto produto)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -19,7 +19,7 @@ namespace ProjetoEcommerce.Repositorios
                 cmd.Parameters.AddWithValue("@descricao", produto.Descricao);
                 cmd.Parameters.AddWithValue("@quantidade", produto.Quantidade);
                 cmd.ExecuteNonQuery();
-                conexao.Close();
+                return true;
             }
         }
 
@@ -73,7 +73,7 @@ namespace ProjetoEcommerce.Repositorios
                 conexao.Open();
                 MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbPacote where IdProduto=@idProduto", conexao);
                 cmdBuscarId.Parameters.AddWithValue("@idProduto", id);
-                using (var drProduto = cmdBuscarId.ExecuteReader())
+                using (var drProduto = cmdBuscarId.ExecuteReader(CommandBehavior.CloseConnection))
                 {
                     if (drProduto.HasRows)
                     {
