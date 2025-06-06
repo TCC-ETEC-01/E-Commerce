@@ -8,6 +8,16 @@
         <div class="container-cadastro w-100 h-100">
             <div class="row cadastro-row">
                 <div class="col  form-group">
+                    <label asp-for="IdPassagem" class="control-label"></label>
+                    <input asp-for="IdPassagem" class="form-control cadastro-input" />
+                    <span asp-validation-for="IdPassagem" class="text-danger"></span>
+                </div>
+                <div class="col  form-group">
+                    <label asp-for="IdProduto" class="control-label"></label>
+                    <input asp-for="IdProduto" class="form-control cadastro-input" />
+                    <span asp-validation-for="IdProduto" class="text-danger"></span>
+                </div>
+                <div class="col  form-group">
                     <label asp-for="NomePacote" class="control-label"></label>
                     <input asp-for="NomePacote" class="form-control cadastro-input" />
                     <span asp-validation-for="NomePacote" class="text-danger"></span>
