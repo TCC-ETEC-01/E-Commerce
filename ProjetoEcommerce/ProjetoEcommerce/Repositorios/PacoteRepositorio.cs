@@ -38,7 +38,7 @@ namespace ProjetoEcommerce.Repositorios
                     }
                 }
 
-                MySqlCommand cmdInsertPacote = new MySqlCommand("insert into tbPacote IdPassagem, IdProduto, NomePacote, Descricao, Valor) values(@idPassagem, @idProduto, @nomePacote, @descricao)", conexao);
+                MySqlCommand cmdInsertPacote = new MySqlCommand("insert into tbPacote (IdPassagem, IdProduto, NomePacote, Descricao, Valor) values(@idPassagem, @idProduto, @nomePacote, @descricao, @valor)", conexao);
                 cmdInsertPacote.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem);
                 cmdInsertPacote.Parameters.AddWithValue("@idProduto", pacote.IdProduto);
                 cmdInsertPacote.Parameters.AddWithValue("@nomePacote", pacote.NomePacote);
