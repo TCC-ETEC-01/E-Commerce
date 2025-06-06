@@ -27,9 +27,8 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public IActionResult CadastrarProduto(tbProduto produto)
         {
-            if (ModelState.IsValid)
+            if (_produtoRepositorio.CadastrarProduto(produto))
             {
-                _produtoRepositorio.CadastrarProduto(produto);
                 TempData["MensagemSucesso"] = "Produto cadastrado com Sucesso";
                 return RedirectToAction(nameof(Index));
             }

@@ -8,7 +8,7 @@ namespace ProjetoEcommerce.Repositorios
     {
         private readonly string _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
 
-        public void CadastrarProduto(tbProduto produto)
+        public bool CadastrarProduto(tbProduto produto)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -19,7 +19,7 @@ namespace ProjetoEcommerce.Repositorios
                 cmd.Parameters.AddWithValue("@descricao", produto.Descricao);
                 cmd.Parameters.AddWithValue("@quantidade", produto.Quantidade);
                 cmd.ExecuteNonQuery();
-                conexao.Close();
+                return true;
             }
         }
 
