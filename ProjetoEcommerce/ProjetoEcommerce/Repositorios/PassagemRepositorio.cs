@@ -15,41 +15,33 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbViagem where IdViagem=@idViagem", conexao);
-                cmdBuscarId.Parameters.AddWithValue("@idViagem", passagem.IdViagem);
+                MySqlCommand cmdBuscarViagem = new MySqlCommand("select 1 from tbViagem where IdViagem=@idViagem", conexao);
+                cmdBuscarViagem.Parameters.AddWithValue("@idViagem", passagem.IdViagem);
 
-                using (var drViagem = cmdBuscarId.ExecuteReader())
+                using (var drViagem = cmdBuscarViagem.ExecuteReader())
                 {
-                    if (!drViagem.HasRows)
+                    if (drViagem.HasRows)
                     {
-                        Console.WriteLine("Id da viagem não existente");
-                        return false;
-                    }
+                        MySqlCommand cmdBuscarAssento = new MySqlCommand("select 1 from tbPassagem where Assento=@assento", conexao);
+                        cmdBuscarAssento.Parameters.AddWithValue("@assento", passagem.Assento);
+                        MySqlDataReader drAssento = new MySqlDataReader(cmdBuscarAssento);
 
-                    else if (drViagem.HasRows)
-                    {
-                        MySqlCommand cmd = new MySqlCommand("select 1 from tbPassagem where Assento=@assento", conexao);
-                        cmd.Parameters.AddWithValue("@assento", passagem.Assento);
-                        using (var drAssento = cmd.ExecuteReader())
-                        {
-                            if (drAssento.HasRows)
-                            {
-                                Console.WriteLine("Assento já existente");
-                                return false;
-                            }
-                            else
+                            if (!drAssento.HasRows)
                             {
                                 MySqlCommand cmdInsert = new MySqlCommand("insert into tbPassagem(Assento, Valor, Situacao, IdViagem) values (@assento,@valor,@situacao,@idViagem)", conexao);
                                 cmdInsert.Parameters.Add("@assento", MySqlDbType.VarChar).Value = passagem.Assento;
                                 cmdInsert.Parameters.Add("@valor", MySqlDbType.Decimal).Value = passagem.Valor;
                                 cmdInsert.Parameters.Add("@situacao", MySqlDbType.VarChar).Value = passagem.Situacao;
-                                cmdInsert.Parameters.Add("@idVIagem", MySqlDbType.Int32).Value = passagem.IdViagem;
+                                cmdInsert.Parameters.Add("@idViagem", MySqlDbType.Int32).Value = passagem.IdViagem;
                                 cmdInsert.ExecuteNonQuery();
                             }
+
+                            Console.WriteLine("Assento já existente");
+                            return false;                                                                                     
                         }
-                    }
-                    return true;
+                    }                  
                 }
+                return true;
             }
 
         }

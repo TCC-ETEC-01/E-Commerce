@@ -1,1 +1,32 @@
-﻿
+﻿@model ProjetoEcommerce.Models.tbPassagem;
+
+<form asp-action="CadastrarPassagem">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row cadastro-row">
+        <div class="col  form-group">
+            <label asp-for="IdViagem" class="control-label"></label>
+            <input asp-for="IdViagem" class="form-control cadastro-input" />
+            <span asp-validation-for="IdViagem" class="text-danger"></span>
+        </div>
+        <div class="col form-group">
+            <label asp-for="Valor" class="control-label"></label>
+            <input asp-for="Valor" class="form-control cadastro-input" />
+            <span asp-validation-for="Valor" class="text-danger"></span>
+        </div>
+
+        <div class="col form-group">
+            <label asp-for="Assento" class="control-label"></label>
+            <input asp-for="Assento" class="form-control cadastro-input" />
+            <span asp-validation-for="Assento" class="text-danger"></span>
+        </div>
+
+        <div class="col form-group">
+            <label asp-for="Situacao" class="control-label"></label>
+            <input asp-for="Situacao" class="form-control cadastro-input" />
+            <span asp-validation-for="Situacao" class="text-danger"></span>
+        </div>
+        <div class=" btn form-group justify-content-center align-items-center  d-flex ">
+            <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" />Cadastrar</button>
+        </div>
+    </div>
+</form>

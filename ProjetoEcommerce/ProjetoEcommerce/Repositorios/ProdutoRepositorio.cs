@@ -73,7 +73,7 @@ namespace ProjetoEcommerce.Repositorios
                 conexao.Open();
                 MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbPacote where IdProduto=@idProduto", conexao);
                 cmdBuscarId.Parameters.AddWithValue("@idProduto", id);
-                using (var drProduto = cmdBuscarId.ExecuteReader())
+                using (var drProduto = cmdBuscarId.ExecuteReader(CommandBehavior.CloseConnection))
                 {
                     if (drProduto.HasRows)
                     {
