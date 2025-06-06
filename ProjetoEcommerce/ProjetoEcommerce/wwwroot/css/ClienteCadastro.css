@@ -1,7 +1,6 @@
 ﻿
-
 .container-cadastro {
-    background-color: transparent;
+    background-color: lightgray;
     margin-top: 12%;
     font-size: 25px;
     display: grid;
@@ -45,6 +44,5 @@ select {
 .Cadastro-navbar {
     border-radius: 15px !important;
     margin-left: -2%;
-    margin-top: -21%;
-    color: white !important;
+    margin-top: -1.7%;
 }
