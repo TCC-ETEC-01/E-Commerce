@@ -1,11 +1,9 @@
-<<<<<<< HEAD
-﻿@model ProjetoEcommerce.Models.tbPacote;
-
+@model ProjetoEcommerce.Models.tbPacote;
 <link href="~/css/funcionariocadastro.css" rel="stylesheet" />
 <body>
     <h1>Titulo Cadastro</h1>
 
-    <form asp-action="CadastrarFuncionario">
+    <form asp-action="CadastrarPacote">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="container-cadastro w-100 h-100">
             <header>
@@ -55,22 +53,9 @@
                     <input asp-for="Valor" class="form-control cadastro-input" />
                     <span asp-validation-for="Valor" class="text-danger"></span>
                 </div>
-
-
-
-
-
-
             <div class=" btn form-group justify-content-center align-items-center  d-flex ">
                 <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" />Cadastrar</button>
             </div>
         </div>
-
-
-
     </form>
-
 </body>
-=======
-﻿
->>>>>>> CauaEstruturandoViews
