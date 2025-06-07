@@ -14,7 +14,7 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                string query = @"select  p.IdPassagem,v.Origem, v.Destino, p.Assento,v.Descricao,  
+                string query = @"select  p.IdPassagem,v.Origem, v.Destino, p.Assento,p.Translado, v.Descricao,  
                     v.DataPartida as Partida, v.DataRetorno as Retorno,  v.TipoTransporte as Transporte
                     from tbPassagem p 
                     inner join tbViagem v on p.IdViagem = v.IdViagem;";
