@@ -37,11 +37,12 @@ namespace ProjetoEcommerce.Repositorios
                     }
 
                 }
-                MySqlCommand cmdInsert = new MySqlCommand("insert into tbPassagem(Assento, Valor, Situacao, IdViagem) values (@assento,@valor,@situacao,@idViagem)", conexao);
+                MySqlCommand cmdInsert = new MySqlCommand("insert into tbPassagem(Assento, Valor, Situacao, IdViagem,Translado) values (@assento,@valor,@situacao,@idViagem, @translado)", conexao);
                 cmdInsert.Parameters.Add("@assento", MySqlDbType.VarChar).Value = passagem.Assento;
                 cmdInsert.Parameters.Add("@valor", MySqlDbType.Decimal).Value = passagem.Valor;
                 cmdInsert.Parameters.Add("@situacao", MySqlDbType.VarChar).Value = passagem.Situacao;
                 cmdInsert.Parameters.Add("@idViagem", MySqlDbType.Int32).Value = passagem.IdViagem;
+                cmdInsert.Parameters.Add("@translado", MySqlDbType.VarChar).Value = passagem.Translado;
                 cmdInsert.ExecuteNonQuery();
                 return true;
             } 
@@ -53,11 +54,12 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("update tbPassagem set Assento=@assento, Valor=@valor,Situacao=@situacao,IdViagem=@idViagem" + "where IdPassagem=@passagem", conexao);
+                MySqlCommand cmd = new MySqlCommand("update tbPassagem set Assento=@assento, Valor=@valor,Situacao=@situacao,IdViagem=@idViagem, Translado=@translado" + "where IdPassagem=@passagem", conexao);
                 cmd.Parameters.AddWithValue("@assento", passagem.Assento);
                 cmd.Parameters.AddWithValue("@situacao", passagem.Situacao);
                 cmd.Parameters.AddWithValue("@valor", passagem.Valor);
                 cmd.Parameters.AddWithValue("@idViagem", passagem.IdViagem);
+                cmd.Parameters.AddWithValue("@translado", passagem.Translado);
                 int linhasAfetadas = cmd.ExecuteNonQuery();
                 return linhasAfetadas > 0;
             }
