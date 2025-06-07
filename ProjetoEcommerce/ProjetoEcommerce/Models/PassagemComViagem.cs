@@ -9,5 +9,7 @@
         public string? Destino { get; set; }
         public string? TipoTransporte { get; set; }
         public DateTime? DataPartida { get; set; }
+        public string Assento { get; set; }
+        public string Translado { get; set; }
     }
 }
