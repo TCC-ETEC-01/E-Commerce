@@ -9,5 +9,6 @@
         public int IdViagem { get; set; }
         public int IdCliente { get; set; }
         public string Situacao { get; set; }
+        public string Translado { get; set;
     }
 }
