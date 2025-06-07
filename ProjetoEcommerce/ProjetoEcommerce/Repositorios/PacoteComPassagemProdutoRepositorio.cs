@@ -29,14 +29,15 @@ namespace ProjetoEcommerce.Repositorios
                             {
                                 IdPacote = drPacote.GetInt32("Codigo"),
                                 NomePacote = drPacote.GetString("Pacote"),
-
-
+                                NomeProduto = drPacote.GetString("Produto"),
+                                Assento = drPacote.GetString("Assento"),
+                                Situacao = drPacote.GetString("Situacao"),
+                                Translado = drPacote.GetString("Translado")
                             });
                         }
                     }
-                   
+                    return lista;     
                 }
-        
             }
         }
     }
