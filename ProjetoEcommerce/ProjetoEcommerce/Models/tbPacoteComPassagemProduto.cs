@@ -1,6 +1,6 @@
 ﻿namespace ProjetoEcommerce.Models
 {
-    public class PacoteComPassagemProduto
+    public class tbPacoteComPassagemProduto
     {
         public int IdPacote {  get; set; }
         public string NomeProduto { get; set; }

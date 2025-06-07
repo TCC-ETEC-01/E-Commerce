@@ -1,6 +1,6 @@
 ﻿namespace ProjetoEcommerce.Models
 {
-    public class PassagemComViagem
+    public class tbPassagemComViagem
     {
         public int IdPassagem { get; set; }
         public DateTime? DataRetorno { get; set; }
