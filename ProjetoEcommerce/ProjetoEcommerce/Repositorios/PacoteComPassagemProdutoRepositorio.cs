@@ -9,7 +9,7 @@ namespace ProjetoEcommerce.Repositorios
 
         public IEnumerable<tbPacoteComPassagemProduto> PacoteComPassagemProduto()
         {
-            var lista = new tbPacoteComPassagemProduto();
+            var lista = new List<tbPacoteComPassagemProduto>();
 
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -23,11 +23,20 @@ namespace ProjetoEcommerce.Repositorios
                 {
                     using (MySqlDataReader drPacote = join.ExecuteReader())
                     {
-                        
+                        while (drPacote.Read())
+                        {
+                            lista.Add(new tbPacoteComPassagemProduto
+                            {
+                                IdPacote = drPacote.GetInt32("Codigo"),
+                                NomePacote = drPacote.GetString("Pacote"),
+
+
+                            });
+                        }
                     }
                    
                 }
-                //return lista;
+        
             }
         }
     }
