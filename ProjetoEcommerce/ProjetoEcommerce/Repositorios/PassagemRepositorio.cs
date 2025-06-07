@@ -85,7 +85,7 @@ namespace ProjetoEcommerce.Repositorios
                         Assento = ((string)dr["Assento"]),
                         Valor = ((decimal)dr["Valor"]),
                         Situacao = ((string)dr["Situacao"]),
-                        Translado = ((string)dr["Situacao"])
+                        Translado = ((string)dr["Translado"])
                     });
                 }
                 return PassagemLista;
@@ -140,6 +140,8 @@ namespace ProjetoEcommerce.Repositorios
                     passagem.Situacao = ((string)dr["Situacao"]);
                     passagem.Valor = (decimal)(dr["Valor"]);
                     passagem.IdViagem = Convert.ToInt32(dr["IdPassagem"]);
+                    passagem.Translado = ((string)dr["Translado"]);
+
                 }
                 return passagem;
             }
