@@ -81,7 +81,7 @@ namespace ProjetoEcommerce.Repositorios
                     PassagemLista.Add(new tbPassagem
                     {
                         IdPassagem = Convert.ToInt32(dr["IdPassagem"]),
-                        IdViagem = Convert.ToInt32(dr["IdViagem"]),
+                        IdViagem = C(dr["IdViagem"]),
                         Assento = ((string)dr["Assento"]),
                         Valor = ((decimal)dr["Valor"]),
                         Situacao = ((string)dr["Situacao"]),
