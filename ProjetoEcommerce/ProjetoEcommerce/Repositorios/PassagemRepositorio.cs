@@ -64,33 +64,6 @@ namespace ProjetoEcommerce.Repositorios
                 return linhasAfetadas > 0;
             }
         }
-        public IEnumerable<tbPassagem> TodasPassagens()
-        {
-            List<tbPassagem> PassagemLista = new List<tbPassagem>();
-            using (var conexao = new MySqlConnection(_conexaoMySQL))
-            {
-                conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from tbPassagem", conexao);
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                conexao.Close();
-
-                foreach (DataRow dr in dt.Rows)
-                {
-                    PassagemLista.Add(new tbPassagem
-                    {
-                        IdPassagem = Convert.ToInt32(dr["IdPassagem"]),
-                        IdViagem = C(dr["IdViagem"]),
-                        Assento = ((string)dr["Assento"]),
-                        Valor = ((decimal)dr["Valor"]),
-                        Situacao = ((string)dr["Situacao"]),
-                        Translado = ((string)dr["Translado"])
-                    });
-                }
-                return PassagemLista;
-            }
-        }
         public void ExcluirPassagem(int id)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
@@ -117,33 +90,6 @@ namespace ProjetoEcommerce.Repositorios
                 }
                 int i = cmdBuscarId.ExecuteNonQuery();
                 conexao.Close();
-            }
-        }
-        public tbPassagem ObterPassagem(int Codigo)
-        {
-            using (var conexao = new MySqlConnection(_conexaoMySQL))
-            {
-                conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("select 1 from tbPassagem where IdPassagem=@codigo", conexao);
-                cmd.Parameters.AddWithValue("@codigo", Codigo);
-
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                MySqlDataReader dr;
-                tbPassagem passagem = new tbPassagem();
-
-                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                while (dr.Read())
-                {
-                    passagem.IdPassagem = Convert.ToInt32(dr["IdPassagem"]);
-                    passagem.Assento = ((string)dr["Assento"]);
-                    passagem.Situacao = ((string)dr["Situacao"]);
-                    passagem.Valor = (decimal)(dr["Valor"]);
-                    passagem.IdViagem = Convert.ToInt32(dr["IdPassagem"]);
-                    passagem.Translado = ((string)dr["Translado"]);
-
-                }
-                return passagem;
             }
         }
     }

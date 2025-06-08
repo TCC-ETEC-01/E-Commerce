@@ -63,33 +63,7 @@ namespace ProjetoEcommerce.Repositorios
                 return linhasAfetadas > 0;
             }
         }
-        public IEnumerable<tbPacote> TodosPacotes()
-        {
-            List<tbPacote> PacoteLista = new List<tbPacote>();
-            using (var conexao = new MySqlConnection(_conexaoMySQL))
-            {
-                conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from tbPacote", conexao);
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                conexao.Close();
 
-                foreach (DataRow dr in dt.Rows)
-                {
-                    PacoteLista.Add(new tbPacote
-                    {
-                        IdPassagem = Convert.ToInt32(dr["IdPassagem"]),
-                        IdProduto = Convert.ToInt32(dr["IdProduto"]),
-                        NomePacote = ((string)dr["NomePacote"]),
-                        Descricao = ((string)dr["Descricao"]),
-                        Valor = ((decimal)dr["Valor"])
-                       
-                    });
-                }
-                return PacoteLista;
-            }
-        }
         public void ExcluirPacote(int Id)
         {
             using(var conexao = new MySqlConnection(_conexaoMySQL))
@@ -99,32 +73,6 @@ namespace ProjetoEcommerce.Repositorios
                 cmd.Parameters.AddWithValue("@IdPacote", Id);
                 int i = cmd.ExecuteNonQuery();
                 conexao.Close() ;
-            }
-        }
-        public tbPacote ObterPacote(int Codigo)
-        {
-            using (var conexao = new MySqlConnection(_conexaoMySQL))
-            {
-                conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from tbPacote where IdPacote=@codigo", conexao);
-                cmd.Parameters.AddWithValue("@codigo", Codigo);
-
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                MySqlDataReader dr;
-                tbPacote pacote = new tbPacote();
-
-                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                while (dr.Read())
-                {
-                    pacote.IdPacote = Convert.ToInt32(dr["IdPacote"]);
-                    pacote.NomePacote = ((string)dr["NomePacote"]);
-                    pacote.Descricao = ((string)dr["Descricao"]);
-                    pacote.Valor = (decimal)(dr["Preco"]);
-                    pacote.IdPassagem = Convert.ToInt32(dr["IdPassagem"]);
-                    pacote.IdProduto = Convert.ToInt32(dr["IdProduto"]);
-                }
-                return pacote;
             }
         }
     }
