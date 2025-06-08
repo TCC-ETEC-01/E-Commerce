@@ -45,10 +45,9 @@ namespace ProjetoEcommerce.Repositorios
                 cmdInsert.Parameters.Add("@translado", MySqlDbType.VarChar).Value = passagem.Translado;
                 cmdInsert.ExecuteNonQuery();
                 return true;
-            } 
-        }               
-      
-     
+            }
+        }
+
         public bool AtualizarPassagem(tbPassagem passagem)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
@@ -90,6 +89,36 @@ namespace ProjetoEcommerce.Repositorios
                 }
                 int i = cmdBuscarId.ExecuteNonQuery();
                 conexao.Close();
+            }
+        }
+        public tbPassagem ObterPassagem(int Codigo)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select 1 from tbPassagem where IdPassagem=@codigo", conexao);
+                cmd.Parameters.AddWithValue("@codigo", Codigo);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                MySqlDataReader dr;
+                tbPassagem passagem = new tbPassagem();
+
+                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dr.Read())
+                {
+                    passagem.IdPassagem = Convert.ToInt32(dr["IdPassagem"]);
+                    passagem.Assento = ((string)dr["Assento"]);
+                    passagem.Situacao = ((string)dr["Situacao"]);
+                    passagem.Valor = (decimal)(dr["Valor"]);
+                    passagem.IdViagem = new tbViagem
+                    {
+                        IdViagem = Convert.ToInt32(dr["IdViagem"])
+                    };
+                    passagem.Translado = ((string)dr["Translado"]);
+
+                }
+                return passagem;
             }
         }
     }
