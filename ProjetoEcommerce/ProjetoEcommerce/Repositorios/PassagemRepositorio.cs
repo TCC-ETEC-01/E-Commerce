@@ -161,7 +161,7 @@ namespace ProjetoEcommerce.Repositorios
                 {
                     if (!drVerificarCliente.HasRows)
                     {
-                        Console.WriteLine("Operação cancelada, passagem inexistente");
+                        Console.WriteLine("Operação cancelada, cliente inexistente");
                         return false;
                     }
                 }
@@ -175,7 +175,7 @@ namespace ProjetoEcommerce.Repositorios
                 cmdInserirVenda.Parameters.AddWithValue("@dataVenda", venda.DataVenda);
                 cmdInserirVenda.ExecuteNonQuery();
 
-                MySqlCommand cmdVerificarVenda = new MySqlCommand("select 1 from tbVenda where IdVenda=@idVenda and where IdPassagem=@idPassagem", conexao);
+                MySqlCommand cmdVerificarVenda = new MySqlCommand("select 1 from tbVenda where IdVenda=@idVenda and IdPassagem=@idPassagem", conexao);
                 cmdVerificarVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
                 cmdVerificarVenda.Parameters.AddWithValue("@idVenda", venda.IdVenda);
                 using (var drVenda = cmdVerificarVenda.ExecuteReader())
