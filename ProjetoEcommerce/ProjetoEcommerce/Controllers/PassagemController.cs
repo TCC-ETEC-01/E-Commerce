@@ -25,13 +25,39 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public IActionResult CadastrarPassagem(tbPassagem passagem)
         {
-           if(_passagemRepositorio.CadastrarPassagem(passagem))
+            var viagem = passagem.IdViagem;
+            if(viagem == null)
+            {
+                ModelState.AddModelError("", "Dados da viagem são obrigatorios, tente novamente!");
+            } else
+            {
+                if (!viagem.DataPartida.HasValue || !viagem.DataRetorno.HasValue)
+                {
+                    ModelState.AddModelError("", "Data de partida e retorno são obrigatorias, tente novamente!");
+                }
+                else
+                {
+                    if (viagem.DataPartida.Value.Year < 2025 || viagem.DataRetorno.Value.Year < 2025)
+                    {
+                        ModelState.AddModelError("", "Datas não podem ser anteriores ao ano de 2025");
+                    } 
+                    if (viagem.DataRetorno <= viagem.DataPartida)
+                    {
+                        ModelState.AddModelError("", "A data de retorno precisa ser após a data de partida!");
+                    }
+                }
+            }
+            if (!ModelState.IsValid)
+            {
+                TempData["MensagemErro"] = "Erro ao cadastrar passagem, tente novamente";
+            }
+            if(_passagemRepositorio.CadastrarPassagem(passagem))
             {
                 TempData["MensagemSucesso"] = "Passagem cadastrada com Sucesso";
                 return RedirectToAction(nameof(Index));  
             }
             TempData["MensagemErro"] = "Erro ao cadastrar passagem";
-            return View();
+            return View(passagem);
         }
         public IActionResult EditarPassagem(int id)
         {
