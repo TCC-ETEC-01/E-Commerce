@@ -178,7 +178,7 @@ namespace ProjetoEcommerce.Repositorios
 
                 MySqlCommand cmdVerificarVenda = new MySqlCommand("select 1 from tbVenda where IdVenda=@idVenda and IdPassagem=@idPassagem", conexao);
                 cmdVerificarVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
-                cmdVerificarVenda.Parameters.AddWithValue("@idVenda", venda.IdVenda);
+                cmdVerificarVenda.Parameters.AddWithValue("@idVenda", idVendaGerado);
                 using (var drVenda = cmdVerificarVenda.ExecuteReader())
                 {
                     if (!drVenda.HasRows)
@@ -187,8 +187,9 @@ namespace ProjetoEcommerce.Repositorios
                         return false;
                     }
                 }
-                MySqlCommand cmdInserirClienteEmPassagem = new MySqlCommand("insert into tbPassagem(IdCliente) values(@idCliente)", conexao);
+                MySqlCommand cmdInserirClienteEmPassagem = new MySqlCommand("update tbPassagem set IdCliente=@idCliente where IdCliente = null", conexao);
                 cmdInserirClienteEmPassagem.Parameters.AddWithValue("@idCliente", venda.IdCliente);
+                cmdInserirClienteEmPassagem.ExecuteNonQuery();
 
                 MySqlCommand cmdInserirVendaEmVendaDetalhe = new MySqlCommand("insert into tbVendaDetalhe(IdVenda, IdPassagem) " +
                   "values(@idVenda, @idPassagem)", conexao);
