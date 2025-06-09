@@ -26,12 +26,26 @@ namespace ProjetoEcommerce.Repositorios
                         return false;   
                     }
                 }
-               
-                MySqlCommand cmdInsert = new MySqlCommand("insert into tbPassagem(Assento, Valor, Situacao, IdViagem,Translado) values (@assento,@valor,@situacao,@idViagem, @translado)", conexao);
+
+                MySqlCommand cmdBuscarPassagem = new MySqlCommand("select 1 from tbPassagem where IdTransporte=@idTransporte" +
+                    "and Assento=@assento");
+                cmdBuscarPassagem.Parameters.AddWithValue("@idTransporte", passagem.IdTransporte);
+                cmdBuscarPassagem.Parameters.AddWithValue("@assento", passagem.Assento);
+                using(var drAssento = cmdBuscarPassagem.ExecuteReader())
+                {
+                    if (drAssento.HasRows)
+                    {
+                        Console.WriteLine("Assento já cadastrado");
+                        return false;
+                    }
+                }
+
+                 MySqlCommand cmdInsert = new MySqlCommand("insert into tbPassagem(Assento, Valor, Situacao, IdViagem,Translado, IdTransporte) values (@assento,@valor,@situacao,@idViagem, @translado, @idTransporte)", conexao);
                 cmdInsert.Parameters.Add("@assento", MySqlDbType.VarChar).Value = passagem.Assento;
                 cmdInsert.Parameters.Add("@valor", MySqlDbType.Decimal).Value = passagem.Valor;
                 cmdInsert.Parameters.Add("@situacao", MySqlDbType.VarChar).Value = passagem.Situacao;
                 cmdInsert.Parameters.Add("@idViagem", MySqlDbType.Int32).Value = passagem.IdViagem;
+                cmdInsert.Parameters.Add("@idTransporte", MySqlDbType.Int32).Value = passagem.IdTransporte;
                 cmdInsert.Parameters.Add("@translado", MySqlDbType.VarChar).Value = passagem.Translado;
                 cmdInsert.ExecuteNonQuery();
                 return true;
