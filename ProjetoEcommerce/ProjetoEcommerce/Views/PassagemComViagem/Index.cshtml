@@ -5,9 +5,6 @@
         <div class="text-star">
             <h1 class="text-primary">Anu Viagens</h1>
             <p class="text-nav fs-6">Acompanhe todos os seus registros em um único lugar.</p>
-            <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-primary">
-                <i class="bi bi-arrow-left-circle"></i> Voltar
-            </a>
         </div>
     </div>
 </nav>
@@ -29,7 +26,47 @@
 
                         </tr>
                     </thead>
- 
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.IdPassagem)</td>
+                                <td>
+                                    <strong>@Html.DisplayFor(modelItem => item.DataPartida)</strong>
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.DataPartida">
+                                    @item.DataPartida
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.DataRetorno">
+                                    @item.DataRetorno
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.Origem">
+                                    @item.Origem
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.Destino">
+                                    @item.Destino
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.Assento">
+                                    @item.Assento
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.TipoTransporte">
+                                    @item.TipoTransporte
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.Descricao">
+                                    @item.Descricao
+                                </td>
+
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a asp-controller="Dashboard" asp-action="Index" asp-route-id="@item.IdPassagem"
+                                           class="btn btn-outline-primary rounded-3" title="Voltar">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>
