@@ -1,20 +1,16 @@
-
-
-
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
 
 namespace ProjetoEcommerce.Controllers
-    {
+{
     public class ViagemController : Controller
-  {
-     private readonly ViagemRepositorio _viagemRepositorio;
-
-      public ViagemController(ViagemRepositorio viagemRepositorio)
-       {
+    {
+        private readonly ViagemRepositorio _viagemRepositorio;
+        public ViagemController(ViagemRepositorio viagemRepositorio)
+        {
            _viagemRepositorio = viagemRepositorio;
-      }
+        }
 
         public IActionResult Index()
         {
