@@ -23,20 +23,10 @@ namespace ProjetoEcommerce.Repositorios
                     if (!drViagem.HasRows)
                     {
                         Console.WriteLine("Viagem não existente");
-                        return false;
+                        return false;   
                     }
                 }
-                MySqlCommand cmdBuscarAssento = new MySqlCommand("select 1 from tbPassagem where Assento=@assento", conexao);
-                cmdBuscarAssento.Parameters.AddWithValue("@assento", passagem.Assento);
-                using (var drAssento = cmdBuscarAssento.ExecuteReader())
-                {
-                    if (drAssento.HasRows)
-                    {
-                        Console.WriteLine("Assento já existente");
-                        return false;
-                    }
-
-                }
+               
                 MySqlCommand cmdInsert = new MySqlCommand("insert into tbPassagem(Assento, Valor, Situacao, IdViagem,Translado) values (@assento,@valor,@situacao,@idViagem, @translado)", conexao);
                 cmdInsert.Parameters.Add("@assento", MySqlDbType.VarChar).Value = passagem.Assento;
                 cmdInsert.Parameters.Add("@valor", MySqlDbType.Decimal).Value = passagem.Valor;
@@ -121,5 +111,15 @@ namespace ProjetoEcommerce.Repositorios
                 return passagem;
             }
         }
+        /*
+        public bool VendaPassagem(tbPassagem passagem)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand verificarPassagem = new MySqlCommand("")
+            }
+        }
+        */
     }
 }
