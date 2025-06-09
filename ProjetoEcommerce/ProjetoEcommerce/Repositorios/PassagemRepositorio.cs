@@ -165,13 +165,31 @@ namespace ProjetoEcommerce.Repositorios
                         return false;
                     }
                 }
-                MySqlCommand cmdInserirVenda = new MySqlCommand("insert into tbVenda(IdCliente, IdPassagem, IdFuncionario, Valor, FormaPagamento, DataVenda) values(@idCliente, @idPassagem, @idFuncionario, @valor, @pagamento,@dataVenda)", conexao);
+                MySqlCommand cmdInserirVenda = new MySqlCommand("insert into tbVenda(IdCliente, IdPassagem, IdFuncionario, Valor, FormaPagamento, DataVenda) " +
+                    "values(@idCliente, @idPassagem, @idFuncionario, @valor, @pagamento,@dataVenda)", conexao);
                 cmdInserirVenda.Parameters.AddWithValue("@idCliente", venda.IdCliente);
                 cmdInserirVenda.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario);
                 cmdInserirVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
                 cmdInserirVenda.Parameters.AddWithValue("@valor", venda.Valor);
                 cmdInserirVenda.Parameters.AddWithValue("@pagamento", venda.FormaPagamento);
                 cmdInserirVenda.Parameters.AddWithValue("@dataVenda", venda.DataVenda);
+                cmdInserirVenda.ExecuteNonQuery();
+
+                MySqlCommand cmdVerificarVenda = new MySqlCommand("select 1 from tbVenda where IdVenda=@idVenda and where IdPassagem=@idPassagem", conexao);
+                cmdVerificarVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+                cmdVerificarVenda.Parameters.AddWithValue("@idVenda", venda.IdVenda);
+                using (var drVenda = cmdVerificarVenda.ExecuteReader())
+                {
+                    if (!drVenda.HasRows)
+                    {
+                        Console.WriteLine("Venda não realizada");
+                    }
+                }
+                MySqlCommand cmdInserirVendaEmVendaDetalhe = new MySqlCommand("insert into tbVendaDetalhe(IdVenda, IdPassagem) " +
+                    "values(@idVenda, @idPassagem)", conexao);
+                cmdInserirVendaEmVendaDetalhe.Parameters.AddWithValue("@idVenda", venda.IdVenda);
+                cmdInserirVendaEmVendaDetalhe.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+                cmdInserirVendaEmVendaDetalhe.ExecuteNonQuery();
                 return true;
             }
         }
