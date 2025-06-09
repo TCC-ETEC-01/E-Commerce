@@ -23,7 +23,7 @@ namespace ProjetoEcommerce.Repositorios
                     if (!drViagem.HasRows)
                     {
                         Console.WriteLine("Viagem não existente");
-                        return false;   
+                        return false;
                     }
                 }
 
@@ -31,7 +31,7 @@ namespace ProjetoEcommerce.Repositorios
                     "and Assento=@assento");
                 cmdBuscarPassagem.Parameters.AddWithValue("@idTransporte", passagem.IdTransporte);
                 cmdBuscarPassagem.Parameters.AddWithValue("@assento", passagem.Assento);
-                using(var drAssento = cmdBuscarPassagem.ExecuteReader())
+                using (var drAssento = cmdBuscarPassagem.ExecuteReader())
                 {
                     if (drAssento.HasRows)
                     {
@@ -40,7 +40,7 @@ namespace ProjetoEcommerce.Repositorios
                     }
                 }
 
-                 MySqlCommand cmdInsert = new MySqlCommand("insert into tbPassagem(Assento, Valor, Situacao, IdViagem,Translado, IdTransporte) values (@assento,@valor,@situacao,@idViagem, @translado, @idTransporte)", conexao);
+                MySqlCommand cmdInsert = new MySqlCommand("insert into tbPassagem(Assento, Valor, Situacao, IdViagem,Translado, IdTransporte) values (@assento,@valor,@situacao,@idViagem, @translado, @idTransporte)", conexao);
                 cmdInsert.Parameters.Add("@assento", MySqlDbType.VarChar).Value = passagem.Assento;
                 cmdInsert.Parameters.Add("@valor", MySqlDbType.Decimal).Value = passagem.Valor;
                 cmdInsert.Parameters.Add("@situacao", MySqlDbType.VarChar).Value = passagem.Situacao;
@@ -119,21 +119,55 @@ namespace ProjetoEcommerce.Repositorios
                     {
                         IdViagem = Convert.ToInt32(dr["IdViagem"])
                     };
+                    passagem.IdTransporte = new tbTransporte
+                    {
+                        IdTransporte = Convert.ToInt32(dr["IdTransporte"])
+                    };
                     passagem.Translado = ((string)dr["Translado"]);
 
                 }
                 return passagem;
             }
         }
-        /*
-        public bool VendaPassagem(tbPassagem passagem)
+
+        public bool VendaPassagem(tbVenda venda)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand verificarPassagem = new MySqlCommand("")
+                MySqlCommand verificarFuncionario = new MySqlCommand("select 1 from tbFuncionario where IdFuncionario=@idFuncionario", conexao);
+                verificarFuncionario.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario);
+                using (var drVerificarFuncionario = verificarFuncionario.ExecuteReader())
+                {
+                    if (!drVerificarFuncionario.HasRows)
+                    {
+                        Console.WriteLine("Operação cancelada, funcionário inexistente");
+                        return false;
+                    }
+                }
+                MySqlCommand verificarPassagem = new MySqlCommand("select 1 from tbPassagem where IdPassagem = @idPassagem", conexao);
+                verificarPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+                using (var drVerificarPassagem = verificarPassagem.ExecuteReader())
+                {
+                    if (!drVerificarPassagem.HasRows)
+                    {
+                        Console.WriteLine("Operação cancelada, passagem inexistente");
+                        return false;
+                    }
+                }
+                MySqlCommand verificarCliente = new MySqlCommand("select 1 from tbCliente where IdCliente=@idCliente", conexao);
+                verificarCliente.Parameters.AddWithValue("@idCliente", venda.IdCliente);
+                using (var drVerificarCliente = verificarCliente.ExecuteReader())
+                {
+                    if (!drVerificarCliente.HasRows)
+                    {
+                        Console.WriteLine("Operação cancelada, passagem inexistente");
+                        return false;
+                    }
+                }
             }
         }
-        */
     }
 }
+
+
