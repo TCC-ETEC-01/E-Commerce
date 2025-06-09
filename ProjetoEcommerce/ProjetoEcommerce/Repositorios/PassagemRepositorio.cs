@@ -174,6 +174,7 @@ namespace ProjetoEcommerce.Repositorios
                 cmdInserirVenda.Parameters.AddWithValue("@pagamento", venda.FormaPagamento);
                 cmdInserirVenda.Parameters.AddWithValue("@dataVenda", venda.DataVenda);
                 cmdInserirVenda.ExecuteNonQuery();
+                var idVendaGerado = cmdInserirVenda.LastInsertedId;
 
                 MySqlCommand cmdVerificarVenda = new MySqlCommand("select 1 from tbVenda where IdVenda=@idVenda and IdPassagem=@idPassagem", conexao);
                 cmdVerificarVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
@@ -183,11 +184,12 @@ namespace ProjetoEcommerce.Repositorios
                     if (!drVenda.HasRows)
                     {
                         Console.WriteLine("Venda não realizada");
+                        return false;
                     }
                 }
                 MySqlCommand cmdInserirVendaEmVendaDetalhe = new MySqlCommand("insert into tbVendaDetalhe(IdVenda, IdPassagem) " +
                     "values(@idVenda, @idPassagem)", conexao);
-                cmdInserirVendaEmVendaDetalhe.Parameters.AddWithValue("@idVenda", venda.IdVenda);
+                cmdInserirVendaEmVendaDetalhe.Parameters.AddWithValue("@idVenda", idVendaGerado);
                 cmdInserirVendaEmVendaDetalhe.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
                 cmdInserirVendaEmVendaDetalhe.ExecuteNonQuery();
                 return true;
