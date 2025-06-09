@@ -187,8 +187,11 @@ namespace ProjetoEcommerce.Repositorios
                         return false;
                     }
                 }
+                MySqlCommand cmdInserirClienteEmPassagem = new MySqlCommand("insert into tbPassagem(IdCliente) values(@idCliente)", conexao);
+                cmdInserirClienteEmPassagem.Parameters.AddWithValue("@idCliente", venda.IdCliente);
+
                 MySqlCommand cmdInserirVendaEmVendaDetalhe = new MySqlCommand("insert into tbVendaDetalhe(IdVenda, IdPassagem) " +
-                    "values(@idVenda, @idPassagem)", conexao);
+                  "values(@idVenda, @idPassagem)", conexao);
                 cmdInserirVendaEmVendaDetalhe.Parameters.AddWithValue("@idVenda", idVendaGerado);
                 cmdInserirVendaEmVendaDetalhe.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
                 cmdInserirVendaEmVendaDetalhe.ExecuteNonQuery();
