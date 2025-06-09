@@ -135,9 +135,9 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                MySqlCommand verificarFuncionario = new MySqlCommand("select 1 from tbFuncionario where IdFuncionario=@idFuncionario", conexao);
-                verificarFuncionario.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario);
-                using (var drVerificarFuncionario = verificarFuncionario.ExecuteReader())
+                MySqlCommand cmdVerificarFuncionario = new MySqlCommand("select 1 from tbFuncionario where IdFuncionario=@idFuncionario", conexao);
+                cmdVerificarFuncionario.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario);
+                using (var drVerificarFuncionario = cmdVerificarFuncionario.ExecuteReader())
                 {
                     if (!drVerificarFuncionario.HasRows)
                     {
@@ -145,9 +145,9 @@ namespace ProjetoEcommerce.Repositorios
                         return false;
                     }
                 }
-                MySqlCommand verificarPassagem = new MySqlCommand("select 1 from tbPassagem where IdPassagem = @idPassagem", conexao);
-                verificarPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
-                using (var drVerificarPassagem = verificarPassagem.ExecuteReader())
+                MySqlCommand cmdVerificarPassagem = new MySqlCommand("select 1 from tbPassagem where IdPassagem = @idPassagem", conexao);
+                cmdVerificarPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+                using (var drVerificarPassagem = cmdVerificarPassagem.ExecuteReader())
                 {
                     if (!drVerificarPassagem.HasRows)
                     {
@@ -155,9 +155,9 @@ namespace ProjetoEcommerce.Repositorios
                         return false;
                     }
                 }
-                MySqlCommand verificarCliente = new MySqlCommand("select 1 from tbCliente where IdCliente=@idCliente", conexao);
-                verificarCliente.Parameters.AddWithValue("@idCliente", venda.IdCliente);
-                using (var drVerificarCliente = verificarCliente.ExecuteReader())
+                MySqlCommand cmdVerificarCliente = new MySqlCommand("select 1 from tbCliente where IdCliente=@idCliente", conexao);
+                cmdVerificarCliente.Parameters.AddWithValue("@idCliente", venda.IdCliente);
+                using (var drVerificarCliente = cmdVerificarCliente.ExecuteReader())
                 {
                     if (!drVerificarCliente.HasRows)
                     {
@@ -165,6 +165,14 @@ namespace ProjetoEcommerce.Repositorios
                         return false;
                     }
                 }
+                MySqlCommand cmdInserirVenda = new MySqlCommand("insert into tbVenda(IdCliente, IdPassagem, IdFuncionario, Valor, FormaPagamento, DataVenda) values(@idCliente, @idPassagem, @idFuncionario, @valor, @pagamento,@dataVenda)", conexao);
+                cmdInserirVenda.Parameters.AddWithValue("@idCliente", venda.IdCliente);
+                cmdInserirVenda.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario);
+                cmdInserirVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+                cmdInserirVenda.Parameters.AddWithValue("@valor", venda.Valor);
+                cmdInserirVenda.Parameters.AddWithValue("@pagamento", venda.FormaPagamento);
+                cmdInserirVenda.Parameters.AddWithValue("@dataVenda", venda.DataVenda);
+                return true;
             }
         }
     }
