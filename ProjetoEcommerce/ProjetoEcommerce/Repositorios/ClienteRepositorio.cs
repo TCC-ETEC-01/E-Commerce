@@ -42,7 +42,7 @@ namespace ProjetoEcommerce.Repositorios
             {
                 conexao.Open();
 
-                MySqlCommand verify = new MySqlCommand("select tbCliente where Email=@email", conexao);
+                MySqlCommand verify = new MySqlCommand("select 1 from tbCliente where Email=@email", conexao);
                 verify.Parameters.AddWithValue("@email", cliente.Email);
                 using (var conf = verify.ExecuteReader())
                 {
@@ -52,7 +52,7 @@ namespace ProjetoEcommerce.Repositorios
                         return false;
                     }
                 }
-                MySqlCommand verifyCpf = new MySqlCommand("select tbCliente where Cpf=@cpf", conexao);
+                MySqlCommand verifyCpf = new MySqlCommand("select 1 from tbCliente where Cpf=@cpf", conexao);
               
                 verifyCpf.Parameters.AddWithValue("@cpf", cliente.Cpf);
                 using (var conf = verify.ExecuteReader())
@@ -63,7 +63,7 @@ namespace ProjetoEcommerce.Repositorios
                         return false;
                     }
                 }
-                MySqlCommand verifyTelefone = new MySqlCommand("select tbCliente where Telefone=@telefone", conexao);
+                MySqlCommand verifyTelefone = new MySqlCommand("select 1 from tbCliente where Telefone=@telefone", conexao);
                 verifyTelefone.Parameters.AddWithValue("@telefone", cliente.Telefone);
                 using (var conf = verify.ExecuteReader())
                 {

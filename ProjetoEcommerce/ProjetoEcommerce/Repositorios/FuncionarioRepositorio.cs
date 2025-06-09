@@ -16,7 +16,7 @@ namespace ProjetoEcommerce.Repositorios
             {
                 conexao.Open();
 
-                MySqlCommand verifyEmail = new MySqlCommand("select tbFuncionario where Email=@email", conexao);
+                MySqlCommand verifyEmail = new MySqlCommand("select 1 from tbFuncionario where Email=@email", conexao);
                 verifyEmail.Parameters.AddWithValue("@email", funcionario);
                 using (var conf = verifyEmail.ExecuteReader())
                 {
@@ -27,7 +27,7 @@ namespace ProjetoEcommerce.Repositorios
                     }
                 }
 
-                MySqlCommand verifyCpf = new MySqlCommand("select tbFuncionario where Cpf=@cpf", conexao);
+                MySqlCommand verifyCpf = new MySqlCommand("select 1 from tbFuncionario where Cpf=@cpf", conexao);
                 verifyCpf.Parameters.AddWithValue("@cpf", funcionario);
                 using (var conf = verifyCpf.ExecuteReader())
                 {
@@ -38,7 +38,7 @@ namespace ProjetoEcommerce.Repositorios
                     }
                 }
 
-                MySqlCommand verifyTelefone = new MySqlCommand("select  tbFuncionario where Telefone=@telefone", conexao);
+                MySqlCommand verifyTelefone = new MySqlCommand("select 1 from tbFuncionario where Telefone=@telefone", conexao);
                 verifyTelefone.Parameters.AddWithValue("@telefone", funcionario);
                 using (var conf = verifyTelefone.ExecuteReader())
                 {

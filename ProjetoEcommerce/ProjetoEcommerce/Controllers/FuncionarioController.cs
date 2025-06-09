@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Forms;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
@@ -53,7 +53,7 @@ namespace ProjetoEcommerce.Controllers
         public IActionResult CadastrarFuncionario(tbFuncionario funcionario)
         {
 
-            if (!int.TryParse(funcionario.Cpf, out _) && !int.TryParse(funcionario.Telefone, out _))
+            if (!funcionario.Cpf.All(char.IsDigit) || !funcionario.Telefone.All(char.IsDigit))
             {
                 TempData["MensagemErro"] = "No campo CPF  e Telefone apenas numeros!";
             }

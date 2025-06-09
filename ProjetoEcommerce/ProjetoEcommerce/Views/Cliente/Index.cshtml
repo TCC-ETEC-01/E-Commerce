@@ -1,1 +1,70 @@
-﻿
+﻿@model IEnumerable<ProjetoEcommerce.Models.tbCliente>
+
+<nav class="nav">
+    <div class="container">
+        <div class="text-star">
+            <h1 class="text-primary">Anu Viagens</h1>
+            <p class="text-nav fs-6">Acompanhe todos os seus registros em um único lugar.</p>
+            <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-primary">
+                <i class="bi bi-arrow-left-circle"></i> Voltar
+            </a>
+        </div>
+    </div>
+</nav>
+<section>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="table-primary">
+                        <tr>
+                            <th width="8%">Informações</th>
+                            <th>Nome</th>
+                            <th> Sexo</th>
+                            <th>Email</th>
+                            <th>Telefone</th>
+                            <th>Cpf</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.IdCliente)</td>
+                                <td>
+                                    <strong>@Html.DisplayFor(modelItem => item.Nome)</strong>
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.Sexo">
+                                    @item.Sexo
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.Email">
+                                    @item.Email
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.Telefone">
+                                    @item.Telefone
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.Cpf">
+                                    @item.Cpf
+                                </td>
+
+                                <td class="text-center">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a asp-controller="Cliente" asp-action="EditarCliente" asp-route-id="@item.IdCliente"
+                                           class="btn btn-outline-warning" title="Editar">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-controller="Cliente" asp-action="ExcluirCliente" asp-route-id="@item.IdCliente"
+                                           onclick="return confirm('Tem certeza que deseja excluir este Cliente?');"
+                                           class="btn btn-outline-danger" title="Excluir">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
