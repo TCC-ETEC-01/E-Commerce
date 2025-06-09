@@ -147,6 +147,7 @@ namespace ProjetoEcommerce.Repositorios
                 }
                 MySqlCommand cmdVerificarPassagem = new MySqlCommand("select 1 from tbPassagem where IdPassagem = @idPassagem", conexao);
                 cmdVerificarPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+
                 using (var drVerificarPassagem = cmdVerificarPassagem.ExecuteReader())
                 {
                     if (!drVerificarPassagem.HasRows)
@@ -164,6 +165,15 @@ namespace ProjetoEcommerce.Repositorios
                         Console.WriteLine("Operação cancelada, cliente inexistente");
                         return false;
                     }
+                }
+
+                MySqlCommand cmdSituacaoPassagem = new MySqlCommand("select Situacao from tbPassagem where IdPassagem = @idPassagem", conexao);
+                cmdSituacaoPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+                var situacao = cmdSituacaoPassagem.ExecuteScalar();
+                if (situacao.ToString() == "Indisponivel")
+                {
+                    Console.WriteLine("Impossivel realizar a operação, passagem indisponivel");
+                    return false;
                 }
                 MySqlCommand cmdInserirVenda = new MySqlCommand("insert into tbVenda(IdCliente, IdPassagem, IdFuncionario, Valor, FormaPagamento, DataVenda) " +
                     "values(@idCliente, @idPassagem, @idFuncionario, @valor, @pagamento,@dataVenda)", conexao);
@@ -187,8 +197,9 @@ namespace ProjetoEcommerce.Repositorios
                         return false;
                     }
                 }
-                MySqlCommand cmdInserirClienteEmPassagem = new MySqlCommand("update tbPassagem set IdCliente=@idCliente where IdCliente = null", conexao);
+                MySqlCommand cmdInserirClienteEmPassagem = new MySqlCommand("update tbPassagem set IdCliente=@idCliente where IdPassagem = @idPassagem", conexao);
                 cmdInserirClienteEmPassagem.Parameters.AddWithValue("@idCliente", venda.IdCliente);
+                cmdInserirClienteEmPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
                 cmdInserirClienteEmPassagem.ExecuteNonQuery();
 
                 MySqlCommand cmdInserirVendaEmVendaDetalhe = new MySqlCommand("insert into tbVendaDetalhe(IdVenda, IdPassagem) " +
