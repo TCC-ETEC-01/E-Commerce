@@ -75,5 +75,37 @@ namespace ProjetoEcommerce.Repositorios
                 conexao.Close() ;
             }
         }
+        public tbPacote ObterPacote(int Codigo)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                conexao.Open();
+                MySqlCommand cmd = new MySqlCommand("select * from tbPacote where IdPacote=@codigo", conexao);
+                cmd.Parameters.AddWithValue("@codigo", Codigo);
+
+                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+                MySqlDataReader dr;
+                tbPacote pacote = new tbPacote();
+
+                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dr.Read())
+                {
+                    pacote.IdPacote = Convert.ToInt32(dr["IdPacote"]);
+                    pacote.NomePacote = ((string) dr["NomePacote"]);
+                    pacote.Descricao = ((string) dr["Descricao"]);
+                    pacote.Valor = (decimal) (dr["Preco"]);
+                    pacote.IdPassagem = new tbPassagem
+                    {
+                         IdPassagem = Convert.ToInt32(dr["IdPassagem"])
+                    };
+                    pacote.IdProduto = new tbProduto
+                    {
+                        IdProduto = Convert.ToInt32(dr["IdProduto"])
+                    };
+                }
+                return pacote;
+            }
+      }
     }
 }

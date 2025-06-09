@@ -12,11 +12,7 @@ namespace ProjetoEcommerce.Controllers
         {
             _passagemRepositorio = passagemRepositorio;
         }
-        public IActionResult Index()
-        {
-            return View(_passagemRepositorio.TodasPassagens);
-        }
-
+     
         public IActionResult CadastrarPassagem()
         {
             return View();

@@ -9,6 +9,7 @@
         public tbViagem IdViagem { get; set; }
         public tbCliente IdCliente { get; set; }
         public string Situacao { get; set; }
+        public tbTransporte IdTransporte { get; set; }
         public string Translado{get; set;}
     }
 }

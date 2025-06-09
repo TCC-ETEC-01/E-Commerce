@@ -13,11 +13,6 @@ namespace ProjetoEcommerce.Controllers
             _PacoteRepositorio = pacoteRepositorio;
         }
 
-        public IActionResult Index()
-        {
-            return View(_PacoteRepositorio.TodosPacotes);
-        }
-
         public IActionResult CadastrarPacote()
         {
             return View();
