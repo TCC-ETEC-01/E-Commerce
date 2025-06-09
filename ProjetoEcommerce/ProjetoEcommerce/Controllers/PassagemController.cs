@@ -50,6 +50,7 @@ namespace ProjetoEcommerce.Controllers
             if (!ModelState.IsValid)
             {
                 TempData["MensagemErro"] = "Erro ao cadastrar passagem, tente novamente";
+                return View(passagem);
             }
             if(_passagemRepositorio.CadastrarPassagem(passagem))
             {
