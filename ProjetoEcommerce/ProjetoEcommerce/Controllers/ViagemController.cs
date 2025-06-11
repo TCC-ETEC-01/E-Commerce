@@ -1,29 +1,36 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
+using System;
+using System.Threading.Tasks;
 
 namespace ProjetoEcommerce.Controllers
 {
     public class ViagemController : Controller
     {
         private readonly ViagemRepositorio _viagemRepositorio;
+
         public ViagemController(ViagemRepositorio viagemRepositorio)
         {
-           _viagemRepositorio = viagemRepositorio;
+            _viagemRepositorio = viagemRepositorio;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_viagemRepositorio.TodasViagens());
+            var lista = await _viagemRepositorio.TodasViagens();
+            return View(lista);
         }
+
         public IActionResult CadastrarViagem()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult CadastrarViagem(tbViagem viagem)
+        public async Task<IActionResult> CadastrarViagem(tbViagem viagem)
         {
             var viagemCadastro = viagem.IdViagem;
+
             if (viagem == null)
             {
                 ModelState.AddModelError("", "Dados da viagem são obrigatorios, tente novamente!");
@@ -46,43 +53,52 @@ namespace ProjetoEcommerce.Controllers
                     }
                 }
             }
-            _viagemRepositorio.CadastrarViagem(viagem);
+
+            if (!ModelState.IsValid)
+            {
+                return View(viagem);
+            }
+
+            await _viagemRepositorio.CadastrarViagem(viagem);
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult EditarViagem()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult EditarViagem(int Id, [Bind("IdViagem,DataRetorno,Descricao,Origem,Destino,TipoTransporte,DataPartida")]tbViagem viagem)
+        public async Task<IActionResult> EditarViagem(int Id, [Bind("IdViagem,DataRetorno,Descricao,Origem,Destino,TipoTransporte,DataPartida")] tbViagem viagem)
         {
-            if (Id !=viagem.IdViagem)
+            if (Id != viagem.IdViagem)
             {
                 return BadRequest();
             }
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    if (_viagemRepositorio.EditarViagem(viagem))
+                    if (await _viagemRepositorio.EditarViagem(viagem))
                     {
                         return RedirectToAction(nameof(Index));
                     }
-                }catch (Exception)
+                }
+                catch (Exception)
                 {
                     ModelState.AddModelError("", "Ocorreu um erro ao tentar atualizar, tente novamente!");
                     return View(viagem);
                 }
             }
+
             return View(viagem);
         }
 
-        public IActionResult ExcluirViagem(int Id)
+        public async Task<IActionResult> ExcluirViagem(int Id)
         {
-            _viagemRepositorio.ExcluirViagem(Id);
+            await _viagemRepositorio.ExcluirViagem(Id);
             return RedirectToAction(nameof(Index));
         }
     }
 }
-
