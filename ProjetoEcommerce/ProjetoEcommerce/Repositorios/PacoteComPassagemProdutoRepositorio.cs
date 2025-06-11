@@ -14,11 +14,12 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                string query = @"select pac.IdPacote as Codigo, pac.NomePacote as Pacote, prod.NomeProduto as Produto,
-                                p.Assento,  p.Situacao, p.Translado                                  
-                                from tbPacote pac
+                string query = @"select pac.IdPacote, pac.NomePacote,pac.Valor,  prod.NomeProduto,p.Assento as Assento, p.Situacao as Situacao, p.Translado, 
+                                t.TipoTransporte as Transporte, t.Companhia, t.CodigoTransporte as Cod_Transporte
+                               from tbPacote pac
                                 inner join tbProduto prod on pac.IdProduto = prod.IdProduto
-                                inner join tbPassagem p on pac.IdPassagem = p.IdPassagem;";
+                                inner join tbPassagem p on pac.IdPassagem = p.IdPassagem
+                                inner join tbTransporte t on p.IdTransporte = t.IdTransporte;";
                 using (MySqlCommand join = new MySqlCommand(query, conexao)) 
                 {
                     using (MySqlDataReader drPacote = join.ExecuteReader())
