@@ -20,7 +20,7 @@ namespace ProjetoEcommerce.Repositorios
                                 inner join tbProduto prod on pac.IdProduto = prod.IdProduto
                                 inner join tbPassagem p on pac.IdPassagem = p.IdPassagem
                                 inner join tbTransporte t on p.IdTransporte = t.IdTransporte;";
-                using (MySqlCommand join = new MySqlCommand(query, conexao)) 
+                using (MySqlCommand join = new MySqlCommand(query, conexao))
                 {
                     using (MySqlDataReader drPacote = join.ExecuteReader())
                     {
@@ -41,7 +41,7 @@ namespace ProjetoEcommerce.Repositorios
                             });
                         }
                     }
-                    return lista;     
+                    return lista;
                 }
             }
         }

@@ -14,7 +14,7 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                string query = @"select  p.IdPassagem,v.Origem, v.Destino, p.Assento,v.Descricao, v.DataPartida as Partida,  
+                string query = @"select  p.IdPassagem,p.Valor,v.Origem, v.Destino, p.Assento,v.Descricao, v.DataPartida as Partida,  
                         v.DataRetorno as Retorno, t.TipoTransporte as Transporte, t.Companhia, 
                         t.CodigoTransporte as Cod_Transporte
                         from tbPassagem p
@@ -36,7 +36,8 @@ namespace ProjetoEcommerce.Repositorios
                                 DataRetorno = drPassagemComViagem.GetDateTime("Retorno"),
                                 TipoTransporte = drPassagemComViagem.GetString("Transporte"),
                                 CodigoTransporte = drPassagemComViagem.GetString("Cod_Transporte"),
-                                Companhia = drPassagemComViagem.GetString("Companhia")
+                                Companhia = drPassagemComViagem.GetString("Companhia"),
+                                Valor = drPassagemComViagem.GetDecimal("Valor")
                             });
                         }
                     }

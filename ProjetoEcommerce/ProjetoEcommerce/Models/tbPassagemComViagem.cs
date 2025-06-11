@@ -15,5 +15,7 @@ namespace ProjetoEcommerce.Models
         public string Translado { get; set; }
         public string Companhia { get; set; }
         public string CodigoTransporte { get; set; }
+        public decimal Valor { get; set; }
+
     }
 }
