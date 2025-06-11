@@ -1,8 +1,6 @@
-﻿
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
-
 
 namespace ProjetoEcommerce.Controllers
 {
@@ -14,9 +12,11 @@ namespace ProjetoEcommerce.Controllers
         {
             _funcionarioRepositorio = funcionario;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            return View(_funcionarioRepositorio.TodosFuncionarios());
+            var funcionarios = await _funcionarioRepositorio.TodosFuncionarios();
+            return View(funcionarios);
         }
 
         public IActionResult Login()
@@ -25,14 +25,14 @@ namespace ProjetoEcommerce.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string email, string senha)
+        public async Task<IActionResult> Login(string email, string senha)
         {
-            var funcionario = _funcionarioRepositorio.ObterFuncionarioEmail(email);
+            var funcionario = await _funcionarioRepositorio.ObterFuncionarioEmail(email);
             if (funcionario != null && funcionario.Senha == senha)
             {
                 HttpContext.Session.SetString("FuncionarioLogado", funcionario.Email);
                 TempData["Mensagem"] = "Bem vindo" + funcionario.Email;
-                RedirectToAction("Index", "Funcionario");
+                return RedirectToAction("Index", "Funcionario");
             }
             ViewBag.Erro = "Dados incorretos, tente novamente!";
             return View();
@@ -49,21 +49,32 @@ namespace ProjetoEcommerce.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult CadastrarFuncionario(tbFuncionario funcionario)
-        {
 
+        [HttpPost]
+        public async Task<IActionResult> CadastrarFuncionario(tbFuncionario funcionario)
+        {
             if (!funcionario.Cpf.All(char.IsDigit) || !funcionario.Telefone.All(char.IsDigit))
             {
                 TempData["MensagemErro"] = "No campo CPF  e Telefone apenas numeros!";
+                return View();
             }
-            TempData["MensagemErro"] = "Cadastro Realizado com sucesso";
-            return RedirectToAction(nameof(Index));
+
+            var sucesso = await _funcionarioRepositorio.CadastrarFuncionario(funcionario);
+            if (sucesso)
+            {
+                TempData["MensagemErro"] = "Cadastro Realizado com sucesso";
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                TempData["MensagemErro"] = "Erro ao cadastrar o funcionário.";
+                return View();
+            }
         }
 
-        public IActionResult EditarFuncionario(int Id)
+        public async Task<IActionResult> EditarFuncionario(int Id)
         {
-            var funcionario = _funcionarioRepositorio.ObterFuncionarioID(Id);
+            var funcionario = await _funcionarioRepositorio.ObterFuncionarioID(Id);
             if (funcionario == null)
             {
                 return NotFound();
@@ -72,7 +83,7 @@ namespace ProjetoEcommerce.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditarFuncionario(int Id, [Bind("IdFuncionario,Nome,Sexo,Email,Telefone,Cargo,Cpf,Senha")] tbFuncionario funcionario)
+        public async Task<IActionResult> EditarFuncionario(int Id, [Bind("IdFuncionario,Nome,Sexo,Email,Telefone,Cargo,Cpf,Senha")] tbFuncionario funcionario)
         {
             if (Id != funcionario.IdFuncionario)
             {
@@ -82,7 +93,7 @@ namespace ProjetoEcommerce.Controllers
             {
                 try
                 {
-                    if (_funcionarioRepositorio.EditarFuncionario(funcionario))
+                    if (await _funcionarioRepositorio.EditarFuncionario(funcionario))
                     {
                         return RedirectToAction(nameof(Index));
                     }
@@ -95,9 +106,9 @@ namespace ProjetoEcommerce.Controllers
             return View(funcionario);
         }
 
-        public IActionResult ExcluirFuncionario(int Id)
+        public async Task<IActionResult> ExcluirFuncionario(int Id)
         {
-            _funcionarioRepositorio.ExcluirFuncionario(Id);
+            await _funcionarioRepositorio.ExcluirFuncionario(Id);
             return RedirectToAction(nameof(Index));
         }
     }
