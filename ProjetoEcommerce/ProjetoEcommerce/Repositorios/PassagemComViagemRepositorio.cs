@@ -34,7 +34,9 @@ namespace ProjetoEcommerce.Repositorios
                                 Descricao = drPassagemComViagem.GetString("Descricao"),
                                 DataPartida = drPassagemComViagem.GetDateTime("Partida"),
                                 DataRetorno = drPassagemComViagem.GetDateTime("Retorno"),
-                                TipoTransporte = drPassagemComViagem.GetString("Transporte")
+                                TipoTransporte = drPassagemComViagem.GetString("Transporte"),
+                                CodigoTransporte = drPassagemComViagem.GetString("Cod_Transporte"),
+                                Companhia = drPassagemComViagem.GetString("Companhia")
                             });
                         }
                     }
