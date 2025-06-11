@@ -84,7 +84,7 @@ namespace ProjetoEcommerce.Repositorios
                         NomePacote = ((string)dr["NomePacote"]),
                         Descricao = ((string)dr["Descricao"]),
                         Valor = ((decimal)dr["Valor"])
-                       
+
                     });
                 }
                 return PacoteLista;
