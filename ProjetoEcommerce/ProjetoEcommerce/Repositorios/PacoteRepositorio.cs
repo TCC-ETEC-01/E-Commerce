@@ -63,25 +63,6 @@ namespace ProjetoEcommerce.Repositorios
                 return linhasAfetadas > 0;
             }
         }
-
-<<<<<<< HEAD
-=======
-                foreach (DataRow dr in dt.Rows)
-                {
-                    PacoteLista.Add(new tbPacote
-                    {
-                        IdPassagem = Convert.ToInt32(dr["IdPassagem"]),
-                        IdProduto = Convert.ToInt32(dr["IdProduto"]),
-                        NomePacote = ((string)dr["NomePacote"]),
-                        Descricao = ((string)dr["Descricao"]),
-                        Valor = ((decimal)dr["Valor"])
-
-                    });
-                }
-                return PacoteLista;
-            }
-        }
->>>>>>> 1b145a31f0216de63f5fd52bac7533c47f831f0f
         public void ExcluirPacote(int Id)
         {
             using(var conexao = new MySqlConnection(_conexaoMySQL))
