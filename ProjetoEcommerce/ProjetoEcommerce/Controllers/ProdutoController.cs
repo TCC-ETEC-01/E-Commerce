@@ -1,33 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
+using System.Threading.Tasks;
 
 namespace ProjetoEcommerce.Controllers
 {
     public class ProdutoController : Controller
-        
-        {
+    {
         private readonly ProdutoRepositorio _produtoRepositorio;
 
         public ProdutoController(ProdutoRepositorio produtoRepositorio)
         {
             _produtoRepositorio = produtoRepositorio;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            return View(_produtoRepositorio.TodosProdutos);
+            var produtos = await _produtoRepositorio.TodosProdutos;
+            return View(produtos);
         }
 
         public IActionResult CadastrarProduto()
         {
-           
             return View();
         }
 
         [HttpPost]
-        public IActionResult CadastrarProduto(tbProduto produto)
+        public async Task<IActionResult> CadastrarProduto(tbProduto produto)
         {
-            if (_produtoRepositorio.CadastrarProduto(produto))
+            if (await _produtoRepositorio.CadastrarProduto(produto))
             {
                 TempData["MensagemSucesso"] = "Produto cadastrado com Sucesso";
                 return RedirectToAction(nameof(Index));
@@ -36,9 +37,9 @@ namespace ProjetoEcommerce.Controllers
             return View();
         }
 
-        public IActionResult EditarProduto(int id)
+        public async Task<IActionResult> EditarProduto(int id)
         {
-            var produto = _produtoRepositorio.ObterProduto(id);
+            var produto = await _produtoRepositorio.ObterProduto(id);
 
             if (produto == null)
             {
@@ -48,7 +49,7 @@ namespace ProjetoEcommerce.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditarProduto(int id, [Bind("IdProduto,Valor,NomeProduto,Descricao,Quantidade")] tbProduto produto)
+        public async Task<IActionResult> EditarProduto(int id, [Bind("IdProduto,Valor,NomeProduto,Descricao,Quantidade")] tbProduto produto)
         {
             ModelState.Clear();
             if (id != produto.IdProduto)
@@ -57,24 +58,22 @@ namespace ProjetoEcommerce.Controllers
             }
             if (ModelState.IsValid)
             {
-                if (_produtoRepositorio.AtualizarProduto(produto))
+                if (await _produtoRepositorio.AtualizarProduto(produto))
                 {
                     TempData["MensagemSucesso"] = "Produto cadastrado com Sucesso";
                     return RedirectToAction(nameof(Index));
                 }
             }
-             
+
             TempData["MensagemErro"] = "Erro ao atualizar produto";
             return View(produto);
         }
 
-        public IActionResult ExcluirProduto(int id)
+        public async Task<IActionResult> ExcluirProduto(int id)
         {
-            _produtoRepositorio.ExcluirProduto(id);
+            await _produtoRepositorio.ExcluirProduto(id);
             TempData["MensagemSucesso"] = "Produto excluido com sucesso";
             return RedirectToAction(nameof(Index));
         }
-
     }
 }
-
