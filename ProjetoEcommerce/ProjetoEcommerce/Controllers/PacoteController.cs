@@ -72,11 +72,5 @@ namespace ProjetoEcommerce.Controllers
             TempData["MensagemSucesso"] = "Pacote excluído com sucesso";
             return RedirectToAction(nameof(Index));
         }
-
-        public async Task<IActionResult> Index()
-        {
-            var listaPacotes = await _PacoteRepositorio.TodosPacotes();
-            return View(listaPacotes);
-        }
     }
 }
