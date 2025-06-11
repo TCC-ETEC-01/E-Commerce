@@ -1,38 +1,38 @@
 ﻿@model ProjetoEcommerce.Models.tbViagem;
 
- <form asp-action="CadastrarViagem">
+<form asp-action="CadastrarViagem">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<div class="row cadastro-row">
-    <div class="col  form-group">
-        <label asp-for="DataPartida" class="control-label"></label>
-        <input asp-for="DataPartida" class="form-control cadastro-input" />
-        <span asp-validation-for="DataPartida" class="text-danger"></span>
-    </div>
-    <div class="col form-group">
-        <label asp-for="Descricao" class="control-label"></label>
-        <input asp-for="Descricao" class="form-control cadastro-input" />
-        <span asp-validation-for="Descricao" class="text-danger"></span>
-    </div>
+    <div class="row cadastro-row">
+        <div class="col  form-group">
+            <label asp-for="DataPartida" class="control-label"></label>
+            <input asp-for="DataPartida" class="form-control cadastro-input" />
+            <span asp-validation-for="DataPartida" class="text-danger"></span>
+        </div>
+        <div class="col form-group">
+            <label asp-for="Descricao" class="control-label"></label>
+            <input asp-for="Descricao" class="form-control cadastro-input" />
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
 
-    <div class="col form-group">
-        <label asp-for="Origem" class="control-label"></label>
-        <input asp-for="Origem" class="form-control cadastro-input" />
-        <span asp-validation-for="Origem" class="text-danger"></span>
-    </div>
+        <div class="col form-group">
+            <label asp-for="Origem" class="control-label"></label>
+            <input asp-for="Origem" class="form-control cadastro-input" />
+            <span asp-validation-for="Origem" class="text-danger"></span>
+        </div>
 
         <div class="col form-group">
             <label asp-for="Destino" class="control-label"></label>
             <input asp-for="Destino" class="form-control cadastro-input" />
             <span asp-validation-for="Destino" class="text-danger"></span>
         </div>
-    <div class="col row-cols-2 form-group">
-        <label asp-for="DataRetorno" class="control-label"></label>
-        <input asp-for="DataRetorno" class="form-control cadastro-input" />
-        <span asp-validation-for="DataRetorno" class="text-danger"></span>
-    </div>
-</div>
-<div class=" btn form-group justify-content-center align-items-center  d-flex ">
-    <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" />Cadastrar</button>
-</div>
+        <div class="col row-cols-2 form-group">
+            <label asp-for="DataRetorno" class="control-label"></label>
+            <input asp-for="DataRetorno" class="form-control cadastro-input" />
+            <span asp-validation-for="DataRetorno" class="text-danger"></span>
         </div>
+    </div>
+    <div class=" btn form-group justify-content-center align-items-center  d-flex ">
+        <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" />Cadastrar</button>
+    </div>
+    </div>
 </form>
