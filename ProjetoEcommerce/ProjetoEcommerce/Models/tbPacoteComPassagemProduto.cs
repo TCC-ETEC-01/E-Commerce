@@ -11,5 +11,7 @@
         public string Translado { get; set; }
         public string CodigoTransporte { get; set; }
         public decimal Valor {  get; set; }
-        }
+        public string Companhia { get; set; }
+        public string TipoTransporte { get; set; }
     }
+}

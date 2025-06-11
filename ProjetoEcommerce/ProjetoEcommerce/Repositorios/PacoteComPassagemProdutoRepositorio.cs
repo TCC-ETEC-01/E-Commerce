@@ -15,7 +15,7 @@ namespace ProjetoEcommerce.Repositorios
             {
                 conexao.Open();
                 string query = @"select pac.IdPacote, pac.NomePacote,pac.Valor,  prod.NomeProduto,p.Assento as Assento, p.Situacao as Situacao, p.Translado, 
-                                t.TipoTransporte as Transporte, t.Companhia, t.CodigoTransporte as Cod_Transporte
+                                t.TipoTransporte as Transporte, t.Companhia, t.CodigoTransporte as Cod_Transporte, t,Companhia
                                from tbPacote pac
                                 inner join tbProduto prod on pac.IdProduto = prod.IdProduto
                                 inner join tbPassagem p on pac.IdPassagem = p.IdPassagem
@@ -33,7 +33,11 @@ namespace ProjetoEcommerce.Repositorios
                                 NomeProduto = drPacote.GetString("Produto"),
                                 Assento = drPacote.GetString("Assento"),
                                 Situacao = drPacote.GetString("Situacao"),
-                                Translado = drPacote.GetString("Translado")
+                                Translado = drPacote.GetString("Translado"),
+                                Companhia = drPacote.GetString("Companhia"),
+                                CodigoTransporte = drPacote.GetString("Cod_Transporte"),
+                                TipoTransporte = drPacote.GetString("Transporte"),
+                                Valor = drPacote.GetDecimal("Valor")
                             });
                         }
                     }
