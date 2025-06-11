@@ -36,15 +36,15 @@ namespace ProjetoEcommerce.Repositorios
                 }
             }
         }
-        public bool CadastrarCliente(tbCliente cliente)
+        public async Task<bool> CadastrarCliente(tbCliente cliente)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
-                conexao.Open();
+               await conexao.OpenAsync();
 
                 MySqlCommand verify = new MySqlCommand("select 1 from tbCliente where Email=@email", conexao);
                 verify.Parameters.AddWithValue("@email", cliente.Email);
-                using (var conf = verify.ExecuteReader())
+                using (var conf =  await verify.ExecuteReaderAsync())
                 {
                     if (conf.HasRows)
                     {
@@ -55,7 +55,7 @@ namespace ProjetoEcommerce.Repositorios
                 MySqlCommand verifyCpf = new MySqlCommand("select 1 from tbCliente where Cpf=@cpf", conexao);
               
                 verifyCpf.Parameters.AddWithValue("@cpf", cliente.Cpf);
-                using (var conf = verify.ExecuteReader())
+                using (var conf = await verify.ExecuteReaderAsync())
                 {
                     if (conf.HasRows)
                     {
@@ -65,7 +65,7 @@ namespace ProjetoEcommerce.Repositorios
                 }
                 MySqlCommand verifyTelefone = new MySqlCommand("select 1 from tbCliente where Telefone=@telefone", conexao);
                 verifyTelefone.Parameters.AddWithValue("@telefone", cliente.Telefone);
-                using (var conf = verify.ExecuteReader())
+                using (var conf = await verify.ExecuteReaderAsync())
                 {
                     if (conf.HasRows )
                     {
@@ -111,18 +111,18 @@ namespace ProjetoEcommerce.Repositorios
                 return false;
             }
         }
-        public IEnumerable<tbCliente> TodosClientes()
+        public async Task<IEnumerable<tbCliente>> TodosClientes()
         {
             List<tbCliente> ListaCliente = new List<tbCliente>();
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
-                conexao.Open();
+                await conexao.OpenAsync();
                 MySqlCommand cmd = new MySqlCommand("select * from tbCliente", conexao);
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 conexao.Close();
-                foreach (DataRow dr in dt.Rows)
+                foreach ( DataRow dr in dt.Rows)
                 {
                     ListaCliente.Add(new tbCliente
                     {
