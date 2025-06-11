@@ -3,14 +3,9 @@ using ProjetoEcommerce.Models;
 
 namespace ProjetoEcommerce.Repositorios
 {
-    public class TransporteRepositorio
+    public class TransporteRepositorio(IConfiguration configuration)
     {
-            private readonly string _conexaoMySQL;
-
-            public TransporteRepositorio(IConfiguration configuration)
-            {
-                _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
-            }
+            private readonly string _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
 
             public bool CadastrarTransporte(tbTransporte transporte)
             {
