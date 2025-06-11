@@ -8,7 +8,5 @@
         public string? Origem { get; set; }
         public string? Destino { get; set; }
         public DateTime ?DataPartida { get; set; }
-         public List<tbViagem> ListaViagem { get; set; }
-
     }
 }

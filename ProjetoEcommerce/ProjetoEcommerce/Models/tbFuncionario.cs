@@ -12,6 +12,5 @@ namespace ProjetoEcommerce.Models
         public string Cpf { get; set; }
         public string Senha { get; set; }
         public int IdFuncionario { get; set; }
-
     }
 }

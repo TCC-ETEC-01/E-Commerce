@@ -16,6 +16,5 @@ namespace ProjetoEcommerce.Models
         public string Companhia { get; set; }
         public string CodigoTransporte { get; set; }
         public decimal Valor { get; set; }
-
     }
 }
