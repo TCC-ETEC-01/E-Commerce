@@ -12,7 +12,7 @@ namespace ProjetoEcommerce.Repositorios
                 using (var conexao = new MySqlConnection(_conexaoMySQL))
                 {
                     conexao.Open();
-                    var cmd = new MySqlCommand("INSERT INTO tbTransporte (CodigoTransporte, Companhia, TipoTransporte) VALUES (@codigo, @companhia, @tipo)", conexao);
+                    var cmd = new MySqlCommand("insert into tbTransporte (CodigoTransporte, Companhia, TipoTransporte) VALUES (@codigo, @companhia, @tipo)", conexao);
                     cmd.Parameters.AddWithValue("@codigo", transporte.CodigoTransporte);
                     cmd.Parameters.AddWithValue("@companhia", transporte.Companhia);
                     cmd.Parameters.AddWithValue("@tipo", transporte.TipoTransporte);
@@ -26,7 +26,7 @@ namespace ProjetoEcommerce.Repositorios
                 using (var conexao = new MySqlConnection(_conexaoMySQL))
                 {
                     conexao.Open();
-                    var cmd = new MySqlCommand("UPDATE tbTransporte SET CodigoTransporte=@codigo, Companhia=@companhia, TipoTransporte=@tipo WHERE IdTransporte=@id", conexao);
+                    var cmd = new MySqlCommand("update tbTransporte setT CodigoTransporte=@codigo, Companhia=@companhia, TipoTransporte=@tipo WHERE IdTransporte=@id", conexao);
                     cmd.Parameters.AddWithValue("@codigo", transporte.CodigoTransporte);
                     cmd.Parameters.AddWithValue("@companhia", transporte.Companhia);
                     cmd.Parameters.AddWithValue("@tipo", transporte.TipoTransporte);
@@ -41,7 +41,7 @@ namespace ProjetoEcommerce.Repositorios
                 using (var conexao = new MySqlConnection(_conexaoMySQL))
                 {
                     conexao.Open();
-                    var cmd = new MySqlCommand("DELETE FROM tbTransporte WHERE IdTransporte=@id", conexao);
+                    var cmd = new MySqlCommand("delete from tbTransporte WHERE IdTransporte=@id", conexao);
                     cmd.Parameters.AddWithValue("@id", id);
                     int linhasAfetadas = cmd.ExecuteNonQuery();
                     return linhasAfetadas > 0;
@@ -53,7 +53,7 @@ namespace ProjetoEcommerce.Repositorios
                 using (var conexao = new MySqlConnection(_conexaoMySQL))
                 {
                     conexao.Open();
-                    var cmd = new MySqlCommand("SELECT * FROM tbTransporte WHERE IdTransporte=@id", conexao);
+                    var cmd = new MySqlCommand("select * from tbTransporte WHERE IdTransporte=@id", conexao);
                     cmd.Parameters.AddWithValue("@id", id);
 
                     using (var reader = cmd.ExecuteReader())
@@ -78,8 +78,8 @@ namespace ProjetoEcommerce.Repositorios
                 var lista = new List<tbTransporte>();
                 using (var conexao = new MySqlConnection(_conexaoMySQL))
                 {
-                    conexao.Open();
-                    var cmd = new MySqlCommand("SELECT * FROM tbTransporte", conexao);
+                    conexao.Open()
+                    var cmd = new MySqlCommand("select * from tbTransporte", conexao);
                     using (var reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
