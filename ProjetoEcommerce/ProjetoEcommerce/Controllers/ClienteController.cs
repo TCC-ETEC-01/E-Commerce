@@ -22,7 +22,7 @@ namespace ProjetoEcommerce.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CadastrarCliente(tbCliente cliente)
+        public async Task<string> CadastrarCliente(tbCliente cliente)
         {
             
             if (!cliente.Cpf.All(char.IsDigit) || !cliente.Telefone.All(char.IsDigit))
@@ -30,6 +30,7 @@ namespace ProjetoEcommerce.Controllers
                 TempData["MensagemErro"] = "Nos campos CPF e Telefone são aceitos apenas números. Digite novamente!";
                 return View();
             }
+            await _clienteRepositorio.CadastrarCliente(cliente);
                 TempData["MensagemSucesso"] = "Cadastro realizado com sucesso";
                 return RedirectToAction(nameof(Index));
 
