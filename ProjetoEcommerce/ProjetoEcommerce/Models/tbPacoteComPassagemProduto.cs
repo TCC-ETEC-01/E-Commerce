@@ -9,5 +9,7 @@
         public string Assento { get; set; }
         public string Situacao { get; set; }
         public string Translado { get; set; }
+        public string CodigoTransporte { get; set; }
+        public decimal Valor {  get; set; }
+        }
     }
-}
