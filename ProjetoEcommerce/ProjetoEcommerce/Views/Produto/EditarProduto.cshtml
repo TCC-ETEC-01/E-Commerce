@@ -2,29 +2,29 @@
 @model ProjetoEcommerce.Models.tbProduto;
 <link href="~/css/editarproduto.css" rel="stylesheet" />
 
-<form asp-action="EditarProduto">
-  <h2 class="tituloEditar pt-5 p-5 pb-2">Editar Produto</h2>
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<h2 class="tituloEditar pt-5 p-5 pb-2">Editar Produto</h2>
 
+<form asp-action="EditarProduto" class="FormTudo container  pt-4">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="row cadastro-row">
-        <div class="col  form-group">
+        <div class="form-group pt-3">
             <label asp-for="NomeProduto" class="control-label"></label>
             <input asp-for="NomeProduto" class="form-control cadastro-input" />
             <span asp-validation-for="NomeProduto" class="text-danger"></span>
         </div>
-        <div class="col form-group">
+        <div class="form-group pt-3">
             <label asp-for="Valor" class="control-label"></label>
             <input asp-for="Valor" class="form-control cadastro-input" />
             <span asp-validation-for="Valor" class="text-danger"></span>
         </div>
 
-        <div class="col form-group">
+        <div class="form-group pt-3">
             <label asp-for="Descricao" class="control-label"></label>
             <input asp-for="Descricao" class="form-control cadastro-input" />
             <span asp-validation-for="Descricao" class="text-danger"></span>
         </div>
 
-        <div class="col form-group">
+        <div class="form-group pt-3">
             <label asp-for="Quantidade" class="control-label"></label>
             <input asp-for="Quantidade" class="form-control cadastro-input" />
             <span asp-validation-for="Quantidade" class="text-danger"></span>
@@ -36,10 +36,10 @@
             <input type="checkbox" name="disponivel" value="disponivel" />
         </div>
         <div class=" btn form-group justify-content-center align-items-center  d-flex ">
-            <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Alterar</button>
+            <button type="submit" class="btn text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Alterar</button>
         </div>
         <div class="btn form-group justify-content-center align-items-center  d-flex ">
-            <button type="reset" class="btn btn-danger text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Cancelar</button>
+            <button type="reset" class="btn  ps-5 pe-5 fs-5 justify-content-center  p-2">Cancelar</button>
         </div>
     </div>
 </form>
