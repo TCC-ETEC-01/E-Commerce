@@ -1,6 +1,8 @@
 ﻿@model ProjetoEcommerce.Models.tbTransporte
 
-<form asp-action="EditarTransporte">
+
+<form asp-action="EditarTranporte">
+    <h2 class="tituloEditar pt-5 p-5 pb-2">Editar Tranporte</h2>
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <input type="hidden" asp-for="IdTransporte" />
@@ -23,9 +25,19 @@
             <input asp-for="TipoTransporte" class="form-control cadastro-input" />
             <span asp-validation-for="TipoTransporte" class="text-danger"></span>
         </div>
-    </div>
 
-    <div class="btn form-group justify-content-center align-items-center d-flex">
-        <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center p-2">Salvar</button>
+        <div class="checkbox-disponivel">
+            <h3>
+                Disponivel:
+            </h3>
+            <input type="checkbox" name="disponivel" value="disponivel" />
+        </div>
+        <div class=" btn form-group justify-content-center align-items-center  d-flex ">
+            <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Alterar</button>
+        </div>
+        <div class="btn form-group justify-content-center align-items-center  d-flex ">
+            <button type="reset" class="btn btn-danger text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Cancelar</button>
+        </div>
+
     </div>
 </form>
