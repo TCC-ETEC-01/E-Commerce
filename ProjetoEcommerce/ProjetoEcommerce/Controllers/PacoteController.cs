@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
+using System.Threading.Tasks;
 
 namespace ProjetoEcommerce.Controllers
 {
@@ -19,52 +20,63 @@ namespace ProjetoEcommerce.Controllers
         }
 
         [HttpPost]
-        public IActionResult CadastrarPacote(tbPacote pacote)
+        public async Task<IActionResult> CadastrarPacote(tbPacote pacote)
         {
-            if(_PacoteRepositorio.CadastrarPacote(pacote))
+            if (await _PacoteRepositorio.CadastrarPacote(pacote))
             {
                 TempData["MensagemSucesso"] = "Pacote cadastrado com Sucesso";
                 return RedirectToAction(nameof(Index));
             }
+
             TempData["MensagemErro"] = "Erro ao cadastrar pacote";
             return View();
         }
 
-        public IActionResult EditarPacote(int id)
+        public async Task<IActionResult> EditarPacote(int id)
         {
-            var pacote = _PacoteRepositorio.ObterPacote(id);
+            var pacote = await _PacoteRepositorio.ObterPacote(id);
 
             if (pacote == null)
             {
                 return NotFound();
             }
+
             return View(pacote);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditarPacote(int id, [Bind("IdPacote,IdProduto, IdPassagem, NomePacote, Descricao, Valor,")]tbPacote pacote)
-        { 
+        public async Task<IActionResult> EditarPacote(int id, [Bind("IdPacote,IdProduto,IdPassagem,NomePacote,Descricao,Valor")] tbPacote pacote)
+        {
             ModelState.Clear();
+
             if (id != pacote.IdPacote)
             {
                 return BadRequest();
             }
-            if(ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
-                _PacoteRepositorio.AtualizarPacote(pacote);
+                await _PacoteRepositorio.AtualizarPacote(pacote);
                 TempData["MensagemSucesso"] = "Pacote atualizado com Sucesso";
                 return RedirectToAction(nameof(Index));
             }
+
             TempData["MensagemErro"] = "Erro ao atualizar pacote";
             return View(pacote);
         }
-        public IActionResult ExcluirPacote(int id)
+
+        public async Task<IActionResult> ExcluirPacote(int id)
         {
-            _PacoteRepositorio.ExcluirPacote(id);
-            TempData["MensagemSucesso"] = "Pacote exluido com sucesso";
-            return RedirectToAction(nameof(Index)); 
+            await _PacoteRepositorio.ExcluirPacote(id);
+            TempData["MensagemSucesso"] = "Pacote excluído com sucesso";
+            return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var listaPacotes = await _PacoteRepositorio.TodosPacotes();
+            return View(listaPacotes);
+        }
     }
 }
