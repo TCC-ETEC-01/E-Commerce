@@ -78,7 +78,7 @@ namespace ProjetoEcommerce.Repositorios
                 var lista = new List<tbTransporte>();
                 using (var conexao = new MySqlConnection(_conexaoMySQL))
                 {
-                    conexao.Open()
+                conexao.Open();
                     var cmd = new MySqlCommand("select * from tbTransporte", conexao);
                     using (var reader = cmd.ExecuteReader())
                     {

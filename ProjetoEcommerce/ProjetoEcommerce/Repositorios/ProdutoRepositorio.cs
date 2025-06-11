@@ -4,118 +4,139 @@ using System.Data;
 
 namespace ProjetoEcommerce.Repositorios
 {
-    public class ProdutoRepositorio(IConfiguration configuration)
+    public class ProdutoRepositorio
     {
-        private readonly string _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
+        private readonly string _conexaoMySQL;
 
-        public bool CadastrarProduto(tbProduto produto)
+        public ProdutoRepositorio(IConfiguration configuration)
         {
-            using (var conexao = new MySqlConnection(_conexaoMySQL))
-            {
-                conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("insert into tbProduto (NomeProduto, Valor, Descricao, Quantidade) values(@nomeProduto,@valor, @descricao, @quantidade)", conexao);
-                cmd.Parameters.AddWithValue("@nomeProduto", produto.NomeProduto);
-                cmd.Parameters.AddWithValue("@valor", produto.Valor);
-                cmd.Parameters.AddWithValue("@descricao", produto.Descricao);
-                cmd.Parameters.AddWithValue("@quantidade", produto.Quantidade);
-                cmd.ExecuteNonQuery();
-                return true;
-            }
+            _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
         }
 
-        public bool AtualizarProduto(tbProduto produto)
+        public async Task<bool> CadastrarProduto(tbProduto produto)
         {
-            using (var conexao = new MySqlConnection(_conexaoMySQL))
-            {
-                conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("update tbProduto set NomeProduto=@nomeProduto, Valor=@valor, Descricao=@descricao, Quantidade=@quantidade" + "where IdProduto=@idProduto", conexao);
-                cmd.Parameters.AddWithValue("@nomeProduto", produto.NomeProduto);
-                cmd.Parameters.AddWithValue("@valor", produto.Valor);
-                cmd.Parameters.AddWithValue("@descricao", produto.Descricao);
-                cmd.Parameters.AddWithValue("@quantidade", produto.Quantidade);
-                int linhasAfetadas = cmd.ExecuteNonQuery();
-                return linhasAfetadas > 0;
+            await using var conexao = new MySqlConnection(_conexaoMySQL);
+            await conexao.OpenAsync();
 
-            }
+            MySqlCommand cmd = new MySqlCommand(
+                "insert into tbProduto (NomeProduto, Valor, Descricao, Quantidade) values(@nomeProduto,@valor, @descricao, @quantidade)",
+                conexao);
+            cmd.Parameters.AddWithValue("@nomeProduto", produto.NomeProduto);
+            cmd.Parameters.AddWithValue("@valor", produto.Valor);
+            cmd.Parameters.AddWithValue("@descricao", produto.Descricao);
+            cmd.Parameters.AddWithValue("@quantidade", produto.Quantidade);
+
+            int linhasAfetadas = await cmd.ExecuteNonQueryAsync();
+
+            return linhasAfetadas > 0;
         }
 
-        public IEnumerable<tbProduto> TodosProdutos()
+        public async Task<bool> AtualizarProduto(tbProduto produto)
         {
-            List<tbProduto> ProdutoLista = new List<tbProduto>();
-            using (var conexao = new MySqlConnection(_conexaoMySQL))
-            {
-                conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("select * from tbProduto", conexao);
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                conexao.Close();
+            await using var conexao = new MySqlConnection(_conexaoMySQL);
+            await conexao.OpenAsync();
 
-                foreach (DataRow dr in dt.Rows)
+            MySqlCommand cmd = new MySqlCommand(
+                "update tbProduto set NomeProduto=@nomeProduto, Valor=@valor, Descricao=@descricao, Quantidade=@quantidade where IdProduto=@idProduto",
+                conexao);
+            cmd.Parameters.AddWithValue("@nomeProduto", produto.NomeProduto);
+            cmd.Parameters.AddWithValue("@valor", produto.Valor);
+            cmd.Parameters.AddWithValue("@descricao", produto.Descricao);
+            cmd.Parameters.AddWithValue("@quantidade", produto.Quantidade);
+            cmd.Parameters.AddWithValue("@idProduto", produto.IdProduto);
+
+            int linhasAfetadas = await cmd.ExecuteNonQueryAsync();
+
+            return linhasAfetadas > 0;
+        }
+
+        public async Task<IEnumerable<tbProduto>> TodosProdutos()
+        {
+            var ProdutoLista = new List<tbProduto>();
+
+            await using var conexao = new MySqlConnection(_conexaoMySQL);
+            await conexao.OpenAsync();
+
+            MySqlCommand cmd = new MySqlCommand("select * from tbProduto", conexao);
+
+            await using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                ProdutoLista.Add(new tbProduto
                 {
-                    ProdutoLista.Add(new tbProduto
-                    {
-                        IdProduto = Convert.ToInt32(dr["IdProduto"]),
-                        Quantidade = Convert.ToInt32(dr["Quantidade"]),
-                        NomeProduto = ((string)dr["NomeProduto"]),
-                        Valor = ((decimal)dr["Valor"]),
-                        Descricao = ((string)dr["Descricao"])
-                    });
-                }
-                return ProdutoLista;
+                    IdProduto = reader.GetInt32("IdProduto"),
+                    NomeProduto = reader.GetString("NomeProduto"),
+                    Valor = reader.GetDecimal("Valor"),
+                    Descricao = reader.GetString("Descricao"),
+                    Quantidade = reader.GetInt32("Quantidade")
+                });
+            }
+
+            return ProdutoLista;
+        }
+
+        public async Task ExcluirProduto(int id)
+        {
+            await using var conexao = new MySqlConnection(_conexaoMySQL);
+            await conexao.OpenAsync();
+
+            MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbPacote where IdProduto=@idProduto", conexao);
+            cmdBuscarId.Parameters.AddWithValue("@idProduto", id);
+
+            await using var drProduto = await cmdBuscarId.ExecuteReaderAsync(CommandBehavior.CloseConnection);
+
+            if (await drProduto.ReadAsync()) // Se tiver pacote com esse produto
+            {
+                // Precisa abrir outra conexão porque a anterior está ocupada pelo DataReader
+                await conexao.CloseAsync();
+
+                await using var conexao2 = new MySqlConnection(_conexaoMySQL);
+                await conexao2.OpenAsync();
+
+                MySqlCommand cmdExcluirProdutoPacote = new MySqlCommand("delete from tbPacote where IdProduto=@idProduto", conexao2);
+                cmdExcluirProdutoPacote.Parameters.AddWithValue("@idProduto", id);
+                await cmdExcluirProdutoPacote.ExecuteNonQueryAsync();
+
+                MySqlCommand cmdExcluirProduto = new MySqlCommand("delete from tbProduto where IdProduto=@idProduto", conexao2);
+                cmdExcluirProduto.Parameters.AddWithValue("@idProduto", id);
+                await cmdExcluirProduto.ExecuteNonQueryAsync();
+            }
+            else
+            {
+                await conexao.CloseAsync();
+
+                await using var conexao3 = new MySqlConnection(_conexaoMySQL);
+                await conexao3.OpenAsync();
+
+                MySqlCommand cmdExcluirProduto = new MySqlCommand("delete from tbProduto where IdProduto=@idProduto", conexao3);
+                cmdExcluirProduto.Parameters.AddWithValue("@idProduto", id);
+                await cmdExcluirProduto.ExecuteNonQueryAsync();
             }
         }
 
-        public void ExcluirProduto(int id)
+        public async Task<tbProduto> ObterProduto(int Codigo)
         {
-            using(var conexao = new MySqlConnection(_conexaoMySQL))
+            await using var conexao = new MySqlConnection(_conexaoMySQL);
+            await conexao.OpenAsync();
+
+            MySqlCommand cmd = new MySqlCommand("select * from tbProduto where IdProduto=@codigo", conexao);
+            cmd.Parameters.AddWithValue("@codigo", Codigo);
+
+            await using var dr = await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection);
+
+            var produto = new tbProduto();
+
+            if (await dr.ReadAsync())
             {
-                conexao.Open();
-                MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbPacote where IdProduto=@idProduto", conexao);
-                cmdBuscarId.Parameters.AddWithValue("@idProduto", id);
-                using (var drProduto = cmdBuscarId.ExecuteReader(CommandBehavior.CloseConnection))
-                {
-                    if (drProduto.HasRows)
-                    {
-                        MySqlCommand cmdExcluirProdutoPacote = new MySqlCommand("delete from tbPacote where IdProduto=@idProduto", conexao);
-                        cmdExcluirProdutoPacote.Parameters.AddWithValue("@idProduto", id);
-                        cmdExcluirProdutoPacote.ExecuteNonQuery();
-                    }
-                    else
-                    {
-                        MySqlCommand cmdExcluirProduto = new MySqlCommand("delete from tbProduto where IdProduto=@idProduto", conexao);
-                        cmdExcluirProduto.Parameters.AddWithValue("@idProduto", id);
-                        cmdExcluirProduto.ExecuteNonQuery();
-                    }
-                    int i = cmdBuscarId.ExecuteNonQuery();
-                    conexao.Close();
-                }
+                produto.IdProduto = dr.GetInt32("IdProduto");
+                produto.NomeProduto = dr.GetString("NomeProduto");
+                produto.Valor = dr.GetDecimal("Valor");
+                produto.Descricao = dr.GetString("Descricao");
+                produto.Quantidade = dr.GetInt32("Quantidade");
             }
-        }
-        public tbProduto ObterProduto(int Codigo)
-        {
-            using (var conexao = new MySqlConnection(_conexaoMySQL))
-            {
-                conexao.Open();
-                MySqlCommand cmd = new MySqlCommand("select 1 from tbProduto where IdProduto=@codigo", conexao);
-                cmd.Parameters.AddWithValue("@codigo", Codigo);
 
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                MySqlDataReader dr;
-               tbProduto produto = new tbProduto();
-
-                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                while (dr.Read())
-                {
-                    produto.IdProduto = Convert.ToInt32(dr["IdProduto"]);
-                    produto.Descricao = ((string)dr["Descricao"]);
-                    produto.NomeProduto = ((string)dr["NomeProduto"]);
-                    produto.Valor = (decimal)(dr["Valor"]);
-                    produto.Quantidade = Convert.ToInt32(dr["Quantidade"]);
-                }
-                return produto;
-            }
+            return produto;
         }
     }
 }

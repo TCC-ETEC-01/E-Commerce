@@ -16,7 +16,7 @@ namespace ProjetoEcommerce.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var produtos = await _produtoRepositorio.TodosProdutos;
+            var produtos = await _produtoRepositorio.TodosProdutos();
             return View(produtos);
         }
 
