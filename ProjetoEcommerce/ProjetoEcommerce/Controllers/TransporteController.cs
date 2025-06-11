@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
+using System.Threading.Tasks;
 
 namespace ProjetoEcommerce.Controllers
 {
@@ -13,9 +14,9 @@ namespace ProjetoEcommerce.Controllers
             _transporteRepositorio = transporteRepositorio;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var lista = _transporteRepositorio.ListarTransportes();
+            var lista = await _transporteRepositorio.ListarTransportes();
             return View(lista);
         }
 
@@ -25,9 +26,9 @@ namespace ProjetoEcommerce.Controllers
         }
 
         [HttpPost]
-        public IActionResult CadastrarTransporte(tbTransporte transporte)
+        public async Task<IActionResult> CadastrarTransporte(tbTransporte transporte)
         {
-            if (_transporteRepositorio.CadastrarTransporte(transporte))
+            if (await _transporteRepositorio.CadastrarTransporte(transporte))
             {
                 TempData["MensagemSucesso"] = "Transporte cadastrado com sucesso!";
                 return RedirectToAction(nameof(Index));
@@ -37,9 +38,9 @@ namespace ProjetoEcommerce.Controllers
             return View(transporte);
         }
 
-        public IActionResult EditarTransporte(int id)
+        public async Task<IActionResult> EditarTransporte(int id)
         {
-            var transporte = _transporteRepositorio.ObterTransporte(id);
+            var transporte = await _transporteRepositorio.ObterTransporte(id);
             if (transporte == null)
             {
                 return NotFound();
@@ -48,7 +49,7 @@ namespace ProjetoEcommerce.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditarTransporte(int id, [Bind("IdTransporte, CodigoTransporte, Companhia, TipoTransporte")] tbTransporte transporte)
+        public async Task<IActionResult> EditarTransporte(int id, [Bind("IdTransporte, CodigoTransporte, Companhia, TipoTransporte")] tbTransporte transporte)
         {
             ModelState.Clear();
 
@@ -59,7 +60,7 @@ namespace ProjetoEcommerce.Controllers
 
             if (ModelState.IsValid)
             {
-                if (_transporteRepositorio.AtualizarTransporte(transporte))
+                if (await _transporteRepositorio.AtualizarTransporte(transporte))
                 {
                     TempData["MensagemSucesso"] = "Transporte atualizado com sucesso!";
                     return RedirectToAction(nameof(Index));
@@ -72,9 +73,9 @@ namespace ProjetoEcommerce.Controllers
             return View();
         }
 
-        public IActionResult ExcluirTransporte(int id)
+        public async Task<IActionResult> ExcluirTransporte(int id)
         {
-            if (_transporteRepositorio.ExcluirTransporte(id))
+            if (await _transporteRepositorio.ExcluirTransporte(id))
             {
                 TempData["MensagemSucesso"] = "Transporte excluído com sucesso!";
             }
