@@ -14,10 +14,12 @@ namespace ProjetoEcommerce.Repositorios
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 conexao.Open();
-                string query = @"select  p.IdPassagem as Codigo,v.Origem, v.Destino, p.Assento,p.Translado, v.Descricao,  
-                    v.DataPartida as Partida, v.DataRetorno as Retorno,  v.TipoTransporte as Transporte
-                    from tbPassagem p 
-                    inner join tbViagem v on p.IdViagem = v.IdViagem;";
+                string query = @"select  p.IdPassagem,p.Valor,v.Origem, v.Destino, p.Assento,v.Descricao, v.DataPartida as Partida,  
+                        v.DataRetorno as Retorno, t.TipoTransporte as Transporte, t.Companhia, 
+                        t.CodigoTransporte as Cod_Transporte
+                        from tbPassagem p
+                        inner join tbViagem v on p.IdViagem = v.IdViagem
+                        inner join tbTransporte t on p.IdTransporte = t.IdTransporte;";
                 using (MySqlCommand join = new MySqlCommand(query, conexao))
                 {
                     using (MySqlDataReader drPassagemComViagem = join.ExecuteReader())
@@ -32,7 +34,10 @@ namespace ProjetoEcommerce.Repositorios
                                 Descricao = drPassagemComViagem.GetString("Descricao"),
                                 DataPartida = drPassagemComViagem.GetDateTime("Partida"),
                                 DataRetorno = drPassagemComViagem.GetDateTime("Retorno"),
-                                TipoTransporte = drPassagemComViagem.GetString("Transporte")
+                                TipoTransporte = drPassagemComViagem.GetString("Transporte"),
+                                CodigoTransporte = drPassagemComViagem.GetString("Cod_Transporte"),
+                                Companhia = drPassagemComViagem.GetString("Companhia"),
+                                Valor = drPassagemComViagem.GetDecimal("Valor")
                             });
                         }
                     }

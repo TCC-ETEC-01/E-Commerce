@@ -7,9 +7,6 @@
         public string? Descricao { get; set;}
         public string? Origem { get; set; }
         public string? Destino { get; set; }
-        public string? TipoTransporte { get; set; }
         public DateTime ?DataPartida { get; set; }
-         public List<tbViagem> ListaViagem { get; set; }
-
     }
 }

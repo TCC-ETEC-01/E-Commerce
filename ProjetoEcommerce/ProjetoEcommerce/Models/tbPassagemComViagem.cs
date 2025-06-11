@@ -1,4 +1,6 @@
-﻿namespace ProjetoEcommerce.Models
+﻿using System.Globalization;
+
+namespace ProjetoEcommerce.Models
 {
     public class tbPassagemComViagem
     {
@@ -11,5 +13,8 @@
         public DateTime? DataPartida { get; set; }
         public string Assento { get; set; }
         public string Translado { get; set; }
+        public string Companhia { get; set; }
+        public string CodigoTransporte { get; set; }
+        public decimal Valor { get; set; }
     }
 }

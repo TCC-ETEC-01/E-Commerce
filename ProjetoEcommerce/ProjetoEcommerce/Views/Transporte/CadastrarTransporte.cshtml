@@ -1,0 +1,29 @@
+﻿@model ProjetoEcommerce.Models.tbTransporte
+
+<form asp-action="CadastrarTransporte">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row cadastro-row">
+        <div class="col form-group">
+            <label asp-for="CodigoTransporte" class="control-label"></label>
+            <input asp-for="CodigoTransporte" class="form-control cadastro-input" />
+            <span asp-validation-for="CodigoTransporte" class="text-danger"></span>
+        </div>
+
+        <div class="col form-group">
+            <label asp-for="Companhia" class="control-label"></label>
+            <input asp-for="Companhia" class="form-control cadastro-input" />
+            <span asp-validation-for="Companhia" class="text-danger"></span>
+        </div>
+
+        <div class="col form-group">
+            <label asp-for="TipoTransporte" class="control-label"></label>
+            <input asp-for="TipoTransporte" class="form-control cadastro-input" />
+            <span asp-validation-for="TipoTransporte" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="btn form-group justify-content-center align-items-center d-flex">
+        <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center p-2">Cadastrar</button>
+    </div>
+</form>
