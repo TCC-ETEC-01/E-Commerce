@@ -1,5 +1,84 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model ProjetoEcommerce.Models.tbCliente;
+<!--Editar Cliente-->
+
+<body>
+
+      <h1 class="pt-5 p-5 pb-3">Editar</h1>
+    <form asp-action="EditarCliente">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="container-cadastro w-100 h-100">
+            <header>
+                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" asp-area="" asp-controller="Dashboard" asp-action="CadastroHome"></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1 w-25">
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Produto" asp-action="CadastrarProduto">Produto</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Pacote" asp-action="CadastrarPacote">Pacote</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Passagem" asp-action="CadastrarPassagem">Passagem</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Funcionario" asp-action="CadastrarFuncionario">Funcionario</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-light" asp-area="" asp-controller="Viagem" asp-action="CadastrarViagem">Viagem</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            <div class="row cadastro-row">
+                <div class="col  form-group">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control cadastro-input" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="col form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control cadastro-input" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="col row-cols-2 w-100 form-group">
+                    <label asp-for="Sexo" class="control-label"></label>
+                    <select asp-for="Sexo" class="">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Feminino">Feminino</option>
+                        <option value="Indefinido">Indefinido</option>
+                    </select>
+                    <span asp-validation-for="Sexo" class="text-danger"></span>
+                </div>
+                <div class="col row-cols-2 form-group">
+                    <label asp-for="Cpf" class="control-label">CPF</label>
+                    <input asp-for="Cpf" class="form-control cadastro-input" />
+                    <span asp-validation-for="Cpf" class="text-danger"></span>
+                </div>
+                <div class="col row-cols-2 form-group">
+                    <label asp-for="Telefone" class="control-label"></label>
+                    <input asp-for="Telefone" class="form-control cadastro-input" />
+                    <span asp-validation-for="Telefone" class="text-danger"></span>
+            </div>
+            </div>
+
+
+
+            <div class=" btn form-group justify-content-center align-items-center  d-flex ">
+                <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" >Cadastrar</button>
+            </div>
+        </div>
+
+
+
+
+            </form>
+</body>
