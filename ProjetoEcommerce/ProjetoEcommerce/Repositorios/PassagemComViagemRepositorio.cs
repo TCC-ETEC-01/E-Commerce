@@ -23,22 +23,24 @@ namespace ProjetoEcommerce.Repositorios
 
                 using (MySqlCommand join = new MySqlCommand(query, conexao))
                 {
-                    using (var drPassagemComViagem = await join.ExecuteReaderAsync())
+                    using (var drClientePassagem = await join.ExecuteReaderAsync())
                     {
-                        while (await drPassagemComViagem.ReadAsync())
+                        while (await drClientePassagem.ReadAsync())
                         {
-                            lista.Add(new tbPassagemComViagem
+                            lista.Add(new tbClienteComPassagem
                             {
-                                IdPassagem = drPassagemComViagem.GetInt32("IdPassagem"),
-                                Origem = drPassagemComViagem.GetString("Origem"),
-                                Destino = drPassagemComViagem.GetString("Destino"),
-                                Descricao = drPassagemComViagem.GetString("Descricao"),
-                                DataPartida = drPassagemComViagem.GetDateTime("Partida"),
-                                DataRetorno = drPassagemComViagem.GetDateTime("Retorno"),
-                                TipoTransporte = drPassagemComViagem.GetString("Transporte"),
-                                CodigoTransporte = drPassagemComViagem.GetString("Cod_Transporte"),
-                                Companhia = drPassagemComViagem.GetString("Companhia"),
-                                Valor = drPassagemComViagem.GetDecimal("Valor")
+                                IdPassagem = drClientePassagem.GetInt32("IdPassagem"),
+                                Assento = drClientePassagem.GetString("Assento"),
+                                Valor = drClientePassagem.GetDecimal("Valor"),
+                                DataCompra = drClientePassagem.GetDateTime("DataCompra"),
+                                IdViagem = drClientePassagem.GetInt32("IdViagem"),
+                                Nome = drClientePassagem.GetString("Nome"),
+                                Email = drClientePassagem.GetString("Email"),
+                                Cpf = drClientePassagem.GetString("Cpf"),
+                                Telefone = drClientePassagem.GetString("Telefone"),
+                                Situacao = drClientePassagem.GetString("Situacao"),
+                                Translado = drClientePassagem.GetString("Translado")
+
                             });
                         }
                     }
