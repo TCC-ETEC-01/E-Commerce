@@ -31,7 +31,7 @@ h1 {
 }
 
 button[type="submit"] {
-    margin-top: -1.5%
+    margin-top: -2%
 }
 
 select {
@@ -44,7 +44,7 @@ select {
 .Cadastro-navbar {
     border-radius: 15px !important;
     margin-left: -2%;
-    margin-top: 2%
+    margin-top: 0px;
 }
 
 
