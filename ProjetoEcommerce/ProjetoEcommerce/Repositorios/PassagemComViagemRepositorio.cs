@@ -1,5 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
 using ProjetoEcommerce.Models;
+using System.Data;
 
 namespace ProjetoEcommerce.Repositorios
 {
@@ -7,30 +8,33 @@ namespace ProjetoEcommerce.Repositorios
     {
         private readonly string _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
 
-        public IEnumerable<tbPassagemComViagem> PassagemComViagem()
+        public async Task<IEnumerable<tbPassagemComViagem>> PassagemComViagem()
         {
             var lista = new List<tbPassagemComViagem>();
 
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
-                conexao.Open();
-                string query = @"select  p.IdPassagem,p.Valor,v.Origem, v.Destino, p.Assento,v.Descricao, v.DataPartida as Partida,  
-                        v.DataRetorno as Retorno, t.TipoTransporte as Transporte, t.Companhia, 
+                await conexao.OpenAsync();
+
+                string query = @"select  p.IdPassagem, p.Valor, v.Origem, v.Destino, p.Assento, v.Descricao, 
+                        v.DataPartida as Partida, v.DataRetorno as Retorno, 
+                        t.TipoTransporte as Transporte, t.Companhia, 
                         t.CodigoTransporte as Cod_Transporte
                         from tbPassagem p
                         inner join tbViagem v on p.IdViagem = v.IdViagem
                         inner join tbTransporte t on p.IdTransporte = t.IdTransporte;";
+
                 using (MySqlCommand join = new MySqlCommand(query, conexao))
                 {
-                    using (MySqlDataReader drPassagemComViagem = join.ExecuteReader())
+                    using (var drPassagemComViagem = await join.ExecuteReaderAsync())
                     {
-                        while (drPassagemComViagem.Read())
+                        while (await drPassagemComViagem.ReadAsync())
                         {
                             lista.Add(new tbPassagemComViagem
                             {
-                                IdPassagem = drPassagemComViagem.GetInt32("Codigo"),
+                                IdPassagem = drPassagemComViagem.GetInt32("IdPassagem"),
                                 Origem = drPassagemComViagem.GetString("Origem"),
-                                Destino = drPassagemComViagem.GetString("Assento"),
+                                Destino = drPassagemComViagem.GetString("Destino"),
                                 Descricao = drPassagemComViagem.GetString("Descricao"),
                                 DataPartida = drPassagemComViagem.GetDateTime("Partida"),
                                 DataRetorno = drPassagemComViagem.GetDateTime("Retorno"),
@@ -41,9 +45,9 @@ namespace ProjetoEcommerce.Repositorios
                             });
                         }
                     }
-                    return lista;
                 }
             }
+            return lista;
         }
     }
 }
