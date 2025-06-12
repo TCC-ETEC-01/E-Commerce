@@ -13,7 +13,7 @@ namespace ProjetoEcommerce.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var pacotes = await _pacoteComPassagemProdutoRepositorio.PacoteComPassagemProduto;
+            var pacotes = await _pacoteComPassagemProdutoRepositorio.PacoteComPassagemProduto();
             return View(pacotes);
         }
     }
