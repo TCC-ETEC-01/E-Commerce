@@ -16,13 +16,10 @@ namespace ProjetoEcommerce.Repositorios
             {
                 await conexao.OpenAsync();
 
-                string query = @"select  p.IdPassagem, p.Valor, v.Origem, v.Destino, p.Assento, v.Descricao, 
-                        v.DataPartida as Partida, v.DataRetorno as Retorno, 
-                        t.TipoTransporte as Transporte, t.Companhia, 
-                        t.CodigoTransporte as Cod_Transporte
-                        from tbPassagem p
-                        inner join tbViagem v on p.IdViagem = v.IdViagem
-                        inner join tbTransporte t on p.IdTransporte = t.IdTransporte;";
+                string query = @"select c.IdCliente, c.Nome as Nome, c.Email, c.Cpf, c.Telefone,
+	                            p.IdPassagem, p.Assento, p.Valor, p.Situacao, p.DataCompra, p.IdViagem, P.Translado
+	                            from tbPassagem p
+	                            inner join tbCliente c on p.IdCliente = c.IdCliente;";
 
                 using (MySqlCommand join = new MySqlCommand(query, conexao))
                 {
