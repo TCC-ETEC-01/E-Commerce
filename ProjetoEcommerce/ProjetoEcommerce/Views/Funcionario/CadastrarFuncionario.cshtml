@@ -1,5 +1,6 @@
 ﻿@model ProjetoEcommerce.Models.tbFuncionario;
 
+
 <link href="~/css/funcionariocadastro.css" rel="stylesheet" />
 <body>
     <h1>Titulo Cadastro</h1>
@@ -8,7 +9,7 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="container-cadastro w-100 h-100">
             <header>
-                <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
+                <nav class="navbar  Cadastro-navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
                     <div class="container-fluid">
                         <a class="navbar-brand" asp-area="" asp-controller="Dashboard" asp-action="CadastroHome">Cliente</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -59,8 +60,6 @@
                     <span asp-validation-for="Sexo" class="text-danger"></span>
                 </div>
 
-
-
                 <div class="col row-cols-2 form-group">
                     <label asp-for="Cpf" class="control-label">CPF</label>
                     <input asp-for="Cpf" class="form-control cadastro-input" />
@@ -76,7 +75,7 @@
                     <input asp-for="Cargo" class="form-control cadastro-input" />
                     <span asp-validation-for="Cargo" class="text-danger"></span>
                 </div>
-                                <div class="col form-group">
+                 <div class="col form-group">
                     <label asp-for="Senha" class="control-label"></label>
                     <input asp-for="Senha" class="form-control cadastro-input" />
                     <span asp-validation-for="Senha" class="text-danger"></span>

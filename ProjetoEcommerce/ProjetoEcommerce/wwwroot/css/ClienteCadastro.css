@@ -9,7 +9,7 @@
     align-self: center;
     border-radius: 15px;
     height: 645px !important;
-    width: 1600px !important;
+    width: 1439px !important;
     padding: 25px;
     margin-left: -10%;
 }
@@ -44,5 +44,10 @@ select {
 .Cadastro-navbar {
     border-radius: 15px !important;
     margin-left: -2%;
-    margin-top: -1.7%;
+    margin-top: -4.9%
+}
+
+
+.item-cada {
+    margin-left: 50px !important; /* Remove o espaçamento gigante */
 }
