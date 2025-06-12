@@ -1,1 +1,50 @@
-﻿
+﻿@model IEnumerable<ProjetoEcommerce.Models.tbProduto>
+
+<table class="table table-produto">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdProduto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NomeProduto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantidade)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelitem => item.IdProduto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.NomeProduto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Quantidade)
+                </td>
+                <td class="text-center">
+                    <a asp-controller="Produto" asp-action="EditarProduto" asp-route-id="@item.IdProduto" class="btn btn-sm btn-warning">Editar</a>
+                    <span>|</span>
+                    <a asp-controller="Produto" asp-action="ExcluirProduto" asp-route-id="@item.IdProduto" onclick="return confirm('Deseja realmente excluir esse Produto ?');" class="btn btn-sm btn-danger"  >Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
