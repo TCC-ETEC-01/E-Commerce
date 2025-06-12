@@ -1,10 +1,40 @@
 ﻿@model ProjetoEcommerce.Models.tbPassagem;
 
+<link href="~/css/clientecadastro.css" rel="stylesheet" />
+
+
 <form asp-action="CadastrarPassagem">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="container-cadastro  w-100 h-100">
+        <header>
+            <nav class="navbar Cadastro-navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-primary" asp-area="" asp-controller="Cliente" asp-action="CadastrarCliente">Cliente</a>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-0 ">
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Produto" asp-action="CadastrarProduto">Produto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Pacote" asp-action="CadastrarPacote">Pacote</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Passagem" asp-action="CadastrarPassagem">Passagem</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Funcionario" asp-action="CadastrarFuncionario">Funcionario</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Viagem" asp-action="CadastrarViagem">Viagem</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
     <div class="row cadastro-row">
         <div class="col  form-group">
-            <label asp-for="IdViagem" class="control-label"></label>
+            <label asp-for="IdViagem" class="control-label">Id Viagem</label>
             <input asp-for="IdViagem" class="form-control cadastro-input" />
             <span asp-validation-for="IdViagem" class="text-danger"></span>
         </div>
@@ -21,7 +51,7 @@
         </div>
 
         <div class="col form-group">
-            <label asp-for="Situacao" class="control-label"></label>
+            <label asp-for="Situacao" class="control-label">Situação</label>
             <input asp-for="Situacao" class="form-control cadastro-input" />
             <span asp-validation-for="Situacao" class="text-danger"></span>
         </div>
