@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Repositorios;
+using System.Threading.Tasks;
 
 namespace ProjetoEcommerce.Controllers
 {
@@ -11,9 +12,10 @@ namespace ProjetoEcommerce.Controllers
             _passagemComViagemRepositorio = passagemComViagemRepositorio;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_passagemComViagemRepositorio.PassagemComViagem);
+            var passagensComViagem = await _passagemComViagemRepositorio.PassagemComViagem();
+            return View(passagensComViagem);
         }
     }
 }

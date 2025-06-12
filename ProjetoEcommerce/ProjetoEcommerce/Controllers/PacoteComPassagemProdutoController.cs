@@ -11,9 +11,10 @@ namespace ProjetoEcommerce.Controllers
             _pacoteComPassagemProdutoRepositorio = pacoteComPassagemProdutoRepositorio;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(_pacoteComPassagemProdutoRepositorio.PacoteComPassagemProduto);
+            var pacotes = await _pacoteComPassagemProdutoRepositorio.PacoteComPassagemProduto;
+            return View(pacotes);
         }
     }
 }
