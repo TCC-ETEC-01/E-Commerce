@@ -55,8 +55,8 @@ body {
     gap: 0.75rem; /* Espaço horizontal entre os itens */
 }
 
-.nav-item {
-    margin-left: 0 !important; /* Remove o espaçamento gigante */
+.cargo {
+    margin-left:70px !important; /* Remove o espaçamento gigante */
 }
 
 .nav-link {
