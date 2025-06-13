@@ -83,10 +83,5 @@ namespace ProjetoEcommerce.Controllers
             TempData["MensagemErro"] = "Erro ao cadastrar venda";
             return View(venda);
         }
-
-        public async Task<IActionResult> BarraPesquisa()
-        {
-            return View();
-        }
     }
 }
