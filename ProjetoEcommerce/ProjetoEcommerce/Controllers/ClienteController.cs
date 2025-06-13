@@ -13,12 +13,23 @@ namespace ProjetoEcommerce.Controllers
         {
             _clienteRepositorio = clienteRepositorio;
         }
-
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nome)
         {
-            var clientes = await _clienteRepositorio.TodosClientes();
+            IEnumerable<tbCliente> clientes;
+
+            if (string.IsNullOrEmpty(nome))
+            {
+                clientes = await _clienteRepositorio.TodosClientes();
+            }
+            else
+            {
+                clientes = await _clienteRepositorio.BuscarCliente(nome);
+            }
+
+            ViewBag.Nome = nome;
             return View(clientes);
         }
+
 
         public IActionResult CadastrarCliente()
         {
@@ -83,11 +94,5 @@ namespace ProjetoEcommerce.Controllers
             TempData["MensagemSucesso"] = "Cliente excluído com sucesso";
             return RedirectToAction(nameof(Index));
         }
-
-        public async Task<IActionResult> BarraPesquisa()
-        {
-            return View();
-        }
-
     }
 }

@@ -153,33 +153,38 @@ namespace ProjetoEcommerce.Repositorios
         public async Task<List<tbCliente>> BuscarCliente(string nome)
         {
             var lista = new List<tbCliente>();
+
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 await conexao.OpenAsync();
-                string query = @"select * from tbCliente where(@Nome is null or Nome like @Nome)";
+
+                string query = @"SELECT * FROM tbCliente WHERE Nome LIKE @Nome";
 
                 using (var cmdPesquisar = new MySqlCommand(query, conexao))
                 {
-                    cmdPesquisar.Parameters.AddWithValue("@Nome", nome != null ? $"%{nome}%" : "indefinido");
-                    MySqlDataAdapter da = new MySqlDataAdapter(cmdPesquisar);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    conexao.Close();
-                    foreach (DataRow dr in dt.Rows)
+                    string termoBusca = string.IsNullOrEmpty(nome) ? "%" : $"%{nome}%";
+                    cmdPesquisar.Parameters.AddWithValue("@Nome", termoBusca);
+
+                    using (var reader = await cmdPesquisar.ExecuteReaderAsync())
                     {
-                        lista.Add(new tbCliente
+                        while (await reader.ReadAsync())
                         {
-                            IdCliente = Convert.ToInt32(dr["IdCliente"]),
-                            Nome = ((string)dr["Nome"]),
-                            Email = ((string)dr["Email"]),
-                            Sexo = ((string)dr["Sexo"]),
-                            Telefone = ((string)dr["Telefone"]),
-                            Cpf = ((string)dr["Cpf"])
-                        });
+                            lista.Add(new tbCliente
+                            {
+                                IdCliente = Convert.ToInt32(reader["IdCliente"]),
+                                Nome = reader["Nome"].ToString(),
+                                Email = reader["Email"].ToString(),
+                                Sexo = reader["Sexo"].ToString(),
+                                Telefone = reader["Telefone"].ToString(),
+                                Cpf = reader["Cpf"].ToString()
+                            });
+                        }
                     }
+
                     return lista;
                 }
             }
         }
+
     }
 }
