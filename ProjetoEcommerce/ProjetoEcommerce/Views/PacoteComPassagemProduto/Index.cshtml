@@ -15,12 +15,24 @@
                 <table class="table table-hover table-striped">
                     <thead class="table-primary">
                         <tr>
-                            <th width="8%">Informações</th>
-                            <th>Nome Produto</th>
-                            <th>Nome Pacote</th>
-                            <th>Quantidade</th>
-                            <th>Assento</th>
-                            <th>Situação</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdPacote)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NomeProduto)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NomePacote)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Quantidade)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Assento)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Situacao)
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,9 +40,6 @@
                         {
                             <tr>
                                 <td>@Html.DisplayFor(modelItem => item.IdPacote)</td>
-                                <td>
-                                    <strong>@Html.DisplayFor(modelItem => item.IdPacote)</strong>
-                                </td>
                                 <td class="text-truncate" style="max-width: 300px;" title="@item.NomeProduto">
                                     @item.NomeProduto
                                 </td>
@@ -47,7 +56,12 @@
                                     @item.Situacao
                                 </td>
                                 <td class="text-center">
-                                    <div class="btn-group btn-group-sm" role="group">
+                                    <div class="btn-group btn-group-sm " role="group">
+                                        <a asp-controller="Produto" asp-action="EditarProduto" asp-route-id="@item.IdPacote"
+                                           class="btn btn-outline-primary  rounded-3  me-3" title="Editar">
+                                            <i class="bi bi-pencil-square "></i>
+                                        </a>
+                                        <span> </span>
                                         <a asp-controller="Dashboard" asp-action="Index" asp-route-id="@item.IdPacote"
                                            class="btn btn-outline-primary rounded-3" title="Voltar">
                                             <i class="bi bi-trash"></i>
