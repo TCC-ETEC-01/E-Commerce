@@ -33,31 +33,64 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Situacao)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Translado)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CodigoTransporte)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Valor)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Companhia)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TipoTransporte)
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@Html.DisplayFor(modelItem => item.IdPacote)</td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.NomeProduto">
-                                    @item.NomeProduto
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    @Html.DisplayFor(modelitem => item.IdPacote)
                                 </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.NomePacote">
-                                    @item.NomePacote
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    @Html.DisplayFor(modelitem => item.NomeProduto)
                                 </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Quantidade">
-                                    @item.Quantidade
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    @Html.DisplayFor(modelitem => item.NomePacote)
                                 </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Assento">
-                                    @item.Assento
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    @Html.DisplayFor(modelitem => item.Quantidade)
                                 </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Situacao">
-                                    @item.Situacao
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    @Html.DisplayFor(modelitem => item.Assento)
                                 </td>
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    @Html.DisplayFor(modelitem => item.Situacao)
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    @Html.DisplayFor(modelitem => item.Translado)
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    @Html.DisplayFor(modelitem => item.CodigoTransporte)
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;">
+                                   R$ @Html.DisplayFor(modelitem =>  item.Valor)
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    @Html.DisplayFor(modelitem => item.Companhia)
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;">
+                                    @Html.DisplayFor(modelitem => item.TipoTransporte)
+                                </td>
+
                                 <td class="text-center">
                                     <div class="btn-group btn-group-sm " role="group">
-                                        <a asp-controller="Produto" asp-action="EditarProduto" asp-route-id="@item.IdPacote"
+                                        <a asp-controller="Pacote" asp-action="EditarPacote" asp-route-id="@item.IdPacote"
                                            class="btn btn-outline-primary  rounded-3  me-3" title="Editar">
                                             <i class="bi bi-pencil-square "></i>
                                         </a>

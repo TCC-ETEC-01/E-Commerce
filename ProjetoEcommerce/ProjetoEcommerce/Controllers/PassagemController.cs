@@ -2,6 +2,7 @@
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
 using System.Threading.Tasks;
+using ProjetoEcommerce.Controllers;
 
 namespace ProjetoEcommerce.Controllers
 {
