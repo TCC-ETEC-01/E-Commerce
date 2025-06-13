@@ -1,0 +1,45 @@
+﻿.search-box {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    background: black;
+    height: 30px;
+    padding: 10px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-txt {
+    border: none;
+    background: none;
+    outline: none;
+    padding: 0;
+    color: aliceblue;
+    font-size: 16px;
+    line-height: 40px;
+    width: 0;
+    transition: .6s;
+}
+
+.search-btn {
+    width: 40px;
+    height: 40px;
+    border: 50%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .5s;
+}
+
+.search-box:hover > .search-txt {
+    width: 240px;
+    padding: 0 6px;
+}
+
+.search-box:hover > .search-btn {
+    background: rgb(255, 255, 255);
+    border-radius: 50%;
+}
