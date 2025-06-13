@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using ProjetoEcommerce.Models;
 using System.Configuration;
+using System.Data;
 
 namespace ProjetoEcommerce.Repositorios
 {
@@ -8,18 +9,18 @@ namespace ProjetoEcommerce.Repositorios
     {
         private readonly string _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
 
-        public async Task<IEnumerable<tbPassagemComViagem>> PassagemComViagem()
+        public async Task<IEnumerable<tbClienteComPassagem>> ClienteComPassagens()
         {
-            var lista = new List<tbPassagemComViagem>();
+            var lista = new List<tbClienteComPassagem>();
 
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 await conexao.OpenAsync();
 
-                string query = @"select c.IdCliente, c.Nome as Nome, c.Email,
-	                             p.IdPassagem, p.Assento, p.Valor, p.Situacao
-	                             from tbPassagem p
-	                             inner join tbCliente c on p.IdCliente = c.IdCliente;";
+                string query = @"select c.IdCliente, c.Nome as Nome, c.Email, c.Cpf, c.Telefone,
+	                            p.IdPassagem, p.Assento, p.Valor, p.Situacao, p.DataCompra, p.IdViagem, P.Translado
+	                            from tbPassagem p
+	                            inner join tbCliente c on p.IdCliente = c.IdCliente;";
 
                 using (MySqlCommand join = new MySqlCommand(query, conexao))
                 {
@@ -27,18 +28,20 @@ namespace ProjetoEcommerce.Repositorios
                     {
                         while (await drPassagemComViagem.ReadAsync())
                         {
-                            lista.Add(new tbPassagemComViagem
+                            lista.Add(new tbClienteComPassagem
                             {
                                 IdPassagem = drPassagemComViagem.GetInt32("IdPassagem"),
-                                Origem = drPassagemComViagem.GetString("Origem"),
-                                Destino = drPassagemComViagem.GetString("Destino"),
-                                Descricao = drPassagemComViagem.GetString("Descricao"),
-                                DataPartida = drPassagemComViagem.GetDateTime("Partida"),
-                                DataRetorno = drPassagemComViagem.GetDateTime("Retorno"),
-                                TipoTransporte = drPassagemComViagem.GetString("Transporte"),
-                                CodigoTransporte = drPassagemComViagem.GetString("Cod_Transporte"),
-                                Companhia = drPassagemComViagem.GetString("Companhia"),
-                                Valor = drPassagemComViagem.GetDecimal("Valor")
+                                Assento = drPassagemComViagem.GetString("Assento"),
+                                Valor = drPassagemComViagem.GetDecimal("Valor"),
+                                Situacao = drPassagemComViagem.GetString("Situacao"),
+                                DataCompra = drPassagemComViagem.GetDateTime("DataCompra"),
+                                IdViagem = drPassagemComViagem.GetInt32("IdViagem"),
+                                Translado = drPassagemComViagem.GetString("Translado"),
+                                Nome = drPassagemComViagem.GetString("Nome"),
+                                Email = drPassagemComViagem.GetString("Email"),
+                                Cpf = drPassagemComViagem.GetString("Cpf"),
+                                Telefone = drPassagemComViagem.GetString("Telefone")
+
                             });
                         }
                     }
