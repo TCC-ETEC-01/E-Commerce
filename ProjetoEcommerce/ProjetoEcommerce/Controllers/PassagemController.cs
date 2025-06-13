@@ -3,6 +3,7 @@ using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
 using System.Threading.Tasks;
 using ProjetoEcommerce.Controllers;
+using System;
 
 namespace ProjetoEcommerce.Controllers
 {
@@ -70,7 +71,7 @@ namespace ProjetoEcommerce.Controllers
         {
             await _passagemRepositorio.ExcluirPassagemAsync(id);
             TempData["MensagemSucesso"] = "Passagem excluída com Sucesso";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "PassagemComViagem");
         }
 
         public IActionResult ComprarPassagem(int id)
