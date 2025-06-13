@@ -129,6 +129,7 @@ namespace ProjetoEcommerce.Repositorios
                         IdCliente = Convert.ToInt32(dr["IdCliente"]),
                         Nome = ((string)dr["Nome"]),
                         Email = ((string)dr["Email"]),
+                        Sexo = ((string)dr["Sexo"]),
                         Telefone = ((string)dr["Telefone"]),
                         Cpf = ((string)dr["Cpf"])
                     });
@@ -146,6 +147,38 @@ namespace ProjetoEcommerce.Repositorios
                 cmd.Parameters.AddWithValue("IdCliente", id);
                 await cmd.ExecuteNonQueryAsync();
                 await conexao.CloseAsync();
+            }
+        }
+
+        public async Task<List<tbCliente>> BuscarCliente(string nome)
+        {
+            var lista = new List<tbCliente>();
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                await conexao.OpenAsync();
+                string query = @"select * from tbCliente where(@Nome is null or Nome like @Nome)";
+
+                using (var cmdPesquisar = new MySqlCommand(query, conexao))
+                {
+                    cmdPesquisar.Parameters.AddWithValue("@Nome", nome != null ? $"%{nome}%" : "indefinido");
+                    MySqlDataAdapter da = new MySqlDataAdapter(cmdPesquisar);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    conexao.Close();
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        lista.Add(new tbCliente
+                        {
+                            IdCliente = Convert.ToInt32(dr["IdCliente"]),
+                            Nome = ((string)dr["Nome"]),
+                            Email = ((string)dr["Email"]),
+                            Sexo = ((string)dr["Sexo"]),
+                            Telefone = ((string)dr["Telefone"]),
+                            Cpf = ((string)dr["Cpf"])
+                        });
+                    }
+                    return lista;
+                }
             }
         }
     }
