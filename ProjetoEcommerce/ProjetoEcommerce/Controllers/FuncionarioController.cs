@@ -111,5 +111,10 @@ namespace ProjetoEcommerce.Controllers
             await _funcionarioRepositorio.ExcluirFuncionario(Id);
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> BarraPesquisa()
+        {
+            return View();
+        }
     }
 }

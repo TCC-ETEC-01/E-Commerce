@@ -16,5 +16,9 @@ namespace ProjetoEcommerce.Controllers
             var pacotes = await _pacoteComPassagemProdutoRepositorio.PacoteComPassagemProduto();
             return View(pacotes);
         }
+        public async Task<IActionResult> BarraPesquisa()
+        {
+            return View();
+        }
     }
 }

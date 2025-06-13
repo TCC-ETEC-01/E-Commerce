@@ -17,5 +17,10 @@ namespace ProjetoEcommerce.Controllers
             var passagensComViagem = await _passagemComViagemRepositorio.PassagemComViagem();
             return View(passagensComViagem);
         }
+
+        public async Task<IActionResult> BarraPesquisa()
+        {
+            return View();
+        }
     }
 }

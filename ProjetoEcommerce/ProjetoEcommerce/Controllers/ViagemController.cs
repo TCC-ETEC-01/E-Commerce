@@ -100,5 +100,10 @@ namespace ProjetoEcommerce.Controllers
             await _viagemRepositorio.ExcluirViagem(Id);
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> BarraPesquisa()
+        {
+            return View();
+        }
     }
 }

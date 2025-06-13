@@ -83,5 +83,10 @@ namespace ProjetoEcommerce.Controllers
             TempData["MensagemSucesso"] = "Cliente excluído com sucesso";
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> BarraPesquisa()
+        {
+            return View();
+        }
     }
 }
