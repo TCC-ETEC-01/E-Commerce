@@ -158,7 +158,7 @@ namespace ProjetoEcommerce.Repositorios
             {
                 await conexao.OpenAsync();
 
-                string query = @"SELECT * FROM tbCliente WHERE Nome LIKE @Nome";
+                string query = @"select * from tbCliente where Nome like @Nome";
 
                 using (var cmdPesquisar = new MySqlCommand(query, conexao))
                 {
