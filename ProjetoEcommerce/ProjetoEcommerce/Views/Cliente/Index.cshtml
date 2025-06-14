@@ -3,10 +3,23 @@
 <link href="~/css/clienteindex.css" rel="stylesheet" />
 
 <nav class="nav">
-    <div class="container">
-        <div class="text-star">
+    <div class="container row ">
+        <div class="text-star col">
             <h1 class="text-primary">Anu Viagens</h1>
             <p class="text-nav fs-6">Acompanhe todos os seus registros em um único lugar.</p>
+            <div class="d-flex 	justify-content-start  p-2 pb-1">
+                <div class="search-box">
+                    <input type="text" id="inputPesquisa" class="search-txt text-white" placeholder="Pesquisar...">
+                    <a href="#" class="search-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="btn-nav col d-flex justify-content-end align-items-start pt-3">
             <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-primary">
                 <i class="bi bi-arrow-left-circle"></i> Voltar
             </a>
@@ -16,14 +29,7 @@
 <section>
     <div class="card">
         <div class="card-body">
-            <div class="search-box">
-                <input type="text" class="search-txt" placeholder="Pesquisar...">
-                <a href="#" class="search-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                    </svg>
-                </a>
-            </div>
+
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
                     <thead class="table-primary">
@@ -36,7 +42,7 @@
                             <th>Cpf</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tbodyClientes">
                         @foreach (var item in Model)
                         {
                             <tr>
@@ -78,3 +84,65 @@
         </div>
     </div>
 </section>
+<?php
+    echo "
+<link rel='stylesheet' type='text/css' href='listar.css' />";
+       include 'conexao.php';
+    $nome=$_POST['txtpesq'];
+    $pesq=$cmd->query("select * from TbProjeto Where NomeP Like '$nome%'");
+    $total_registros =$pesq->rowCount();
+
+
+
+    if ($total_registros > 0)
+    {
+        echo "
+<table>
+    ";
+    echo "
+    <tr>
+        <th colspan=5>
+            Dados Cadastrados
+        </th>
+    </tr>";
+    echo "
+    <tr>
+        <th>Código</th>
+        <th>Nome</th>
+        <th>E-mail</th>
+        <th>Senha</th>
+        <th>Sexo</th>
+    </tr>";
+
+    while($linha=$pesq->fetch(PDO::FETCH_ASSOC))
+    {
+    $vcodi=$linha['CodiP'];
+    $vnome=$linha['NomeP'];
+    $vemai=$linha['Emailp'];
+    $vsenh=$linha['SenhaP'];
+    $vsexo=$linha['SexoP'];
+    echo "
+    <tr>
+        <td>$vcodi</td>
+        <td>$vnome</td>
+        <td>$vemai</td>
+        <td>$vsenh</td>
+        <td>$vsexo</td>
+    </tr>";
+    }
+    echo "
+</table>";
+        echo "
+<br />
+<br />";
+        echo "<center>
+    ";
+    echo "<a href='pesq.html'>&nbsp;Nova Pesquisa&nbsp;</a>";/*ou window.history.back()*/
+    echo "
+</center>";
+    }
+    else
+    {
+        echo "<script language=javascript> window.alert('Não existem registros para exibir!!!'); location.href=index.html; </script>";
+    }
+?>
