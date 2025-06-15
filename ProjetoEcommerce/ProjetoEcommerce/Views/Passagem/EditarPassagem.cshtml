@@ -1,56 +1,48 @@
-﻿@model ProjetoEcommerce.Models.tbPassagem;
+﻿@model ProjetoEcommerce.Models.tbPassagem
 
-<form asp-action="EditarPassagem">
-    <h1>
-        Editar Passagens
-    </h1>
+<!--Editar Passagem-->
+<link href="~/css/editarpassagem.css" rel="stylesheet" />
 
+<h2 class="tituloEditar pt-5 p-5 pb-2">Editar Passagem</h2>
+
+<form asp-action="EditarPassagem" method="post" class="FormTudo container pt-4">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <input type="hidden" asp-for="IdPassagem" class="form-control" />
+        <span asp-validation-for="IdPassagem" class="text-danger"></span>
+    </div>
+
     <div class="row cadastro-row">
-        <div class="form-group">
-            <input type="hidden" asp-for="IdPassagem" class="form-control" />
-            <span asp-validation-for="IdPassagem" class="text-danger"></span>
-        </div>
-        <div class="col  form-group">
+        <div class="form-group pt-3">
             <label asp-for="IdViagem" class="control-label"></label>
             <input asp-for="IdViagem" class="form-control cadastro-input" />
             <span asp-validation-for="IdViagem" class="text-danger"></span>
         </div>
-        <div class="col  form-group">
+
+        <div class="form-group pt-3">
             <label asp-for="IdTransporte" class="control-label"></label>
             <input asp-for="IdTransporte" class="form-control cadastro-input" />
             <span asp-validation-for="IdTransporte" class="text-danger"></span>
         </div>
-        <div class="col form-group">
+
+        <div class="form-group pt-3">
             <label asp-for="Valor" class="control-label"></label>
             <input asp-for="Valor" class="form-control cadastro-input" />
             <span asp-validation-for="Valor" class="text-danger"></span>
         </div>
 
-        <div class="col form-group">
+        <div class="form-group pt-3">
             <label asp-for="Assento" class="control-label"></label>
             <input asp-for="Assento" class="form-control cadastro-input" />
             <span asp-validation-for="Assento" class="text-danger"></span>
         </div>
 
-        <div class="col form-group">
+        <div class="form-group pt-3">
             <label asp-for="Situacao" class="control-label"></label>
             <input asp-for="Situacao" class="form-control cadastro-input" />
             <span asp-validation-for="Situacao" class="text-danger"></span>
         </div>
 
-
-        <div class="checkbox-disponivel">
-            <h3>
-                Disponivel:
-            </h3>
-            <input type="checkbox" name="disponivel" value="disponivel" />
-        </div>
-        <div class=" btn form-group justify-content-center align-items-center  d-flex ">
-            <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Alterar</button>
-        </div>
-        <div class="btn form-group justify-content-center align-items-center  d-flex ">
-            <button type="reset" class="btn btn-danger text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Cancelar</button>
-        </div>
-    </div>
-</form>
+        <div class="btn form-group justify-content-center align-items-center d-flex pt-4">
+            <button type="submit" class="btn ps-5 pe-5 fs-5

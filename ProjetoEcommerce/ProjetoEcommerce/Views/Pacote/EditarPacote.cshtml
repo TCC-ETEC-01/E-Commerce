@@ -1,51 +1,51 @@
-
 @model ProjetoEcommerce.Models.tbPacote
 
-<body>
-    <h1> Editar Pacote</h1>
+<!--Editar Pacote-->
+<link href="~/css/editarpacote.css" rel="stylesheet" />
 
-    <form asp-action="EditarPacote">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <input type="hidden" asp-for="IdPacote" class="form-control" />
-            <span asp-validation-for="IdPacote" class="text-danger"></span>
-        </div>
-        <div class="container-cadastro w-100 h-100">
-            <div class="row cadastro-row">
-                <div class="col  form-group">
-                    <label asp-for="IdPassagem" class="control-label"></label>
-                    <input asp-for="IdPassagem" class="form-control cadastro-input" />
-                    <span asp-validation-for="IdPassagem" class="text-danger"></span>
-                </div>
-                <div class="col  form-group">
-                    <label asp-for="IdProduto" class="control-label"></label>
-                    <input asp-for="IdProduto" class="form-control cadastro-input" />
-                    <span asp-validation-for="IdProduto" class="text-danger"></span>
-                </div>
-                <div class="col  form-group">
-                    <label asp-for="NomePacote" class="control-label"></label>
-                    <input asp-for="NomePacote" class="form-control cadastro-input" />
-                    <span asp-validation-for="NomePacote" class="text-danger"></span>
-                </div>
-                <div class="col form-group">
-                    <label asp-for="Descricao" class="control-label"></label>
-                    <input asp-for="Descricao" class="form-control cadastro-input" />
-                    <span asp-validation-for="Descricao" class="text-danger"></span>
-                </div>
+<h2 class="tituloEditar pt-5 p-5 pb-2">Editar Pacote</h2>
 
-                <div class="col row-cols-2 w-100 form-group">
-                    <label asp-for="Valor" class="control-label"></label>
-                    <input asp-for="Valor" class="form-control cadastro-input" />
-                    <span asp-validation-for="Valor" class="text-danger"></span>
-                </div>
-            </div>
-            <div class=" btn form-group justify-content-center align-items-center  d-flex ">
-                <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Alterar</button>
-            </div>
-            <div class="btn form-group justify-content-center align-items-center  d-flex ">
-                <button type="reset" class="btn btn-danger text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Cancelar</button>
-            </div>
-            </div>
+<form asp-action="EditarPacote" method="post" class="FormTudo container pt-4">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <input type="hidden" asp-for="IdPacote" class="form-control" />
+        <span asp-validation-for="IdPacote" class="text-danger"></span>
+    </div>
+
+    <div class="row cadastro-row">
+        <div class="form-group pt-3">
+            <label asp-for="IdPassagem" class="control-label"></label>
+            <input asp-for="IdPassagem" class="form-control cadastro-input" />
+            <span asp-validation-for="IdPassagem" class="text-danger"></span>
         </div>
-    </form>
-</body>
+
+        <div class="form-group pt-3">
+            <label asp-for="IdProduto" class="control-label"></label>
+            <input asp-for="IdProduto" class="form-control cadastro-input" />
+            <span asp-validation-for="IdProduto" class="text-danger"></span>
+        </div>
+
+        <div class="form-group pt-3">
+            <label asp-for="NomePacote" class="control-label"></label>
+            <input asp-for="NomePacote" class="form-control cadastro-input" />
+            <span asp-validation-for="NomePacote" class="text-danger"></span>
+        </div>
+
+        <div class="form-group pt-3">
+            <label asp-for="Descricao" class="control-label"></label>
+            <input asp-for="Descricao" class="form-control cadastro-input" />
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+
+        <div class="form-group pt-3">
+            <label asp-for="Valor" class="control-label"></label>
+            <input asp-for="Valor" class="form-control cadastro-input" />
+            <span asp-validation-for="Valor" class="text-danger"></span>
+        </div>
+
+        <div class="btn form-group justify-content-center align-items-center d-flex pt-4">
+            <button type="submit" class="btn ps-5 pe-5 fs-5 justify-content-center p-2">Alterar</button>
+        </div>
+
+        <div class="btn form-group justify-content-center align-items-
