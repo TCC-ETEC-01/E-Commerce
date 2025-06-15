@@ -4,9 +4,10 @@
 <form asp-action="EditarTranporte">
     <h2 class="tituloEditar pt-5 p-5 pb-2">Editar Tranporte</h2>
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-    <input type="hidden" asp-for="IdTransporte" />
-
+    <div class="form-group">
+        <input type="hidden" asp-for="IdTransporte" class="form-control" />
+        <span asp-validation-for="IdTransporte" class="text-danger"></span>
+    </div>
     <div class="row cadastro-row">
         <div class="col form-group">
             <label asp-for="CodigoTransporte" class="control-label"></label>
