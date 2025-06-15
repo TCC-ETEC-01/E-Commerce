@@ -27,7 +27,7 @@ namespace ProjetoEcommerce.Controllers
             if (await _passagemRepositorio.CadastrarPassagem(passagem))
             {
                 TempData["MensagemSucesso"] = "Passagem cadastrada com Sucesso";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "PassagemComViagem");
             }
             TempData["MensagemErro"] = "Erro ao cadastrar passagem";
             return View(passagem);
@@ -58,7 +58,7 @@ namespace ProjetoEcommerce.Controllers
                 if (await _passagemRepositorio.AtualizarPassagem(passagem))
                 {
                     TempData["MensagemSucesso"] = "Passagem atualizada com Sucesso";
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction("Index", "PassagemComViagem");
                 }
                 TempData["MensagemErro"] = "Erro ao atualizar passagem";
                 return View(passagem);
@@ -79,7 +79,7 @@ namespace ProjetoEcommerce.Controllers
             if ( await _passagemRepositorio.VendaPassagem(venda))
             {
                 TempData["MensagemSucesso"] = "Venda cadastrada com sucesso";
-                return RedirectToAction("PassagemComViagem", "Index");
+                return RedirectToAction("Index", "PassagemComViagem");
 
             }
             TempData["MensagemErro"] = "Erro ao cadastrar venda";
