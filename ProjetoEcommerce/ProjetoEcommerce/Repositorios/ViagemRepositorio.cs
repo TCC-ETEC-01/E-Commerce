@@ -127,5 +127,36 @@ namespace ProjetoEcommerce.Repositorios
             }
             return viagem;
         }
+        public async Task<IEnumerable<tbViagem>> BuscarViagens(string termo)
+        {
+            var lista = new List<tbViagem>();
+
+            using var conexao = new MySqlConnection(_conexaoMySQL);
+            await conexao.OpenAsync();
+
+            string query = @"select * from tbViagem 
+                     where Descricao like @termo or Destino like @termo";
+
+            using var cmd = new MySqlCommand(query, conexao);
+            string busca = string.IsNullOrEmpty(termo) ? "%" : $"%{termo}%";
+            cmd.Parameters.AddWithValue("@termo", busca);
+
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                lista.Add(new tbViagem
+                {
+                    IdViagem = reader.GetInt32("IdViagem"),
+                    DataRetorno = reader.GetDateTime("DataRetorno"),
+                    Descricao = reader.GetString("Descricao"),
+                    Origem = reader.GetString("Origem"),
+                    Destino = reader.GetString("Destino"),
+                    DataPartida = reader.GetDateTime("DataPartida")
+                });
+            }
+
+            return lista;
+        }
     }
 }
