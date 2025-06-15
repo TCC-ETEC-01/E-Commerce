@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ProjetoEcommerce.Controllers
@@ -7,20 +9,27 @@ namespace ProjetoEcommerce.Controllers
     public class PassagemComViagemController : Controller
     {
         private readonly PassagemComViagemRepositorio _passagemComViagemRepositorio;
+
         public PassagemComViagemController(PassagemComViagemRepositorio passagemComViagemRepositorio)
         {
             _passagemComViagemRepositorio = passagemComViagemRepositorio;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string destino)
         {
-            var passagensComViagem = await _passagemComViagemRepositorio.PassagemComViagem();
-            return View(passagensComViagem);
-        }
+            IEnumerable<tbPassagemComViagem> passagens;
 
-        public async Task<IActionResult> BarraPesquisa()
-        {
-            return View();
+            if (string.IsNullOrEmpty(destino))
+            {
+                passagens = await _passagemComViagemRepositorio.PassagemComViagem();
+            }
+            else
+            {
+                passagens = await _passagemComViagemRepositorio.BuscarPassagem(destino);
+            }
+
+            ViewBag.Destino = destino;
+            return View(passagens);
         }
     }
 }
