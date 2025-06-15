@@ -37,17 +37,17 @@ namespace ProjetoEcommerce.Repositorios
             await conexao.OpenAsync();
 
             MySqlCommand cmd = new MySqlCommand(
-                "update tbProduto set NomeProduto=@nomeProduto, Valor=@valor, Descricao=@descricao, Quantidade=@quantidade where IdProduto=@idProduto",
-                conexao);
+                "UPDATE tbProduto SET NomeProduto=@nomeProduto, Valor=@valor, Descricao=@descricao, Quantidade=@quantidade " +
+                "WHERE IdProduto=@idProduto", conexao);
+
             cmd.Parameters.AddWithValue("@nomeProduto", produto.NomeProduto);
             cmd.Parameters.AddWithValue("@valor", produto.Valor);
             cmd.Parameters.AddWithValue("@descricao", produto.Descricao);
             cmd.Parameters.AddWithValue("@quantidade", produto.Quantidade);
             cmd.Parameters.AddWithValue("@idProduto", produto.IdProduto);
 
-            int linhasAfetadas = await cmd.ExecuteNonQueryAsync();
-
-            return linhasAfetadas > 0;
+            await cmd.ExecuteNonQueryAsync();
+            return true;
         }
 
         public async Task<IEnumerable<tbProduto>> TodosProdutos()

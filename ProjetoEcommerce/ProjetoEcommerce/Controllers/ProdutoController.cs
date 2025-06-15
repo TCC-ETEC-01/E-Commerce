@@ -63,19 +63,27 @@ namespace ProjetoEcommerce.Controllers
         public async Task<IActionResult> EditarProduto(int id, [Bind("IdProduto,Valor,NomeProduto,Descricao,Quantidade")] tbProduto produto)
         {
             ModelState.Clear();
-            if (id != produto.IdProduto)
+            try
             {
-                return BadRequest();
-            }
-            if (ModelState.IsValid)
-            {
-                if (await _produtoRepositorio.AtualizarProduto(produto))
+                if (id != produto.IdProduto)
                 {
-                    TempData["MensagemSucesso"] = "Produto cadastrado com Sucesso";
-                    return RedirectToAction(nameof(Index));
+                    return BadRequest();
                 }
             }
-
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Ocorreu um erro ao Editar.");
+                return View(produto);
+            }
+            if (ModelState.IsValid)
+                {
+                    if (await _produtoRepositorio.AtualizarProduto(produto))
+                    {
+                        TempData["MensagemSucesso"] = "Produto cadastrado com Sucesso";
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
+            
             TempData["MensagemErro"] = "Erro ao atualizar produto";
             return View(produto);
         }

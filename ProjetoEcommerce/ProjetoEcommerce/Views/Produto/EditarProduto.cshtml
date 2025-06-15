@@ -4,8 +4,12 @@
 
 <h2 class="tituloEditar pt-5 p-5 pb-2">Editar Produto</h2>
 
-<form asp-action="EditarProduto" class="FormTudo container  pt-4">
+<form asp-action="EditarProduto" method="post" class="FormTudo container  pt-4">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input type="hidden" asp-for="IdProduto" class="form-control" />
+        <span asp-validation-for="IdProduto" class="text-danger"></span>
+    </div>
     <div class="row cadastro-row">
         <div class="form-group pt-3">
             <label asp-for="NomeProduto" class="control-label"></label>
@@ -28,13 +32,7 @@
             <label asp-for="Quantidade" class="control-label"></label>
             <input asp-for="Quantidade" class="form-control cadastro-input" />
             <span asp-validation-for="Quantidade" class="text-danger"></span>
-        </div>
-        <div class="checkbox-disponivel">
-            <h3>
-                Disponivel:
-            </h3>
-            <input type="checkbox" name="disponivel" value="disponivel" />
-        </div>
+        </div> 
         <div class=" btn form-group justify-content-center align-items-center  d-flex ">
             <button type="submit" class="btn text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Alterar</button>
         </div>
