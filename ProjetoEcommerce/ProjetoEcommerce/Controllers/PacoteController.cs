@@ -25,7 +25,7 @@ namespace ProjetoEcommerce.Controllers
             if (await _PacoteRepositorio.CadastrarPacote(pacote))
             {
                 TempData["MensagemSucesso"] = "Pacote cadastrado com Sucesso";
-                return RedirectToAction("Index", "PacoteComPassagem");
+                return RedirectToAction("Index", "PacoteComPassagemProduto");
             }
 
             TempData["MensagemErro"] = "Erro ao cadastrar pacote";
@@ -59,7 +59,7 @@ namespace ProjetoEcommerce.Controllers
             {
                 await _PacoteRepositorio.AtualizarPacote(pacote);
                 TempData["MensagemSucesso"] = "Pacote atualizado com Sucesso";
-                return RedirectToAction("Index", "PacoteComPassagem");
+                return RedirectToAction("Index", "PacoteComPassagemProduto");
             }
 
             TempData["MensagemErro"] = "Erro ao atualizar pacote";
@@ -70,7 +70,7 @@ namespace ProjetoEcommerce.Controllers
         {
             await _PacoteRepositorio.ExcluirPacote(id);
             TempData["MensagemSucesso"] = "Pacote excluído com sucesso";
-            return RedirectToAction("Index", "PacoteComPassagem");
+            return RedirectToAction("Index", "PacoteComPassagemProduto");
         }
     }
 }
