@@ -101,12 +101,12 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group btn-group-sm " role="group">
-                                        <a asp-controller="Produto" asp-action="EditarProduto" asp-route-id="@item.IdPassagem"
+                                        <a asp-controller="Passagem" asp-action="EditarPassagem" asp-route-id="@item.IdPassagem"
                                            class="btn btn-outline-primary  rounded-3  me-3" title="Editar">
                                             <i class="bi bi-pencil-square "></i>
                                         </a>
                                         <span> </span>
-                                        <a asp-controller="Passagem" onclick="return confirm('Deseja realmente excluir esse Produto ?');" asp-action="ExcluirPassagem" asp-route-id="@item.IdPassagem"
+                                        <a asp-controller="Passagem" onclick="return confirm('Deseja realmente excluir essa passagem? ?');" asp-action="ExcluirPassagem" asp-route-id="@item.IdPassagem"
                                            class="btn btn-outline-primary rounded-3" title="Voltar">
                                             <i class="bi bi-trash"></i>
                                         </a>

@@ -8,58 +8,36 @@
         </div>
     </div>
 </nav>
-                 </thead>
+
+<section>
+    <form method="get" asp-action="Index" asp-controller="PacoteComPassagemProduto" class="d-flex mb-3">
+        <input type="text" name="nomePacote" class="form-control me-2"
+               placeholder="🔍 Pesquisar pacote..." value="@ViewBag.Nome" />
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome Produto</th>
+                            <th>Nome Pacote</th>
+                            <th>Assento</th>
+                            <th>Situação</th>
+                            <th>Transporte</th>
+                            <th>Companhia</th>
+                            <th>Código</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-
-                                <td class="text-truncate" style="max-width: 300px;">
-                                    @Html.DisplayFor(modelitem => item.IdPacote)
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;">
-                                    @Html.DisplayFor(modelitem => item.NomeProduto)
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;">
-                                    @Html.DisplayFor(modelitem => item.NomePacote)
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;">
-                                    @Html.DisplayFor(modelitem => item.Quantidade)
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;">
-                                    @Html.DisplayFor(modelitem => item.Assento)
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;">
-                                    @Html.DisplayFor(modelitem => item.Situacao)
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;">
-                                    @Html.DisplayFor(modelitem => item.Translado)
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;">
-                                    @Html.DisplayFor(modelitem => item.CodigoTransporte)
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;">
-                                   R$ @Html.DisplayFor(modelitem =>  item.Valor)
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;">
-                                    @Html.DisplayFor(modelitem => item.Companhia)
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;">
-                                    @Html.DisplayFor(modelitem => item.TipoTransporte)
-                                </td>
-
-                                <td class="text-center">
-                                    <div class="btn-group btn-group-sm " role="group">
-                                        <a asp-controller="Pacote" asp-action="EditarPacote" asp-route-id="@item.IdPacote"
-                                           class="btn btn-outline-primary  rounded-3  me-3" title="Editar">
-                                            <i class="bi bi-pencil-square "></i>
-                                        </a>
-                                        <span> </span>
-                                        <a asp-controller="Dashboard" asp-action="Index" onclick="return confirm('Deseja realmente excluir esse Produto ?');" asp-route-id="@item.IdPacote"
-                                           class="btn btn-outline-primary rounded-3" title="Voltar">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
-                                    </div>
                                 <td>@item.IdPacote</td>
                                 <td>@item.NomeProduto</td>
                                 <td>@item.NomePacote</td>
@@ -70,7 +48,7 @@
                                 <td>@item.CodigoTransporte</td>
                                 <td>@item.Valor.ToString("C")</td>
                                 <td class="text-center">
-                                    <a asp-controller="Pacote" asp-action="ExcluirPacote" asp-route-id="@item.IdPacote"
+                                    <a asp-controller="PacoteComPassagemProduto" asp-action="ExcluirPacote" asp-route-id="@item.IdPacote"
                                        class="btn btn-outline-danger rounded-3" title="Excluir">
                                         <i class="bi bi-trash"></i>
                                     </a>
