@@ -14,10 +14,21 @@ namespace ProjetoEcommerce.Controllers
             _transporteRepositorio = transporteRepositorio;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string termo)
         {
-            var lista = await _transporteRepositorio.ListarTransportes();
-            return View(lista);
+            List<tbTransporte> transportes;
+
+            if (string.IsNullOrEmpty(termo))
+            {
+                transportes = await _transporteRepositorio.ListarTransportes();
+            }
+            else
+            {
+                transportes = await _transporteRepositorio.BuscarTransporte(termo);
+            }
+
+            ViewBag.Termo = termo;
+            return View(transportes);
         }
 
         public IActionResult CadastrarTransporte()
@@ -78,13 +89,15 @@ namespace ProjetoEcommerce.Controllers
             if (await _transporteRepositorio.ExcluirTransporte(id))
             {
                 TempData["MensagemSucesso"] = "Transporte excluído com sucesso!";
+                return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                TempData["MensagemErro"] = "Erro ao excluir transporte.";
-            }
+            TempData["MensagemErro"] = "Erro ao excluir transporte.";
+            return View();
+        }
 
-            return RedirectToAction(nameof(Index));
+        public async Task<IActionResult> BarraPesquisa()
+        {
+            return View();
         }
     }
 }

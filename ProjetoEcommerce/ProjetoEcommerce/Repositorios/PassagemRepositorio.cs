@@ -14,7 +14,7 @@ namespace ProjetoEcommerce.Repositorios
             _conexaoMySQL = configuration.GetConnectionString("conexaoMySQL");
         }
 
-        public async Task<bool> CadastrarPassagemAsync(tbPassagem passagem)
+        public async Task<bool> CadastrarPassagem(tbPassagem passagem)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -62,7 +62,7 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
-        public async Task<bool> AtualizarPassagemAsync(tbPassagem passagem)
+        public async Task<bool> AtualizarPassagem(tbPassagem passagem)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -85,7 +85,7 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
-        public async Task ExcluirPassagemAsync(int id)
+        public async Task ExcluirPassagem(int id)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -114,7 +114,7 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
-        public async Task<tbPassagem> ObterPassagemAsync(int codigo)
+        public async Task<tbPassagem> ObterPassagem(int codigo)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -146,7 +146,7 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
-        public async Task<bool> VendaPassagemAsync(tbVenda venda)
+        public async Task<bool> VendaPassagem(tbVenda venda)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {

@@ -21,13 +21,13 @@ namespace ProjetoEcommerce.Repositorios
 
             MySqlCommand cmd = new MySqlCommand(
                 "insert into tbViagem(DataRetorno,Descricao,Origem,Destino,DataPartida) values" +
-                "(@dataretorno,@descricao,@origem,@destino,@datapartida)", conexao);
+                "(@dataRetorno,@descricao,@origem,@destino,@dataPartida)", conexao);
 
-            cmd.Parameters.Add("@dataretorno", MySqlDbType.DateTime).Value = viagem.DataRetorno;
+            cmd.Parameters.Add("@dataRetorno", MySqlDbType.DateTime).Value = viagem.DataRetorno;
             cmd.Parameters.Add("@descricao", MySqlDbType.Text).Value = viagem.Descricao;
             cmd.Parameters.Add("@origem", MySqlDbType.VarChar).Value = viagem.Origem;
             cmd.Parameters.Add("@destino", MySqlDbType.VarChar).Value = viagem.Destino;
-            cmd.Parameters.Add("@datapartida", MySqlDbType.DateTime).Value = viagem.DataPartida;
+            cmd.Parameters.Add("@dataPartida", MySqlDbType.DateTime).Value = viagem.DataPartida;
 
             await cmd.ExecuteNonQueryAsync();
         }
@@ -40,15 +40,15 @@ namespace ProjetoEcommerce.Repositorios
                 await conexao.OpenAsync();
 
                 MySqlCommand cmd = new MySqlCommand(
-                    "update tbViagem set DataRetorno=@dataretorno,Descricao=@descricao,Origem=@origem,Destino=@destino," +
-                    "DataPartida=@datapartida where IdViagem=@IdViagem", conexao);
+                    "update tbViagem set DataRetorno=@dataRetorno,Descricao=@descricao,Origem=@origem,Destino=@destino," +
+                    "DataPartida=@dataPartida where IdViagem=@idViagem", conexao);
 
-                cmd.Parameters.Add("@IdViagem", MySqlDbType.Int32).Value = viagem.IdViagem;
-                cmd.Parameters.Add("@dataretorno", MySqlDbType.DateTime).Value = viagem.DataRetorno;
+                cmd.Parameters.Add("@idViagem", MySqlDbType.Int32).Value = viagem.IdViagem;
+                cmd.Parameters.Add("@dataRetorno", MySqlDbType.DateTime).Value = viagem.DataRetorno;
                 cmd.Parameters.Add("@descricao", MySqlDbType.VarChar).Value = viagem.Descricao;
                 cmd.Parameters.Add("@origem", MySqlDbType.VarChar).Value = viagem.Origem;
                 cmd.Parameters.Add("@destino", MySqlDbType.VarChar).Value = viagem.Destino;
-                cmd.Parameters.Add("@datapartida", MySqlDbType.DateTime).Value = viagem.DataPartida;
+                cmd.Parameters.Add("@dataPartida", MySqlDbType.DateTime).Value = viagem.DataPartida;
 
                 int linhasAfetadas = await cmd.ExecuteNonQueryAsync();
                 return linhasAfetadas > 0;
@@ -70,8 +70,6 @@ namespace ProjetoEcommerce.Repositorios
             MySqlCommand cmd = new MySqlCommand("select * from tbViagem", conexao);
             MySqlDataAdapter da = new MySqlDataAdapter(cmd);
             DataTable dt = new DataTable();
-
-            // O Fill não tem versão async, então mantém sync
             da.Fill(dt);
 
             conexao.Close();
@@ -97,8 +95,8 @@ namespace ProjetoEcommerce.Repositorios
             using var conexao = new MySqlConnection(_conexaoMySQL);
             await conexao.OpenAsync();
 
-            MySqlCommand cmd = new MySqlCommand("delete from tbViagem where IdViagem=@IdViagem", conexao);
-            cmd.Parameters.AddWithValue("@IdViagem", Id);
+            MySqlCommand cmd = new MySqlCommand("delete from tbViagem where IdViagem=@idViagem", conexao);
+            cmd.Parameters.AddWithValue("@idViagem", Id);
             await cmd.ExecuteNonQueryAsync();
 
             conexao.Close();
@@ -109,8 +107,8 @@ namespace ProjetoEcommerce.Repositorios
             using var conexao = new MySqlConnection(_conexaoMySQL);
             await conexao.OpenAsync();
 
-            MySqlCommand cmd = new MySqlCommand("select * from tbViagem where IdViagem=@IdViagem", conexao);
-            cmd.Parameters.Add("@IdViagem", MySqlDbType.Int32).Value = Id;
+            MySqlCommand cmd = new MySqlCommand("select * from tbViagem where IdViagem=@idViagem", conexao);
+            cmd.Parameters.Add("@idViagem", MySqlDbType.Int32).Value = Id;
 
             using var dr = (MySqlDataReader)await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection);
 
@@ -127,8 +125,38 @@ namespace ProjetoEcommerce.Repositorios
                     DataPartida = (DateTime)dr["DataPartida"]
                 };
             }
-
             return viagem;
+        }
+        public async Task<IEnumerable<tbViagem>> BuscarViagens(string termo)
+        {
+            var lista = new List<tbViagem>();
+
+            using var conexao = new MySqlConnection(_conexaoMySQL);
+            await conexao.OpenAsync();
+
+            string query = @"select * from tbViagem 
+                     where Descricao like @termo or Destino like @termo";
+
+            using var cmd = new MySqlCommand(query, conexao);
+            string busca = string.IsNullOrEmpty(termo) ? "%" : $"%{termo}%";
+            cmd.Parameters.AddWithValue("@termo", busca);
+
+            using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                lista.Add(new tbViagem
+                {
+                    IdViagem = reader.GetInt32("IdViagem"),
+                    DataRetorno = reader.GetDateTime("DataRetorno"),
+                    Descricao = reader.GetString("Descricao"),
+                    Origem = reader.GetString("Origem"),
+                    Destino = reader.GetString("Destino"),
+                    DataPartida = reader.GetDateTime("DataPartida")
+                });
+            }
+
+            return lista;
         }
     }
 }

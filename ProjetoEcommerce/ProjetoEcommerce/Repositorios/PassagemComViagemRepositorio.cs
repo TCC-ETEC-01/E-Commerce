@@ -16,13 +16,10 @@ namespace ProjetoEcommerce.Repositorios
             {
                 await conexao.OpenAsync();
 
-                string query = @"select  p.IdPassagem, p.Valor, v.Origem, v.Destino, p.Assento, v.Descricao, 
-                        v.DataPartida as Partida, v.DataRetorno as Retorno, 
-                        t.TipoTransporte as Transporte, t.Companhia, 
-                        t.CodigoTransporte as Cod_Transporte
-                        from tbPassagem p
-                        inner join tbViagem v on p.IdViagem = v.IdViagem
-                        inner join tbTransporte t on p.IdTransporte = t.IdTransporte;";
+                string query = @"select  p.IdPassagem, p.Valor, v.Origem, v.Destino, p.Assento,v.Descricao, v.DataPartida as Partida, v.DataRetorno as Retorno, t.TipoTransporte as Transporte, t.Companhia, t.CodigoTransporte as Cod_Transporte
+	                            from tbPassagem p
+	                            inner join tbViagem v on p.IdViagem = v.IdViagem
+	                            inner join tbTransporte t on p.IdTransporte = t.IdTransporte;";
 
                 using (MySqlCommand join = new MySqlCommand(query, conexao))
                 {
@@ -44,10 +41,53 @@ namespace ProjetoEcommerce.Repositorios
                                 Valor = drPassagemComViagem.GetDecimal("Valor")
                             });
                         }
+                        return lista;
                     }
                 }
             }
-            return lista;
+        }
+
+        public async Task<List<tbPassagemComViagem>> BuscarPassagem(string destino)
+        {
+            var lista = new List<tbPassagemComViagem>();
+
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                await conexao.OpenAsync();
+
+                string query = @"select  p.IdPassagem, p.Valor, v.Origem, v.Destino, p.Assento,v.Descricao, v.DataPartida as Partida, v.DataRetorno as Retorno, t.TipoTransporte as Transporte, t.Companhia, t.CodigoTransporte as Cod_Transporte
+	                            from tbPassagem p
+	                            inner join tbViagem v on p.IdViagem = v.IdViagem
+	                            inner join tbTransporte t on p.IdTransporte = t.IdTransporte
+	                            where v.Destino like @destino";
+
+                using (var cmdPesquisar = new MySqlCommand(query, conexao))
+                {
+                    string termoBusca = string.IsNullOrEmpty(destino) ? "%" : $"%{destino}%";
+                    cmdPesquisar.Parameters.AddWithValue("@destino", termoBusca);
+
+                    using (var dr = await cmdPesquisar.ExecuteReaderAsync())
+                    {
+                        while (await dr.ReadAsync())
+                        {
+                            lista.Add(new tbPassagemComViagem
+                            {
+                                IdPassagem = dr.GetInt32("IdPassagem"),
+                                Origem = dr.GetString("Origem"),
+                                Destino = dr.GetString("Destino"),
+                                Descricao = dr.GetString("Descricao"),
+                                DataPartida = dr.GetDateTime("Partida"),
+                                DataRetorno = dr.GetDateTime("Retorno"),
+                                TipoTransporte = dr.GetString("Transporte"),
+                                CodigoTransporte = dr.GetString("Cod_Transporte"),
+                                Companhia = dr.GetString("Companhia"),
+                                Valor = dr.GetDecimal("Valor")
+                            });
+                        }
+                    }
+                    return lista;
+                }
+            }
         }
     }
 }

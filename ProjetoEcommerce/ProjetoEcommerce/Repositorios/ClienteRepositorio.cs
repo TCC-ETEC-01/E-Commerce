@@ -129,6 +129,7 @@ namespace ProjetoEcommerce.Repositorios
                         IdCliente = Convert.ToInt32(dr["IdCliente"]),
                         Nome = ((string)dr["Nome"]),
                         Email = ((string)dr["Email"]),
+                        Sexo = ((string)dr["Sexo"]),
                         Telefone = ((string)dr["Telefone"]),
                         Cpf = ((string)dr["Cpf"])
                     });
@@ -148,5 +149,42 @@ namespace ProjetoEcommerce.Repositorios
                 await conexao.CloseAsync();
             }
         }
+
+        public async Task<List<tbCliente>> BuscarCliente(string nome)
+        {
+            var lista = new List<tbCliente>();
+
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                await conexao.OpenAsync();
+
+                string query = @"select * from tbCliente where Nome like @Nome";
+
+                using (var cmdPesquisar = new MySqlCommand(query, conexao))
+                {
+                    string termoBusca = string.IsNullOrEmpty(nome) ? "%" : $"%{nome}%";
+                    cmdPesquisar.Parameters.AddWithValue("@Nome", termoBusca);
+
+                    using (var reader = await cmdPesquisar.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            lista.Add(new tbCliente
+                            {
+                                IdCliente = Convert.ToInt32(reader["IdCliente"]),
+                                Nome = reader["Nome"].ToString(),
+                                Email = reader["Email"].ToString(),
+                                Sexo = reader["Sexo"].ToString(),
+                                Telefone = reader["Telefone"].ToString(),
+                                Cpf = reader["Cpf"].ToString()
+                            });
+                        }
+                    }
+
+                    return lista;
+                }
+            }
+        }
+
     }
 }

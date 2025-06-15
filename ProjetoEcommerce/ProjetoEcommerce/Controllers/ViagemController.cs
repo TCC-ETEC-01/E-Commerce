@@ -15,10 +15,21 @@ namespace ProjetoEcommerce.Controllers
             _viagemRepositorio = viagemRepositorio;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string termo)
         {
-            var lista = await _viagemRepositorio.TodasViagens();
-            return View(lista);
+            IEnumerable<tbViagem> viagens;
+
+            if (string.IsNullOrEmpty(termo))
+            {
+                viagens = await _viagemRepositorio.TodasViagens();
+            }
+            else
+            {
+                viagens = await _viagemRepositorio.BuscarViagens(termo);
+            }
+
+            ViewBag.Termo = termo;
+            return View(viagens);
         }
 
         public IActionResult CadastrarViagem()
@@ -99,6 +110,11 @@ namespace ProjetoEcommerce.Controllers
         {
             await _viagemRepositorio.ExcluirViagem(Id);
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> BarraPesquisa()
+        {
+            return View();
         }
     }
 }

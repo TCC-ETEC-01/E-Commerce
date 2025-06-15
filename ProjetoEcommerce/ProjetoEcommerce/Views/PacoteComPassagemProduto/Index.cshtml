@@ -8,52 +8,12 @@
         </div>
     </div>
 </nav>
-<section>
-    <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover table-striped">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.IdPacote)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NomeProduto)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NomePacote)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Quantidade)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Assento)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Situacao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Translado)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.CodigoTransporte)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Valor)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Companhia)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.TipoTransporte)
-                            </th>
-                        </tr>
-                    </thead>
+                 </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
+
                                 <td class="text-truncate" style="max-width: 300px;">
                                     @Html.DisplayFor(modelitem => item.IdPacote)
                                 </td>
@@ -100,6 +60,20 @@
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </div>
+                                <td>@item.IdPacote</td>
+                                <td>@item.NomeProduto</td>
+                                <td>@item.NomePacote</td>
+                                <td>@item.Assento</td>
+                                <td>@item.Situacao</td>
+                                <td>@item.TipoTransporte</td>
+                                <td>@item.Companhia</td>
+                                <td>@item.CodigoTransporte</td>
+                                <td>@item.Valor.ToString("C")</td>
+                                <td class="text-center">
+                                    <a asp-controller="Pacote" asp-action="ExcluirPacote" asp-route-id="@item.IdPacote"
+                                       class="btn btn-outline-danger rounded-3" title="Excluir">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         }

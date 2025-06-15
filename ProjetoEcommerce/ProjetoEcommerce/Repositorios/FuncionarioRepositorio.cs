@@ -176,5 +176,42 @@ namespace ProjetoEcommerce.Repositorios
                 await cmd.ExecuteNonQueryAsync();
             }
         }
+        public async Task<List<tbFuncionario>> BuscarFuncionario(string nome)
+        {
+            var lista = new List<tbFuncionario>();
+
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                await conexao.OpenAsync();
+
+                string query = @"select * from tbFuncionario where Nome like @Nome";
+
+                using (var cmdPesquisar = new MySqlCommand(query, conexao))
+                {
+                    string termoBusca = string.IsNullOrEmpty(nome) ? "%" : $"%{nome}%";
+                    cmdPesquisar.Parameters.AddWithValue("@Nome", termoBusca);
+
+                    using (var reader = await cmdPesquisar.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            lista.Add(new tbFuncionario
+                            {
+                                IdFuncionario = Convert.ToInt32(reader["IdFuncionario"]),
+                                Nome = reader["Nome"].ToString(),
+                                Sexo = reader["Sexo"].ToString(),
+                                Email = reader["Email"].ToString(),
+                                Telefone = reader["Telefone"].ToString(),
+                                Cargo = reader["Cargo"].ToString(),
+                                Cpf = reader["Cpf"].ToString(),
+                                Senha = reader["Senha"].ToString()
+                            });
+                        }
+                    }
+
+                    return lista;
+                }
+            }
+        }
     }
 }

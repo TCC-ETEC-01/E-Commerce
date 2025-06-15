@@ -24,7 +24,7 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public async Task<IActionResult> CadastrarPassagem(tbPassagem passagem)
         {
-            if (await _passagemRepositorio.CadastrarPassagemAsync(passagem))
+            if (await _passagemRepositorio.CadastrarPassagem(passagem))
             {
                 TempData["MensagemSucesso"] = "Passagem cadastrada com Sucesso";
                 return RedirectToAction(nameof(Index));
@@ -35,7 +35,7 @@ namespace ProjetoEcommerce.Controllers
 
         public async Task<IActionResult> EditarPassagem(int id)
         {
-            var passagem = await _passagemRepositorio.ObterPassagemAsync(id);
+            var passagem = await _passagemRepositorio.ObterPassagem(id);
 
             if (passagem == null)
             {
@@ -55,7 +55,7 @@ namespace ProjetoEcommerce.Controllers
 
             if (ModelState.IsValid)
             {
-                if (await _passagemRepositorio.AtualizarPassagemAsync(passagem))
+                if (await _passagemRepositorio.AtualizarPassagem(passagem))
                 {
                     TempData["MensagemSucesso"] = "Passagem atualizada com Sucesso";
                     return RedirectToAction(nameof(Index));
@@ -69,14 +69,21 @@ namespace ProjetoEcommerce.Controllers
 
         public async Task<IActionResult> ExcluirPassagem(int id)
         {
-            await _passagemRepositorio.ExcluirPassagemAsync(id);
+            await _passagemRepositorio.ExcluirPassagem(id);
             TempData["MensagemSucesso"] = "Passagem excluída com Sucesso";
             return RedirectToAction("Index", "PassagemComViagem");
         }
 
-        public IActionResult ComprarPassagem(int id)
+        public async Task<IActionResult> ComprarPassagem(tbVenda venda)
         {
-            return View();
+            if ( await _passagemRepositorio.VendaPassagem(venda))
+            {
+                TempData["MensagemSucesso"] = "Venda cadastrada com sucesso";
+                return RedirectToAction("PassagemComViagem", "Index");
+
+            }
+            TempData["MensagemErro"] = "Erro ao cadastrar venda";
+            return View(venda);
         }
     }
 }

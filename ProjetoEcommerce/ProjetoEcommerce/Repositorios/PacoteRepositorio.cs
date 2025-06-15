@@ -51,9 +51,7 @@ namespace ProjetoEcommerce.Repositorios
                 cmdInsertPacote.Parameters.AddWithValue("@nomePacote", pacote.NomePacote);
                 cmdInsertPacote.Parameters.AddWithValue("@descricao", pacote.Descricao);
                 cmdInsertPacote.Parameters.AddWithValue("@valor", pacote.Valor);
-
                 await cmdInsertPacote.ExecuteNonQueryAsync();
-
                 return true;
             }
         }
@@ -71,9 +69,7 @@ namespace ProjetoEcommerce.Repositorios
                 cmdAtualizarPacote.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem);
                 cmdAtualizarPacote.Parameters.AddWithValue("@idProduto", pacote.IdProduto);
                 cmdAtualizarPacote.Parameters.AddWithValue("@idPacote", pacote.IdPacote);
-
                 int linhasAfetadas = await cmdAtualizarPacote.ExecuteNonQueryAsync();
-
                 return linhasAfetadas > 0;
             }
         }

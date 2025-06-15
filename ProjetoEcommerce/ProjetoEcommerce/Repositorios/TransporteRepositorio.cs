@@ -18,13 +18,24 @@ namespace ProjetoEcommerce.Repositorios
             await using var conexao = new MySqlConnection(_conexaoMySQL);
             await conexao.OpenAsync();
 
-            var cmd = new MySqlCommand("insert into tbTransporte (CodigoTransporte, Companhia, TipoTransporte) VALUES (@codigo, @companhia, @tipo)", conexao);
+            MySqlCommand cmdBuscarTransporte = new MySqlCommand("select 1 from tbTransporte " +
+            "where CodigoTransporte=@codigo", conexao);
+            cmdBuscarTransporte.Parameters.AddWithValue("@codigo", transporte.CodigoTransporte);
+            using(var drTransporte = await cmdBuscarTransporte.ExecuteReaderAsync())
+            {
+                if (drTransporte.HasRows)
+                {
+                    Console.WriteLine("Transporte já existente");
+                    return false;
+                }
+            }
+             var cmd = new MySqlCommand("insert into tbTransporte (CodigoTransporte, Companhia, TipoTransporte) VALUES (@codigo, @companhia, @tipo)", conexao);
             cmd.Parameters.AddWithValue("@codigo", transporte.CodigoTransporte);
             cmd.Parameters.AddWithValue("@companhia", transporte.Companhia);
             cmd.Parameters.AddWithValue("@tipo", transporte.TipoTransporte);
-
             int linhasAfetadas = await cmd.ExecuteNonQueryAsync();
             return linhasAfetadas > 0;
+           
         }
 
         public async Task<bool> AtualizarTransporte(tbTransporte transporte)
@@ -73,7 +84,6 @@ namespace ProjetoEcommerce.Repositorios
                     TipoTransporte = reader.GetString("TipoTransporte")
                 };
             }
-
             return null;
         }
 
@@ -99,6 +109,35 @@ namespace ProjetoEcommerce.Repositorios
                 });
             }
 
+            return lista;
+        }
+        public async Task<List<tbTransporte>> BuscarTransporte(string termo)
+        {
+            var lista = new List<tbTransporte>();
+
+            await using var conexao = new MySqlConnection(_conexaoMySQL);
+            await conexao.OpenAsync();
+
+            string query = @"select * from tbTransporte 
+                             where Companhia like @termo or CodigoTransporte like @termo";
+
+            await using var cmd = new MySqlCommand(query, conexao);
+
+            string busca = string.IsNullOrEmpty(termo) ? "%" : $"%{termo}%";
+            cmd.Parameters.AddWithValue("@termo", busca);
+
+            await using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                lista.Add(new tbTransporte
+                {
+                    IdTransporte = reader.GetInt32("IdTransporte"),
+                    CodigoTransporte = reader.GetString("CodigoTransporte"),
+                    Companhia = reader.GetString("Companhia"),
+                    TipoTransporte = reader.GetString("TipoTransporte")
+                });
+            }
             return lista;
         }
     }

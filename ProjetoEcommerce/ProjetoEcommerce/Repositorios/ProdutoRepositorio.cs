@@ -86,9 +86,8 @@ namespace ProjetoEcommerce.Repositorios
 
             await using var drProduto = await cmdBuscarId.ExecuteReaderAsync(CommandBehavior.CloseConnection);
 
-            if (await drProduto.ReadAsync()) // Se tiver pacote com esse produto
+            if (await drProduto.ReadAsync())
             {
-                // Precisa abrir outra conexão porque a anterior está ocupada pelo DataReader
                 await conexao.CloseAsync();
 
                 await using var conexao2 = new MySqlConnection(_conexaoMySQL);
@@ -137,6 +136,36 @@ namespace ProjetoEcommerce.Repositorios
             }
 
             return produto;
+        }
+        public async Task<List<tbProduto>> BuscarProduto(string nomeProduto)
+        {
+            var ProdutoLista = new List<tbProduto>();
+
+            await using var conexao = new MySqlConnection(_conexaoMySQL);
+            await conexao.OpenAsync();
+
+            string query = "select * from tbProduto where NomeProduto like @nomeProduto";
+
+            await using var cmd = new MySqlCommand(query, conexao);
+
+            string termoBusca = string.IsNullOrEmpty(nomeProduto) ? "%" : $"%{nomeProduto}%";
+            cmd.Parameters.AddWithValue("@nomeProduto", termoBusca);
+
+            await using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                ProdutoLista.Add(new tbProduto
+                {
+                    IdProduto = reader.GetInt32("IdProduto"),
+                    NomeProduto = reader.GetString("NomeProduto"),
+                    Valor = reader.GetDecimal("Valor"),
+                    Descricao = reader.GetString("Descricao"),
+                    Quantidade = reader.GetInt32("Quantidade")
+                });
+            }
+
+            return ProdutoLista;
         }
     }
 }

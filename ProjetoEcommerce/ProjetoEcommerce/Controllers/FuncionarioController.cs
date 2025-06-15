@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MySqlX.XDevAPI;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
 
@@ -13,9 +14,19 @@ namespace ProjetoEcommerce.Controllers
             _funcionarioRepositorio = funcionario;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nome)
         {
-            var funcionarios = await _funcionarioRepositorio.TodosFuncionarios();
+            IEnumerable<tbFuncionario> funcionarios;
+
+            if(string.IsNullOrEmpty(nome))
+            {
+                funcionarios = await _funcionarioRepositorio.TodosFuncionarios();
+            }
+            else
+            {
+                funcionarios = await _funcionarioRepositorio.BuscarFuncionario(nome);
+            }
+            ViewBag.Nome = nome;
             return View(funcionarios);
         }
 
