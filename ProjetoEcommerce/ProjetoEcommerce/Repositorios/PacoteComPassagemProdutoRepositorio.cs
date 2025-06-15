@@ -58,7 +58,14 @@ namespace ProjetoEcommerce.Repositorios
             {
                 await conexao.OpenAsync();
 
-                string query = @"select * from tbPacoteComPassagemProduto where NomePacote like @nomePacote";
+                string query = @"SELECT pac.IdPacote, pac.NomePacote, pac.Valor, prod.NomeProduto,
+                                p.Assento AS Assento, p.Situacao AS Situacao, p.Translado, 
+                                t.TipoTransporte AS Transporte, t.Companhia, t.CodigoTransporte AS Cod_Transporte
+                         FROM tbPacote pac
+                         INNER JOIN tbProduto prod ON pac.IdProduto = prod.IdProduto
+                         INNER JOIN tbPassagem p ON pac.IdPassagem = p.IdPassagem
+                         INNER JOIN tbTransporte t ON p.IdTransporte = t.IdTransporte
+                         WHERE pac.NomePacote LIKE @nomePacote";
 
                 using (var cmdPesquisar = new MySqlCommand(query, conexao))
                 {
@@ -88,5 +95,6 @@ namespace ProjetoEcommerce.Repositorios
                 }
             }
         }
+
     }
 }
