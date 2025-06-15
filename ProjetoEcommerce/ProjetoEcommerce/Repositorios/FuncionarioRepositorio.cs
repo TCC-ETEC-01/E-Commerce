@@ -213,6 +213,5 @@ namespace ProjetoEcommerce.Repositorios
                 }
             }
         }
-
     }
 }

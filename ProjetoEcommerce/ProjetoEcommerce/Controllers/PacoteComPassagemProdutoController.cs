@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
 namespace ProjetoEcommerce.Controllers
 {
@@ -11,14 +12,20 @@ namespace ProjetoEcommerce.Controllers
             _pacoteComPassagemProdutoRepositorio = pacoteComPassagemProdutoRepositorio;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nomePacote)
         {
-            var pacotes = await _pacoteComPassagemProdutoRepositorio.PacoteComPassagemProduto();
+            IEnumerable<tbPacoteComPassagemProduto> pacotes;
+            if (string.IsNullOrEmpty(nomePacote))
+            {
+                pacotes = await _pacoteComPassagemProdutoRepositorio.PacoteComPassagemProduto();
+            }
+            else 
+            {
+                pacotes = await _pacoteComPassagemProdutoRepositorio.BuscarPacote(nomePacote);
+            }
+            ViewBag.Nome = nomePacote;
             return View(pacotes);
         }
-        public async Task<IActionResult> BarraPesquisa()
-        {
-            return View();
-        }
+        
     }
 }

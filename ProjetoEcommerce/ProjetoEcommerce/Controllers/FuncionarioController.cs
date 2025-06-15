@@ -122,6 +122,5 @@ namespace ProjetoEcommerce.Controllers
             await _funcionarioRepositorio.ExcluirFuncionario(Id);
             return RedirectToAction(nameof(Index));
         }
-
     }
 }

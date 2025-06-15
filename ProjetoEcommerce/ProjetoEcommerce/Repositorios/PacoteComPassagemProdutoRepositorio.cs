@@ -49,5 +49,44 @@ namespace ProjetoEcommerce.Repositorios
             }
             return lista;
         }
+
+        public async Task<List<tbPacoteComPassagemProduto>> BuscarPacote(string nomePacote)
+        {
+            var lista = new List<tbPacoteComPassagemProduto>();
+
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                await conexao.OpenAsync();
+
+                string query = @"select * from tbPacoteComPassagemProduto where NomePacote like @nomePacote";
+
+                using (var cmdPesquisar = new MySqlCommand(query, conexao))
+                {
+                    string termoBusca = string.IsNullOrEmpty(nomePacote) ? "%" : $"%{nomePacote}%";
+                    cmdPesquisar.Parameters.AddWithValue("@nomePacote", termoBusca);
+
+                    using (var drPacote = await cmdPesquisar.ExecuteReaderAsync())
+                    {
+                        while (await drPacote.ReadAsync())
+                        {
+                            lista.Add(new tbPacoteComPassagemProduto
+                            {
+                                IdPacote = drPacote.GetInt32("IdPacote"),
+                                NomePacote = drPacote.GetString("NomePacote"),
+                                NomeProduto = drPacote.GetString("NomeProduto"),
+                                Assento = drPacote.GetString("Assento"),
+                                Situacao = drPacote.GetString("Situacao"),
+                                Translado = drPacote.GetString("Translado"),
+                                Companhia = drPacote.GetString("Companhia"),
+                                CodigoTransporte = drPacote.GetString("Cod_Transporte"),
+                                TipoTransporte = drPacote.GetString("Transporte"),
+                                Valor = drPacote.GetDecimal("Valor")
+                            });
+                        }
+                    }
+                    return lista;
+                }
+            }
+        }
     }
 }
