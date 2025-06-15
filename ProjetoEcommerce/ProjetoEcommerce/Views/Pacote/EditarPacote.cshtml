@@ -6,6 +6,10 @@
 
     <form asp-action="EditarPacote">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <input type="hidden" asp-for="IdPassagem" class="form-control" />
+            <span asp-validation-for="IdPassagem" class="text-danger"></span>
+        </div>
         <div class="container-cadastro w-100 h-100">
             <div class="row cadastro-row">
                 <div class="col  form-group">
