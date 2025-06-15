@@ -16,6 +16,11 @@
             <input asp-for="IdViagem" class="form-control cadastro-input" />
             <span asp-validation-for="IdViagem" class="text-danger"></span>
         </div>
+        <div class="col  form-group">
+            <label asp-for="IdTransporte" class="control-label"></label>
+            <input asp-for="IdTransporte" class="form-control cadastro-input" />
+            <span asp-validation-for="IdTransporte" class="text-danger"></span>
+        </div>
         <div class="col form-group">
             <label asp-for="Valor" class="control-label"></label>
             <input asp-for="Valor" class="form-control cadastro-input" />
@@ -33,6 +38,8 @@
             <input asp-for="Situacao" class="form-control cadastro-input" />
             <span asp-validation-for="Situacao" class="text-danger"></span>
         </div>
+
+
         <div class="checkbox-disponivel">
             <h3>
                 Disponivel:
