@@ -14,9 +14,20 @@ namespace ProjetoEcommerce.Controllers
             _produtoRepositorio = produtoRepositorio;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string nomeProduto)
         {
-            var produtos = await _produtoRepositorio.TodosProdutos();
+            IEnumerable<tbProduto> produtos;
+
+            if (string.IsNullOrEmpty(nomeProduto))
+            {
+                produtos = await _produtoRepositorio.TodosProdutos();
+            }
+            else
+            {
+                produtos = await _produtoRepositorio.BuscarProduto(nomeProduto);
+            }
+
+            ViewBag.NomeProduto = nomeProduto;
             return View(produtos);
         }
 
@@ -74,11 +85,6 @@ namespace ProjetoEcommerce.Controllers
             await _produtoRepositorio.ExcluirProduto(id);
             TempData["MensagemSucesso"] = "Produto excluido com sucesso";
             return RedirectToAction(nameof(Index));
-        }
-
-        public async Task<IActionResult> BarraPesquisa()
-        {
-            return View();
         }
     }
 }
