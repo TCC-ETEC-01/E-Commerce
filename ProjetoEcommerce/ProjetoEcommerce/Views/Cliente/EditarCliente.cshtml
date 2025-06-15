@@ -7,7 +7,10 @@
     <form asp-action="EditarCliente">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="container-cadastro w-100 h-100">
-
+            <div class="form-group">
+                <input type="hidden" asp-for="IdCliente" class="form-control" />
+                <span asp-validation-for="IdCliente" class="text-danger"></span>
+            </div>
             <div class="row cadastro-row">
                 <div class="col  form-group">
                     <label asp-for="Nome" class="control-label"></label>

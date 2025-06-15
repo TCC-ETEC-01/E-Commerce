@@ -5,6 +5,10 @@
     <h1 class="pt-5 p-5 pb-3"> Editar</h1>
     <form asp-action="EditarFuncionario">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <input type="hidden" asp-for="IdFuncionario" class="form-control" />
+            <span asp-validation-for="IdFuncionario" class="text-danger"></span>
+        </div>
             <div class="row cadastro-row">
                 <div class="col form-group">
                     <label asp-for="Nome" class="control-label"></label>

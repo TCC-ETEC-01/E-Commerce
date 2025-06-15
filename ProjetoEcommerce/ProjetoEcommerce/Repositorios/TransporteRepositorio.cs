@@ -43,7 +43,7 @@ namespace ProjetoEcommerce.Repositorios
             await using var conexao = new MySqlConnection(_conexaoMySQL);
             await conexao.OpenAsync();
 
-            var cmd = new MySqlCommand("update tbTransporte set CodigoTransporte=@codigo, Companhia=@companhia, TipoTransporte=@tipo WHERE IdTransporte=@id", conexao);
+            var cmd = new MySqlCommand("update tbTransporte set CodigoTransporte=@codigo, Companhia=@companhia, TipoTransporte=@tipo where IdTransporte=@id", conexao);
             cmd.Parameters.AddWithValue("@codigo", transporte.CodigoTransporte);
             cmd.Parameters.AddWithValue("@companhia", transporte.Companhia);
             cmd.Parameters.AddWithValue("@tipo", transporte.TipoTransporte);

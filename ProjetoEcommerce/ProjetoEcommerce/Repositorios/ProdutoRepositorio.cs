@@ -37,8 +37,8 @@ namespace ProjetoEcommerce.Repositorios
             await conexao.OpenAsync();
 
             MySqlCommand cmd = new MySqlCommand(
-                "UPDATE tbProduto SET NomeProduto=@nomeProduto, Valor=@valor, Descricao=@descricao, Quantidade=@quantidade " +
-                "WHERE IdProduto=@idProduto", conexao);
+                "update tbProduto set NomeProduto=@nomeProduto, Valor=@valor, Descricao=@descricao, Quantidade=@quantidade where IdProduto=@idProduto "
+                , conexao);
 
             cmd.Parameters.AddWithValue("@nomeProduto", produto.NomeProduto);
             cmd.Parameters.AddWithValue("@valor", produto.Valor);
