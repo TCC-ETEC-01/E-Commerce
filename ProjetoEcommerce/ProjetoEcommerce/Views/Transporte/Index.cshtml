@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProjetoEcommerce.Models.tbViagem>
+﻿@model IEnumerable<ProjetoEcommerce.Models.tbTransporte>
 
 <nav class="nav">
     <div class="container">
@@ -18,45 +18,35 @@
                 <table class="table table-hover table-striped">
                     <thead class="table-primary">
                         <tr>
-                            <th width="8%">Informações</th>
-                            <th>DataRetorno</th>
-                            <th> Descricao</th>
-                            <th>Origem</th>
-                            <th>Destino</th>
-                            <th>TipoTransporte</th>
-                            <th>DataPartida</th>
+                            <th width="8%">Id Transporte</th>
+                            <th>Codigo Transporte</th>
+                            <th> Compainha</th>
+                            <th>Tipo do Transporte</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@Html.DisplayFor(modelItem => item.IdViagem)</td>
+                                <td>@Html.DisplayFor(modelItem => item.IdTransporte)</td>
                                 <td>
-                                    <strong>@Html.DisplayFor(modelItem => item.DataRetorno)</strong>
+                                    <strong>@Html.DisplayFor(modelItem => item.CodigoTransporte)</strong>
                                 </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Descricao">
-                                    @item.Descricao
+    
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.Companhia">
+                                    @item.Companhia
                                 </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Origem">
-                                    @item.Origem
+                                <td class="text-truncate" style="max-width: 300px;" title="@item.TipoTransporte">
+                                    @item.TipoTransporte
                                 </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Destino">
-                                    @item.Destino
-                                </td>
-                               
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.DataPartida">
-                                    @item.DataPartida
-                                </td>
-
                                 <td class="text-center">
                                     <div class="btn-group btn-group-sm" role="group">
-                                        <a asp-controller="Viagem" asp-action="EditarViagem" asp-route-id="@item.IdViagem"
+                                        <a asp-controller="Transporte" asp-action="EditarTransporte" asp-route-id="@item.IdTransporte"
                                            class="btn btn-outline-warning" title="Editar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a asp-controller="Cliente" asp-action="ExcluirViagem" asp-route-id="@item.IdViagem"
-                                           onclick="return confirm('Tem certeza que deseja excluir esta Viagem?');"
+                                        <a asp-controller="Transporte" asp-action="ExcluirTransporte" asp-route-id="@item.IdTransporte"
+                                           onclick="return confirm('Tem certeza que deseja excluir este transporte?');"
                                            class="btn btn-outline-danger" title="Excluir">
                                             <i class="bi bi-trash"></i>
                                         </a>
