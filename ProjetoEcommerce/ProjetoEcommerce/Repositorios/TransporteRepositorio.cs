@@ -111,5 +111,34 @@ namespace ProjetoEcommerce.Repositorios
 
             return lista;
         }
+        public async Task<List<tbTransporte>> BuscarTransporte(string termo)
+        {
+            var lista = new List<tbTransporte>();
+
+            await using var conexao = new MySqlConnection(_conexaoMySQL);
+            await conexao.OpenAsync();
+
+            string query = @"select * from tbTransporte 
+                             where Companhia like @termo or CodigoTransporte like @termo";
+
+            await using var cmd = new MySqlCommand(query, conexao);
+
+            string busca = string.IsNullOrEmpty(termo) ? "%" : $"%{termo}%";
+            cmd.Parameters.AddWithValue("@termo", busca);
+
+            await using var reader = await cmd.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                lista.Add(new tbTransporte
+                {
+                    IdTransporte = reader.GetInt32("IdTransporte"),
+                    CodigoTransporte = reader.GetString("CodigoTransporte"),
+                    Companhia = reader.GetString("Companhia"),
+                    TipoTransporte = reader.GetString("TipoTransporte")
+                });
+            }
+            return lista;
+        }
     }
 }

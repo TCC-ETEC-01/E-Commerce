@@ -14,10 +14,21 @@ namespace ProjetoEcommerce.Controllers
             _transporteRepositorio = transporteRepositorio;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string termo)
         {
-            var lista = await _transporteRepositorio.ListarTransportes();
-            return View(lista);
+            List<tbTransporte> transportes;
+
+            if (string.IsNullOrEmpty(termo))
+            {
+                transportes = await _transporteRepositorio.ListarTransportes();
+            }
+            else
+            {
+                transportes = await _transporteRepositorio.BuscarTransporte(termo);
+            }
+
+            ViewBag.Termo = termo;
+            return View(transportes);
         }
 
         public IActionResult CadastrarTransporte()
