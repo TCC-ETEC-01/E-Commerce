@@ -2,6 +2,10 @@
 
 <form asp-action="EditarViagem">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <input type="hidden" asp-for="IdViagem" class="form-control" />
+        <span asp-validation-for="IdViagem" class="text-danger"></span>
+    </div>
     <div class="row cadastro-row">
         <div class="col  form-group">
             <label asp-for="DataPartida" class="control-label"></label>
