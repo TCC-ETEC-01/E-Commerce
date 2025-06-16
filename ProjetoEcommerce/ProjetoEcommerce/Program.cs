@@ -17,6 +17,8 @@ builder.Services.AddScoped<PacoteComPassagemProdutoRepositorio>();
 builder.Services.AddScoped<TransporteRepositorio>();
 
 
+
+
 builder.Services.AddSession();
 var app = builder.Build();
 app.UseSession();
