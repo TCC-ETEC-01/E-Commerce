@@ -1,25 +1,27 @@
 ﻿@model ProjetoEcommerce.Models.tbCliente;
 <!--Editar Cliente-->
+<link href="~/css/clienteeditar.css" rel="stylesheet" />
 
 <body>
 
     <h1 class="pt-5 p-5 pb-3">Editar</h1>
-    <form asp-action="EditarCliente">
+    <form asp-action="EditarCliente" class="form">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="container-cadastro w-100 h-100">
 
             <div class="row cadastro-row">
-                <div class="col  form-group">
+               
+                <div class="form-group">
                     <label asp-for="Nome" class="control-label"></label>
                     <input asp-for="Nome" class="form-control cadastro-input" />
                     <span asp-validation-for="Nome" class="text-danger"></span>
                 </div>
-                <div class="col form-group">
+                <div class="form-group">
                     <label asp-for="Email" class="control-label"></label>
                     <input asp-for="Email" class="form-control cadastro-input" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <div class="col row-cols-2 w-100 form-group">
+                <div class="w-100 form-group">
                     <label asp-for="Sexo" class="control-label"></label>
                     <select asp-for="Sexo" class="">
                         <option value="Masculino">Masculino</option>
@@ -28,22 +30,20 @@
                     </select>
                     <span asp-validation-for="Sexo" class="text-danger"></span>
                 </div>
-                <div class="col row-cols-2 form-group">
+                <div class="form-group">
                     <label asp-for="Cpf" class="control-label">CPF</label>
                     <input asp-for="Cpf" class="form-control cadastro-input" />
                     <span asp-validation-for="Cpf" class="text-danger"></span>
                 </div>
-                <div class="col row-cols-2 form-group">
+                <div class=" form-group">
                     <label asp-for="Telefone" class="control-label"></label>
                     <input asp-for="Telefone" class="form-control cadastro-input" />
                     <span asp-validation-for="Telefone" class="text-danger"></span>
                 </div>
             </div>
-            <div class=" btn form-group justify-content-center align-items-center  d-flex ">
-                <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Alterar</button>
-            </div>
-            <div class="btn form-group justify-content-center align-items-center  d-flex ">
-                <button type="reset" class="btn btn-danger text-center ps-5 pe-5 fs-5 justify-content-center  p-2">Cancelar</button>
+            <div class="form-check-inline mt-4">
+                <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 p-2">Alterar</button>
+                <button type="reset" class="btn btn-danger text-center ps-5 pe-5 fs-5 p-2">Cancelar</button>
             </div>
         </div>
 
