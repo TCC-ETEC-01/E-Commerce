@@ -25,7 +25,7 @@ namespace ProjetoEcommerce.Controllers
         public async Task<IActionResult> CadastrarPassagem(tbPassagem passagem, int idViagem, int idTransporte)
         {
             passagem.IdViagem = new tbViagem { IdViagem = idViagem };
-            passagem.IdTransporte = new tbTransporte { IdTransporte = idTransporte};
+            passagem.IdTransporte = new tbTransporte { IdTransporte = idTransporte };
             if (await _passagemRepositorio.CadastrarPassagem(passagem))
             {
                 TempData["MensagemSucesso"] = "Passagem cadastrada com Sucesso";
@@ -78,7 +78,13 @@ namespace ProjetoEcommerce.Controllers
 
         public async Task<IActionResult> ComprarPassagem(tbVenda venda)
         {
-            if ( await _passagemRepositorio.VendaPassagem(venda))
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ComprarPassagem(tbVenda venda)
+        {
+            if (await _passagemRepositorio.VendaPassagem(venda))
             {
                 TempData["MensagemSucesso"] = "Venda cadastrada com sucesso";
                 return RedirectToAction("Index", "PassagemComViagem");

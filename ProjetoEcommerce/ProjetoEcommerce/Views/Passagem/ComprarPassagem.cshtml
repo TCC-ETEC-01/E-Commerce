@@ -1,81 +1,77 @@
-﻿    @model ProjetoEcommerce.Models.tbCliente;
+﻿@model ProjetoEcommerce.Models.tbVenda
 
 <link href="~/css/clientecadastro.css" rel="stylesheet" />
-
 
 <body>
     <h1>Cadastrar Venda</h1>
 
-    <form asp-action="CadastrarCliente">
+    <form asp-action="CadastrarVenda">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="container-cadastro  w-100 h-100">
+
+        <div class="container-cadastro w-100 h-100">
             <header>
                 <nav class="navbar Cadastro-navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
                     <div class="container-fluid">
-                        <a class="navbar-brand text-primary" asp-area="" asp-controller="Cliente" asp-action="CadastrarCliente">Cliente</a>
+                        <a class="navbar-brand text-primary" asp-controller="Cliente" asp-action="CadastrarCliente">Cliente</a>
                         <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                            <ul class="navbar-nav flex-grow-0 ">
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Produto" asp-action="CadastrarProduto">Produto</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Pacote" asp-action="CadastrarPacote">Pacote</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Passagem" asp-action="CadastrarPassagem">Passagem</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Funcionario" asp-action="CadastrarFuncionario">Funcionario</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Viagem" asp-action="CadastrarViagem">Viagem</a>
-                                </li>
+                            <ul class="navbar-nav flex-grow-0">
+                                <li class="nav-item"><a class="nav-link text-light" asp-controller="Produto" asp-action="CadastrarProduto">Produto</a></li>
+                                <li class="nav-item"><a class="nav-link text-light" asp-controller="Pacote" asp-action="CadastrarPacote">Pacote</a></li>
+                                <li class="nav-item"><a class="nav-link text-light" asp-controller="Passagem" asp-action="CadastrarPassagem">Passagem</a></li>
+                                <li class="nav-item"><a class="nav-link text-light" asp-controller="Funcionario" asp-action="CadastrarFuncionario">Funcionario</a></li>
+                                <li class="nav-item"><a class="nav-link text-light" asp-controller="Viagem" asp-action="CadastrarViagem">Viagem</a></li>
                             </ul>
                         </div>
                     </div>
                 </nav>
             </header>
+
             <div class="row cadastro-row">
-                <div class="col  form-group">
-                    <label asp-for="Nome" class="control-label">Nome do Cliente</label>
-                    <input asp-for="Nome" class="form-control cadastro-input" />
-                    <span asp-validation-for="Nome" class="text-danger"></span>
-                </div>
                 <div class="col form-group">
-                    <label asp-for="Email" class="control-label">Produto/Serviço</label>
-                    <input asp-for="Email" class="form-control cadastro-input" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <label class="control-label">Cliente</label>
+                    <select asp-for="IdCliente.IdCliente" class="form-control cadastro-input" asp-items="ViewBag.Clientes"></select>
+                    <span asp-validation-for="IdCliente.IdCliente" class="text-danger"></span>
                 </div>
 
-                <div class="col row-cols-2 w-100 form-group">
-                    <label asp-for="Email" class="control-label">Preço Unitário(R$)</label>
-                    <input asp-for="Email" class="form-control cadastro-input" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                <div class="col form-group">
+                    <label class="control-label">Produto</label>
+                    <select asp-for="IdProduto.IdProduto" class="form-control cadastro-input" asp-items="ViewBag.Produtos"></select>
+                    <span asp-validation-for="IdProduto.IdProduto" class="text-danger"></span>
                 </div>
 
-
-
-                <div class="col row-cols-2 form-group">
-                    <label asp-for="Cpf" class="control-label">Tipo do Produto</label>
-                    <input asp-for="Cpf" class="form-control cadastro-input" />
-                    <span asp-validation-for="Cpf" class="text-danger"></span>
+                <div class="col form-group">
+                    <label class="control-label">Passagem</label>
+                    <select asp-for="IdPassagem.IdPassagem" class="form-control cadastro-input" asp-items="ViewBag.Passagens"></select>
+                    <span asp-validation-for="IdPassagem.IdPassagem" class="text-danger"></span>
                 </div>
-                <div class="col row-cols-2 form-group">
-                    <label asp-for="Telefone" class="control-label">Quantidade</label>
-                    <input asp-for="Telefone" class="form-control cadastro-input" />
-                    <span asp-validation-for="Telefone" class="text-danger"></span>
+
+                <div class="col form-group">
+                    <label asp-for="Valor" class="control-label">Valor Total (R$)</label>
+                    <input asp-for="Valor" class="form-control cadastro-input" />
+                    <span asp-validation-for="Valor" class="text-danger"></span>
                 </div>
-                <div class="col row-cols-2 form-group">
-                    <label asp-for="Telefone" class="control-label">Formas de pagamento</label>
-                    <input asp-for="Telefone" class="form-control cadastro-input" />
-                    <span asp-validation-for="Telefone" class="text-danger"></span>
+
+                <div class="col form-group">
+                    <label class="control-label">Funcionário</label>
+                    <select asp-for="IdFuncionario.IdFuncionario" class="form-control cadastro-input" asp-items="ViewBag.Funcionarios"></select>
+                    <span asp-validation-for="IdFuncionario.IdFuncionario" class="text-danger"></span>
+                </div>
+
+                <div class="col form-group">
+                    <label asp-for="FormaPagamento" class="control-label">Forma de Pagamento</label>
+                    <input asp-for="FormaPagamento" class="form-control cadastro-input" />
+                    <span asp-validation-for="FormaPagamento" class="text-danger"></span>
+                </div>
+
+                <div class="col form-group">
+                    <label asp-for="DataVenda" class="control-label">Data da Venda</label>
+                    <input asp-for="DataVenda" class="form-control cadastro-input" type="date" />
+                    <span asp-validation-for="DataVenda" class="text-danger"></span>
                 </div>
             </div>
 
-
-
-            <div class=" btn form-group justify-content-center align-items-center  d-flex ">
-                <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" />Cadastrar</button>
+            <div class="btn form-group justify-content-center align-items-center d-flex">
+                <button type="submit" class="btn btn-primary ps-5 pe-5 fs-5 p-2">Cadastrar</button>
             </div>
         </div>
     </form>
