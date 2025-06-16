@@ -20,8 +20,10 @@ namespace ProjetoEcommerce.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CadastrarPacote(tbPacote pacote)
+        public async Task<IActionResult> CadastrarPacote(tbPacote pacote, int idPassagem, int idProduto)
         {
+           pacote.IdPassagem = new tbPassagem { IdPassagem = idPassagem};
+            pacote.IdProduto= new tbProduto{ IdProduto = idProduto };
             if (await _PacoteRepositorio.CadastrarPacote(pacote))
             {
                 TempData["MensagemSucesso"] = "Pacote cadastrado com Sucesso";

@@ -22,7 +22,7 @@ namespace ProjetoEcommerce.Repositorios
                 await conexao.OpenAsync();
 
                 MySqlCommand cmdBuscarPassagem = new MySqlCommand("select 1 from tbPassagem where IdPassagem=@idPassagem", conexao);
-                cmdBuscarPassagem.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem);
+                cmdBuscarPassagem.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem.IdPassagem);
 
                 using (var drBuscarPassagem = await cmdBuscarPassagem.ExecuteReaderAsync())
                 {
@@ -34,7 +34,7 @@ namespace ProjetoEcommerce.Repositorios
                 }
 
                 MySqlCommand cmdBuscarProduto = new MySqlCommand("select 1 from tbProduto where IdProduto=@idProduto", conexao);
-                cmdBuscarProduto.Parameters.AddWithValue("@idProduto", pacote.IdProduto);
+                cmdBuscarProduto.Parameters.AddWithValue("@idProduto", pacote.IdProduto.IdProduto);
 
                 using (var drBuscarProduto = await cmdBuscarProduto.ExecuteReaderAsync())
                 {
@@ -46,8 +46,8 @@ namespace ProjetoEcommerce.Repositorios
                 }
 
                 MySqlCommand cmdInsertPacote = new MySqlCommand("insert into tbPacote (IdPassagem, IdProduto, NomePacote, Descricao, Valor) values(@idPassagem, @idProduto, @nomePacote, @descricao, @valor)", conexao);
-                cmdInsertPacote.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem);
-                cmdInsertPacote.Parameters.AddWithValue("@idProduto", pacote.IdProduto);
+                cmdInsertPacote.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem.IdPassagem);
+                cmdInsertPacote.Parameters.AddWithValue("@idProduto", pacote.IdProduto.IdProduto);
                 cmdInsertPacote.Parameters.AddWithValue("@nomePacote", pacote.NomePacote);
                 cmdInsertPacote.Parameters.AddWithValue("@descricao", pacote.Descricao);
                 cmdInsertPacote.Parameters.AddWithValue("@valor", pacote.Valor);
@@ -66,8 +66,8 @@ namespace ProjetoEcommerce.Repositorios
                 cmdAtualizarPacote.Parameters.AddWithValue("@nomePacote", pacote.NomePacote);
                 cmdAtualizarPacote.Parameters.AddWithValue("@descricao", pacote.Descricao);
                 cmdAtualizarPacote.Parameters.AddWithValue("@valor", pacote.Valor);
-                cmdAtualizarPacote.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem);
-                cmdAtualizarPacote.Parameters.AddWithValue("@idProduto", pacote.IdProduto);
+                cmdAtualizarPacote.Parameters.AddWithValue("@idPassagem", pacote.IdPassagem.IdPassagem);
+                cmdAtualizarPacote.Parameters.AddWithValue("@idProduto", pacote.IdProduto.IdProduto);
                 cmdAtualizarPacote.Parameters.AddWithValue("@idPacote", pacote.IdPacote);
                 int linhasAfetadas = await cmdAtualizarPacote.ExecuteNonQueryAsync();
                 return linhasAfetadas > 0;
