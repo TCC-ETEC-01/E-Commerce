@@ -32,6 +32,7 @@ namespace ProjetoEcommerce.Repositorios
                                 IdPassagem = drPassagemComViagem.GetInt32("IdPassagem"),
                                 Origem = drPassagemComViagem.GetString("Origem"),
                                 Destino = drPassagemComViagem.GetString("Destino"),
+                                Assento= drPassagemComViagem.GetString("Assento"),
                                 Descricao = drPassagemComViagem.GetString("Descricao"),
                                 DataPartida = drPassagemComViagem.GetDateTime("Partida"),
                                 DataRetorno = drPassagemComViagem.GetDateTime("Retorno"),

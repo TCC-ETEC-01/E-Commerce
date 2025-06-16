@@ -43,7 +43,7 @@ namespace ProjetoEcommerce.Controllers
             {
                 HttpContext.Session.SetString("FuncionarioLogado", funcionario.Email);
                 TempData["Mensagem"] = "Bem vindo" + funcionario.Email;
-                return RedirectToAction("Index", "Funcionario");
+                return RedirectToAction("Index", "DashBoard");
             }
             ViewBag.Erro = "Dados incorretos, tente novamente!";
             return View();

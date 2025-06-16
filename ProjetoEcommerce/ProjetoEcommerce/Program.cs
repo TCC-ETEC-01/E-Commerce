@@ -14,6 +14,8 @@ builder.Services.AddScoped<ViagemRepositorio>();
 builder.Services.AddScoped<PassagemRepositorio>();
 builder.Services.AddScoped<PassagemComViagemRepositorio>();
 builder.Services.AddScoped<PacoteComPassagemProdutoRepositorio>();
+builder.Services.AddScoped<TransporteRepositorio>();
+
 
 builder.Services.AddSession();
 var app = builder.Build();
@@ -31,5 +33,5 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Dashboard}/{action=CadastroHome}/{id?}");
+    pattern: "{controller=DashBoard}/{action=Index}/{id?}");
 app.Run();

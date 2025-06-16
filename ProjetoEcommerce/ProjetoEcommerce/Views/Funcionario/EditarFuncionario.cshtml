@@ -1,59 +1,70 @@
 ﻿@model ProjetoEcommerce.Models.tbFuncionario;
-<!--Editar Funcionario-->
+<!--Editar Funcionário-->
+<link href="~/css/editarfuncionario.css" rel="stylesheet" />
 
-<body>
-    <h1 class="pt-5 p-5 pb-3"> Editar</h1>
-    <form asp-action="EditarFuncionario">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="row cadastro-row">
-                <div class="col form-group">
-                    <label asp-for="Nome" class="control-label"></label>
-                    <input asp-for="Nome" class="form-control cadastro-input" />
-                    <span asp-validation-for="Nome" class="text-danger"></span>
-                </div>
-                <div class="col form-group">
-                    <label asp-for="Email" class="control-label"></label>
-                    <input asp-for="Email" class="form-control cadastro-input" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="col row-cols-2 w-100 form-group">
-                    <label asp-for="Sexo" class="control-label"></label>
-                    <select asp-for="Sexo" class="">
-                        <option value="Masculino">Masculino</option>
-                        <option value="Feminino">Feminino</option>
-                        <option value="Indefinido">Indefinido</option>
-                    </select>
-                    <span asp-validation-for="Sexo" class="text-danger"></span>
-                </div>
-                <div class="col row-cols-2 form-group">
-                    <label asp-for="Cpf" class="control-label">CPF</label>
-                    <input asp-for="Cpf" class="form-control cadastro-input" />
-                    <span asp-validation-for="Cpf" class="text-danger"></span>
-                </div>
-                <div class="col row-cols-2 form-group">
-                    <label asp-for="Telefone" class="control-label"></label>
-                    <input asp-for="Telefone" class="form-control cadastro-input" />
-                    <span asp-validation-for="Telefone" class="text-danger"></span>
-                </div>
-                <div class="col row-cols-2 form-group">
-                    <label asp-for="Cargo" class="control-label"></label>
-                    <input asp-for="Cargo" class="form-control cadastro-input" />
-                    <span asp-validation-for="Cargo" class="text-danger"></span>
-                </div>
-                <div class="col form-group">
-                    <label asp-for="Senha" class="control-label"></label>
-                    <input asp-for="Senha" class="form-control cadastro-input" />
-                    <span asp-validation-for="Senha" class="text-danger"></span>
-                </div>
-            </div>
+<h2 class="tituloEditar pt-5 p-5 pb-2">Editar Funcionário</h2>
 
+<form asp-action="EditarFuncionario" method="post" class="FormTudo container pt-4">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
+    <div class="form-group">
+        <input type="hidden" asp-for="IdFuncionario" class="form-control" />
+        <span asp-validation-for="IdFuncionario" class="text-danger"></span>
+    </div>
 
-            <div class=" btn form-group justify-content-center align-items-center  d-flex ">
-                <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" >Cadastrar</button>
-            </div>
+    <div class="row cadastro-row">
+        <div class="form-group pt-3">
+            <label asp-for="Nome" class="control-label"></label>
+            <input asp-for="Nome" class="form-control cadastro-input" />
+            <span asp-validation-for="Nome" class="text-danger"></span>
         </div>
 
-    </form>
+        <div class="form-group pt-3">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control cadastro-input" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
 
-</body>
+        <div class="form-group pt-3">
+            <label asp-for="Sexo" class="control-label"></label>
+            <select asp-for="Sexo" class="form-control cadastro-input">
+                <option value="Masculino">Masculino</option>
+                <option value="Feminino">Feminino</option>
+                <option value="Indefinido">Indefinido</option>
+            </select>
+            <span asp-validation-for="Sexo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group pt-3">
+            <label asp-for="Cpf" class="control-label">CPF</label>
+            <input asp-for="Cpf" class="form-control cadastro-input" />
+            <span asp-validation-for="Cpf" class="text-danger"></span>
+        </div>
+
+        <div class="form-group pt-3">
+            <label asp-for="Telefone" class="control-label"></label>
+            <input asp-for="Telefone" class="form-control cadastro-input" />
+            <span asp-validation-for="Telefone" class="text-danger"></span>
+        </div>
+
+        <div class="form-group pt-3">
+            <label asp-for="Cargo" class="control-label"></label>
+            <input asp-for="Cargo" class="form-control cadastro-input" />
+            <span asp-validation-for="Cargo" class="text-danger"></span>
+        </div>
+
+        <div class="form-group pt-3">
+            <label asp-for="Senha" class="control-label"></label>
+            <input asp-for="Senha" class="form-control cadastro-input" />
+            <span asp-validation-for="Senha" class="text-danger"></span>
+        </div>
+
+        <div class="btn form-group justify-content-center align-items-center d-flex pt-4">
+            <button type="submit" class="btn ps-5 pe-5 fs-5 justify-content-center p-2">Alterar</button>
+        </div>
+
+        <div class="btn form-group justify-content-center align-items-center d-flex">
+            <button type="reset" class="btn ps-5 pe-5 fs-5 justify-content-center p-2">Cancelar</button>
+        </div>
+    </div>
+</form>
