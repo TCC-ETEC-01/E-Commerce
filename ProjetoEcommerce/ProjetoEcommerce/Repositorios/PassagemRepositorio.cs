@@ -21,7 +21,7 @@ namespace ProjetoEcommerce.Repositorios
                 await conexao.OpenAsync();
 
                 MySqlCommand cmdBuscarViagem = new MySqlCommand("select 1 from tbViagem where IdViagem=@idViagem", conexao);
-                cmdBuscarViagem.Parameters.AddWithValue("@idViagem", passagem.IdViagem);
+                cmdBuscarViagem.Parameters.AddWithValue("@idViagem", passagem.IdViagem.IdViagem);
 
                 using (var drViagem = await cmdBuscarViagem.ExecuteReaderAsync())
                 {
@@ -30,11 +30,12 @@ namespace ProjetoEcommerce.Repositorios
                         Console.WriteLine("Viagem não existente");
                         return false;
                     }
+                    drViagem.Close();
                 }
 
                 MySqlCommand cmdBuscarPassagem = new MySqlCommand(
                     "select 1 from tbPassagem where IdTransporte=@idTransporte and Assento=@assento", conexao);
-                cmdBuscarPassagem.Parameters.AddWithValue("@idTransporte", passagem.IdTransporte);
+                cmdBuscarPassagem.Parameters.AddWithValue("@idTransporte", passagem.IdTransporte.IdTransporte);
                 cmdBuscarPassagem.Parameters.AddWithValue("@assento", passagem.Assento);
 
                 using (var drAssento = await cmdBuscarPassagem.ExecuteReaderAsync())
@@ -44,6 +45,7 @@ namespace ProjetoEcommerce.Repositorios
                         Console.WriteLine("Assento já cadastrado");
                         return false;
                     }
+                    drAssento.Close();
                 }
 
                 MySqlCommand cmdInsert = new MySqlCommand(
@@ -53,9 +55,9 @@ namespace ProjetoEcommerce.Repositorios
                 cmdInsert.Parameters.AddWithValue("@assento", passagem.Assento);
                 cmdInsert.Parameters.AddWithValue("@valor", passagem.Valor);
                 cmdInsert.Parameters.AddWithValue("@situacao", passagem.Situacao);
-                cmdInsert.Parameters.AddWithValue("@idViagem", passagem.IdViagem);
+                cmdInsert.Parameters.AddWithValue("@idViagem", passagem.IdViagem.IdViagem);
                 cmdInsert.Parameters.AddWithValue("@translado", passagem.Translado);
-                cmdInsert.Parameters.AddWithValue("@idTransporte", passagem.IdTransporte);
+                cmdInsert.Parameters.AddWithValue("@idTransporte", passagem.IdTransporte.IdTransporte);
 
                 await cmdInsert.ExecuteNonQueryAsync();
                 return true;
@@ -75,9 +77,9 @@ namespace ProjetoEcommerce.Repositorios
                 cmd.Parameters.AddWithValue("@assento", passagem.Assento);
                 cmd.Parameters.AddWithValue("@valor", passagem.Valor);
                 cmd.Parameters.AddWithValue("@situacao", passagem.Situacao);
-                cmd.Parameters.AddWithValue("@idViagem", passagem.IdViagem);
+                cmd.Parameters.AddWithValue("@idViagem", passagem.IdViagem.IdViagem);
                 cmd.Parameters.AddWithValue("@translado", passagem.Translado);
-                cmd.Parameters.AddWithValue("@idTransporte", passagem.IdTransporte);
+                cmd.Parameters.AddWithValue("@idTransporte", passagem.IdTransporte.IdTransporte);
                 cmd.Parameters.AddWithValue("@idPassagem", passagem.IdPassagem);
 
                 int linhasAfetadas = await cmd.ExecuteNonQueryAsync();

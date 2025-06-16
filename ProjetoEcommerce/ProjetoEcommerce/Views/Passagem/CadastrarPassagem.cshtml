@@ -44,7 +44,7 @@
             <input asp-for="IdViagem" class="form-control cadastro-input" />
             <span asp-validation-for="IdViagem" class="text-danger"></span>
         </div>
-            <div class="col  form-group">
+            <div class="col form-group">
                 <label asp-for="IdTransporte" class="control-label">Id Transporte</label>
                 <input asp-for="IdTransporte" class="form-control cadastro-input" />
                 <span asp-validation-for="IdTransporte" class="text-danger"></span>
@@ -66,6 +66,14 @@
             <input asp-for="Situacao" class="form-control cadastro-input" />
             <span asp-validation-for="Situacao" class="text-danger"></span>
         </div>
+            <div class="col row-cols-2 w-100 form-group">
+                <label asp-for="Translado" class="control-label"></label>
+                <select asp-for="Translado" class="">
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+                <span asp-validation-for="Translado" class="text-danger"></span>
+            </div>
         <div class=" btn form-group justify-content-center align-items-center  d-flex ">
             <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" />Cadastrar</button>
         </div>
