@@ -35,7 +35,6 @@
                             <th> Descricao</th>
                             <th>Origem</th>
                             <th>Destino</th>
-                            <th>TipoTransporte</th>
                             <th>DataPartida</th>
                         </tr>
                     </thead>
@@ -66,7 +65,7 @@
                                            class="btn btn-outline-warning" title="Editar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a asp-controller="Cliente" asp-action="ExcluirViagem" asp-route-id="@item.IdViagem"
+                                        <a asp-controller="Viagem" asp-action="ExcluirViagem" asp-route-id="@item.IdViagem"
                                            onclick="return confirm('Tem certeza que deseja excluir esta Viagem?');"
                                            class="btn btn-outline-danger" title="Excluir">
                                             <i class="bi bi-trash"></i>

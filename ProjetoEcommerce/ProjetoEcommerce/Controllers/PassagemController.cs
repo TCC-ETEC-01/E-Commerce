@@ -47,7 +47,7 @@ namespace ProjetoEcommerce.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditarPassagem(int id, [Bind("IdPassagem, Valor, Assento, IdViagem, Situacao")] tbPassagem passagem)
+        public async Task<IActionResult> EditarPassagem(int id, [Bind("IdPassagem,IdTransporte, Valor, Assento, IdViagem, Situacao, Translado")] tbPassagem passagem)
         {
             ModelState.Clear();
             if (id != passagem.IdPassagem)
