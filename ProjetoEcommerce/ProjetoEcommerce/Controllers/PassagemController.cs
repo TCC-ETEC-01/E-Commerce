@@ -75,20 +75,22 @@ namespace ProjetoEcommerce.Controllers
             TempData["MensagemSucesso"] = "Passagem excluída com Sucesso";
             return RedirectToAction("Index", "PassagemComViagem");
         }
-
+        
         public async Task<IActionResult> ComprarPassagem(tbVenda venda)
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> ComprarPassagem(tbVenda venda)
+        public async Task<IActionResult> ComprarPassagem(tbVenda venda, int idPassagem, int idFuncionario, int idCliente)
         {
+            venda.IdPassagem = new tbPassagem { IdPassagem = idPassagem};
+            venda.IdFuncionario = new tbFuncionario { IdFuncionario = idFuncionario};
+            venda.IdCliente = new tbCliente { IdCliente = idCliente};
             if (await _passagemRepositorio.VendaPassagem(venda))
             {
                 TempData["MensagemSucesso"] = "Venda cadastrada com sucesso";
                 return RedirectToAction("Index", "PassagemComViagem");
-
             }
             TempData["MensagemErro"] = "Erro ao cadastrar venda";
             return View(venda);

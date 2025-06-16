@@ -155,7 +155,7 @@ namespace ProjetoEcommerce.Repositorios
                 await conexao.OpenAsync();
 
                 MySqlCommand cmdVerificarFuncionario = new MySqlCommand("select 1 from tbFuncionario where IdFuncionario=@idFuncionario", conexao);
-                cmdVerificarFuncionario.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario);
+                cmdVerificarFuncionario.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario.IdFuncionario);
                 using (var drVerificarFuncionario = await cmdVerificarFuncionario.ExecuteReaderAsync())
                 {
                     if (!await drVerificarFuncionario.ReadAsync())
@@ -166,7 +166,7 @@ namespace ProjetoEcommerce.Repositorios
                 }
 
                 MySqlCommand cmdVerificarPassagem = new MySqlCommand("select 1 from tbPassagem where IdPassagem = @idPassagem", conexao);
-                cmdVerificarPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+                cmdVerificarPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
                 using (var drVerificarPassagem = await cmdVerificarPassagem.ExecuteReaderAsync())
                 {
                     if (!await drVerificarPassagem.ReadAsync())
@@ -177,7 +177,7 @@ namespace ProjetoEcommerce.Repositorios
                 }
 
                 MySqlCommand cmdVerificarCliente = new MySqlCommand("select 1 from tbCliente where IdCliente=@idCliente", conexao);
-                cmdVerificarCliente.Parameters.AddWithValue("@idCliente", venda.IdCliente);
+                cmdVerificarCliente.Parameters.AddWithValue("@idCliente", venda.IdCliente.IdCliente);
                 using (var drVerificarCliente = await cmdVerificarCliente.ExecuteReaderAsync())
                 {
                     if (!await drVerificarCliente.ReadAsync())
@@ -188,7 +188,7 @@ namespace ProjetoEcommerce.Repositorios
                 }
 
                 MySqlCommand cmdSituacaoPassagem = new MySqlCommand("select Situacao from tbPassagem where IdPassagem = @idPassagem", conexao);
-                cmdSituacaoPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+                cmdSituacaoPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
                 var situacao = await cmdSituacaoPassagem.ExecuteScalarAsync();
                 if (situacao?.ToString() == "Indisponivel")
                 {
@@ -200,9 +200,9 @@ namespace ProjetoEcommerce.Repositorios
                     "insert into tbVenda(IdCliente, IdPassagem, IdFuncionario, Valor, FormaPagamento, DataVenda) " +
                     "values(@idCliente, @idPassagem, @idFuncionario, @valor, @pagamento, @dataVenda)", conexao);
 
-                cmdInserirVenda.Parameters.AddWithValue("@idCliente", venda.IdCliente);
-                cmdInserirVenda.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario);
-                cmdInserirVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+                cmdInserirVenda.Parameters.AddWithValue("@idCliente", venda.IdCliente.IdCliente);
+                cmdInserirVenda.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario.IdFuncionario);
+                cmdInserirVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
                 cmdInserirVenda.Parameters.AddWithValue("@valor", venda.Valor);
                 cmdInserirVenda.Parameters.AddWithValue("@pagamento", venda.FormaPagamento);
                 cmdInserirVenda.Parameters.AddWithValue("@dataVenda", venda.DataVenda);
@@ -211,7 +211,7 @@ namespace ProjetoEcommerce.Repositorios
                 var idVendaGerado = cmdInserirVenda.LastInsertedId;
 
                 MySqlCommand cmdVerificarVenda = new MySqlCommand("select 1 from tbVenda where IdVenda=@idVenda and IdPassagem=@idPassagem", conexao);
-                cmdVerificarVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+                cmdVerificarVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
                 cmdVerificarVenda.Parameters.AddWithValue("@idVenda", idVendaGerado);
 
                 using (var drVenda = await cmdVerificarVenda.ExecuteReaderAsync())
@@ -219,7 +219,7 @@ namespace ProjetoEcommerce.Repositorios
                     if (await drVenda.ReadAsync())
                     {
                         MySqlCommand cmdAtualizarPassagem = new MySqlCommand("update tbPassagem set Situacao='Indisponivel' where IdPassagem=@idPassagem", conexao);
-                        cmdAtualizarPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem);
+                        cmdAtualizarPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
                         await cmdAtualizarPassagem.ExecuteNonQueryAsync();
                         return true;
                     }
