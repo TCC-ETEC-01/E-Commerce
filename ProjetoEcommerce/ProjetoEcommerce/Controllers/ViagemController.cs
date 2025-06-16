@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
-using System;
-using System.Threading.Tasks;
 
 namespace ProjetoEcommerce.Controllers
 {
@@ -44,23 +42,23 @@ namespace ProjetoEcommerce.Controllers
 
             if (viagem == null)
             {
-                ModelState.AddModelError("", "Dados da viagem são obrigatorios, tente novamente!");
+                ModelState.AddModelError("", "Dados da viagem sï¿½o obrigatorios, tente novamente!");
             }
             else
             {
                 if (!viagem.DataPartida.HasValue || !viagem.DataRetorno.HasValue)
                 {
-                    ModelState.AddModelError("", "Data de partida e retorno são obrigatorias, tente novamente!");
+                    ModelState.AddModelError("", "Data de partida e retorno sï¿½o obrigatorias, tente novamente!");
                 }
                 else
                 {
                     if (viagem.DataPartida.Value.Year < 2025 || viagem.DataRetorno.Value.Year < 2025)
                     {
-                        ModelState.AddModelError("", "Datas não podem ser anteriores ao ano de 2025");
+                        ModelState.AddModelError("", "Datas nï¿½o podem ser anteriores ao ano de 2025");
                     }
                     if (viagem.DataRetorno <= viagem.DataPartida)
                     {
-                        ModelState.AddModelError("", "A data de retorno precisa ser após a data de partida!");
+                        ModelState.AddModelError("", "A data de retorno precisa ser apï¿½s a data de partida!");
                     }
                 }
             }

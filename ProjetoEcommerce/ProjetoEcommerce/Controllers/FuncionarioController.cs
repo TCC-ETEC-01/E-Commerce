@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MySqlX.XDevAPI;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
 
@@ -42,7 +41,7 @@ namespace ProjetoEcommerce.Controllers
             if (funcionario != null && funcionario.Senha == senha)
             {
                 HttpContext.Session.SetString("FuncionarioLogado", funcionario.Email);
-                TempData["Mensagem"] = "Bem vindo" + funcionario.Email;
+                TempData["Mensagem"] = "Bem vindo" + funcionario.Nome;
                 return RedirectToAction("Index", "DashBoard");
             }
             ViewBag.Erro = "Dados incorretos, tente novamente!";
@@ -52,7 +51,7 @@ namespace ProjetoEcommerce.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            TempData["Mesangem"] = "Você está indo embora? Até breve!";
+            TempData["Mensagem"] = "Você está indo embora? Até breve!";
             return RedirectToAction("Login", "Funcionario");
         }
 
@@ -73,7 +72,7 @@ namespace ProjetoEcommerce.Controllers
             var sucesso = await _funcionarioRepositorio.CadastrarFuncionario(funcionario);
             if (sucesso)
             {
-                TempData["MensagemErro"] = "Cadastro Realizado com sucesso";
+                TempData["MensagemSucesso"] = "Cadastro Realizado com sucesso";
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -106,21 +105,47 @@ namespace ProjetoEcommerce.Controllers
                 {
                     if (await _funcionarioRepositorio.EditarFuncionario(funcionario))
                     {
+                        var FuncionarioLogado = HttpContext.Session.GetString("FuncionarioLogado") ?? "Desconhecido";
+
+                        await _funcionarioRepositorio.RegistrarLog(
+                            FuncionarioLogado,
+                            "Editar",
+                            $"Funcionário ID {funcionario.IdFuncionario} editado."
+                        );
+
                         return RedirectToAction(nameof(Index));
                     }
                 }
                 catch (Exception)
                 {
-                    ModelState.AddModelError("", "Ocorreu um erro ao atualizar, tente novamente! ");
+                    ModelState.AddModelError("", "Ocorreu um erro ao atualizar, tente novamente!");
                 }
             }
+
             return View(funcionario);
         }
 
         public async Task<IActionResult> ExcluirFuncionario(int Id)
         {
+            var funcionario = await _funcionarioRepositorio.ObterFuncionarioID(Id);
+            if (funcionario == null)
+            {
+                return NotFound();
+            }
+
             await _funcionarioRepositorio.ExcluirFuncionario(Id);
+
+            //Pega o usuario logado e joga no log, se nao tiver ninguem, entra como 'desconhecido' DALE!
+            var funcionarioLogado = HttpContext.Session.GetString("FuncionarioLogado") ?? "Desconhecido"; 
+
+            await _funcionarioRepositorio.RegistrarLog(
+                funcionarioLogado,
+                "Excluir",
+                $"Funcionário ID {Id} - {funcionario.Nome} excluído."
+            );
+
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
