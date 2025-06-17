@@ -23,8 +23,14 @@
     border-radius: 10px;
 }
 
+body {
+    background-color: #39327c !important;
+}
+
+
 h1 {
     margin-top: 5%;
+    color:white;
 }
 
 .cadastro-row {
@@ -51,3 +57,14 @@ select {
 
 
 
+.Img {
+    position: absolute;
+}
+
+.lua {
+    margin-left: 100%;
+}
+
+.aviao {
+    margin-left: 35%;
+}
