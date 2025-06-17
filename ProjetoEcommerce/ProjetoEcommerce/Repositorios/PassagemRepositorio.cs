@@ -157,7 +157,6 @@ namespace ProjetoEcommerce.Repositorios
             {
                 await conexao.OpenAsync();
 
-                // Verifica Funcionário
                 using (var cmd = new MySqlCommand("select 1 from tbFuncionario where IdFuncionario=@idFuncionario", conexao))
                 {
                     cmd.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario.IdFuncionario);
@@ -171,7 +170,6 @@ namespace ProjetoEcommerce.Repositorios
                     }
                 }
 
-                // Verifica Passagem
                 using (var cmd = new MySqlCommand("select 1 from tbPassagem where IdPassagem=@idPassagem", conexao))
                 {
                     cmd.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
@@ -185,7 +183,6 @@ namespace ProjetoEcommerce.Repositorios
                     }
                 }
 
-                // Verifica Cliente
                 using (var cmd = new MySqlCommand("select 1 from tbCliente where IdCliente=@idCliente", conexao))
                 {
                     cmd.Parameters.AddWithValue("@idCliente", venda.IdCliente.IdCliente);
@@ -198,8 +195,6 @@ namespace ProjetoEcommerce.Repositorios
                         }
                     }
                 }
-
-                // Verifica Situação da Passagem
                 using (var cmd = new MySqlCommand("select Situacao from tbPassagem where IdPassagem=@idPassagem", conexao))
                 {
                     cmd.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
@@ -211,7 +206,6 @@ namespace ProjetoEcommerce.Repositorios
                     }
                 }
 
-                // Inserir Venda
                 long idVendaGerado;
                 using (var cmd = new MySqlCommand(
                     "insert into tbVenda(IdCliente, IdPassagem, IdFuncionario, Valor, FormaPagamento, DataVenda) " +
@@ -227,8 +221,6 @@ namespace ProjetoEcommerce.Repositorios
                     await cmd.ExecuteNonQueryAsync();
                     idVendaGerado = cmd.LastInsertedId;
                 }
-
-                // Verifica se a venda foi inserida corretamente
                 bool vendaConfirmada;
                 using (var cmd = new MySqlCommand("select 1 from tbVenda where IdVenda=@idVenda and IdPassagem=@idPassagem", conexao))
                 {
@@ -239,8 +231,6 @@ namespace ProjetoEcommerce.Repositorios
                         vendaConfirmada = await dr.ReadAsync();
                     }
                 }
-
-                // Se a venda for confirmada, atualiza a passagem
                 if (vendaConfirmada)
                 {
                     using (var cmd = new MySqlCommand("update tbPassagem set Situacao='Indisponivel' where IdPassagem=@idPassagem", conexao))
