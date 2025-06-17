@@ -51,3 +51,35 @@
     background: rgb(0, 83, 255);
     color: rgb(11, 38, 151);
 }
+
+.btnCor {
+    color: rgb(11, 38, 151);
+    border: solid 1px rgb(0, 10, 86);
+}
+
+.btnEditar {
+    color: rgb(0, 10, 86);
+    border: solid 1px rgb(0, 10, 86);
+}
+
+.card {
+    background-color: rgba(9, 93, 173, 0.4); /* 0.4 = bem transparente */
+}
+
+body {
+    background-image: url('../imagem/1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.tudo {
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px;
+    background-color: rgba(148, 208, 234,0.5); /* 0.4 = bem transparente */
+}

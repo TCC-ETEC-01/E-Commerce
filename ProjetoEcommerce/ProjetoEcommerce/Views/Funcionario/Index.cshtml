@@ -1,6 +1,9 @@
 ﻿@model IEnumerable<ProjetoEcommerce.Models.tbFuncionario>
+<link href="~/css/funcionarioindex.css" rel="stylesheet" />
 
-<nav class="nav">
+
+<div class="tudo">
+    <nav class="nav pt-3">
     <div class="container row ">
         <div class="text-star col">
             <h1 class="text-primary">Anu Viagens</h1>
@@ -71,12 +74,12 @@
                                 <td class="text-center">
                                     <div class="btn-group btn-group-sm" role="group">
                                         <a asp-controller="Funcionario" asp-action="EditarFuncionario" asp-route-id="@item.IdFuncionario"
-                                           class="btn btn-outline-warning" title="Editar">
+                                               class="btn btnEditar" title="Editar">
                                             <i class="bi bi-pencil"></i>
                                         </a>
                                         <a asp-controller="Funcionario" asp-action="ExcluirFuncionario" asp-route-id="@item.IdFuncionario"
                                            onclick="return confirm('Tem certeza que deseja excluir este funcionário?');"
-                                           class="btn btn-outline-danger" title="Excluir">
+                                               class="btn btnCor" title="Excluir">
                                             <i class="bi bi-trash"></i>
                                         </a>
                                     </div>
@@ -90,3 +93,4 @@
     </div>
 </section>
 
+</div>
