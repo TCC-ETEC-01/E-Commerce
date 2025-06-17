@@ -116,6 +116,17 @@ namespace ProjetoEcommerce.Repositorios
                         await cmdExcluirPassagem.ExecuteNonQueryAsync();
                     }
                 }
+
+                using (var drPassagemVenda = await cmdBuscarId.ExecuteReaderAsync())
+                {
+                    if (!await drPassagemVenda.ReadAsync())
+                    {
+                        drPassagemVenda.Close();
+                        MySqlCommand cmdExcluirPassagemVenda = new MySqlCommand("delete from tbVenda where IdPassagem=@IdPassagem", conexao);
+                        cmdExcluirPassagemVenda.Parameters.AddWithValue("@IdPassagem", id);
+                        await cmdExcluirPassagemVenda.ExecuteNonQueryAsync();
+                    }
+                }
             }
         }
 
@@ -244,6 +255,5 @@ namespace ProjetoEcommerce.Repositorios
                 return false;
             }
         }
-
     }
 }

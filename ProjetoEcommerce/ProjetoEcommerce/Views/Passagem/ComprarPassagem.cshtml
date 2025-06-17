@@ -29,36 +29,35 @@
             <div class="col form-group">
                 <label for="idCliente" class="control-label">Id Cliente</label>
                 <input type="number" name="idCliente" id="idCliente" class="form-control cadastro-input" required />
-                <span asp-validation-for="IdCliente" class="text-danger"></span>
             </div>
 
             <div class="col form-group">
                 <label for="idPassagem" class="control-label">Id Passagem</label>
                 <input type="number" name="idPassagem" id="idPassagem" class="form-control cadastro-input" required />
-                <span asp-validation-for="IdPassagem" class="text-danger"></span>
             </div>
 
             <div class="col form-group">
                 <label for="idFuncionario" class="control-label">Id Funcionário</label>
                 <input type="number" name="idFuncionario" id="idFuncionario" class="form-control cadastro-input" required />
-                <span asp-validation-for="IdFuncionario" class="text-danger"></span>
             </div>
 
             <div class="col form-group">
-                <label for="valor" class="control-label">Valor Total (R$)</label>
-                <input type="number" name="valor" id="valor" step="0.01" class="form-control cadastro-input" required />
+                <label asp-for="Valor" class="control-label"></label>
+                <input asp-for="Valor" class="form-control cadastro-input" />
                 <span asp-validation-for="Valor" class="text-danger"></span>
             </div>
 
             <div class="col form-group">
-                <label for="formaPagamento" class="control-label">Forma de Pagamento</label>
-                <input type="text" name="formaPagamento" id="formaPagamento" class="form-control cadastro-input" required />
+                <label asp-for="FormaPagamento" class="control-label"></label>
+                <input asp-for="FormaPagamento" class="form-control cadastro-input" />
                 <span asp-validation-for="FormaPagamento" class="text-danger"></span>
             </div>
 
+
+
             <div class="col form-group">
-                <label for="dataVenda" class="control-label">Data da Venda</label>
-                <input type="date" name="dataVenda" id="dataVenda" class="form-control cadastro-input" required />
+                <label asp-for="DataVenda" class="control-label"></label>
+                <input asp-for="DataVenda" class="form-control cadastro-input" type="date" />
                 <span asp-validation-for="DataVenda" class="text-danger"></span>
             </div>
         </div>

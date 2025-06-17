@@ -96,10 +96,11 @@ namespace ProjetoEcommerce.Repositorios
                     await conexao.OpenAsync();
                     MySqlCommand cmd = new MySqlCommand("update tbCliente set Nome=@nome,Sexo=@sexo,Email=@email,Telefone=@telefone,Cpf=@cpf where IdCliente=@IdCliente", conexao);
                     cmd.Parameters.Add("@IdCliente", MySqlDbType.Int32).Value = cliente.IdCliente;
-                    cmd.Parameters.Add("@Nome", MySqlDbType.VarChar).Value = cliente.Nome;
-                    cmd.Parameters.Add("@Email", MySqlDbType.VarChar).Value = cliente.Email;
-                    cmd.Parameters.Add("@Telefone", MySqlDbType.VarChar).Value = cliente.Telefone;
-                    cmd.Parameters.Add("@Cpf", MySqlDbType.VarChar).Value = cliente.Cpf;
+                    cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = cliente.Nome;
+                    cmd.Parameters.Add("@sexo", MySqlDbType.VarChar).Value = cliente.Sexo;
+                    cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = cliente.Email;
+                    cmd.Parameters.Add("@telefone", MySqlDbType.VarChar).Value = cliente.Telefone;
+                    cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = cliente.Cpf;
                     int linhasAfestadas = await cmd.ExecuteNonQueryAsync();
                     return linhasAfestadas > 0;
                 }

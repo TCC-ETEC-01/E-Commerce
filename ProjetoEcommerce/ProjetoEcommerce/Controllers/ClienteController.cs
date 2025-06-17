@@ -66,7 +66,7 @@ namespace ProjetoEcommerce.Controllers
             {
                 return BadRequest();
             }
-
+            ModelState.Clear();
             if (ModelState.IsValid)
             {
                 try
