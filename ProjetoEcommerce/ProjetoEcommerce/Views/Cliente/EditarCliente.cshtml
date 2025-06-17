@@ -23,9 +23,10 @@
                     <input asp-for="Email" class="form-control cadastro-input" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <div class="w-100 form-group">
+                
+                <div class="form-group pt-3">
                     <label asp-for="Sexo" class="control-label"></label>
-                    <select asp-for="Sexo" class="">
+                    <select asp-for="Sexo" class="form-control cadastro-input">
                         <option value="Masculino">Masculino</option>
                         <option value="Feminino">Feminino</option>
                         <option value="Indefinido">Indefinido</option>
