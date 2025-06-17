@@ -53,6 +53,20 @@
     color: rgb(11, 38, 151);
 }
 
+.btnCor {
+    color: rgb(11, 38, 151);
+    border: solid 1px rgb(0, 10, 86);
+}
+
+.btnEditar {
+    color: rgb(0, 10, 86);
+    border: solid 1px rgb(0, 10, 86);
+}
+
+.card {
+    background-color: rgba(9, 93, 173, 0.4); /* 0.4 = bem transparente */
+}
+
 body {
     background-image: url('../imagem/1.png');
     background-size: cover;
