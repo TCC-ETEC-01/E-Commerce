@@ -213,5 +213,18 @@ namespace ProjetoEcommerce.Repositorios
                 }
             }
         }
+        public async Task RegistrarLog(string usuario, string acao, string descricao)
+        {
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                await conexao.OpenAsync();
+                var cmd = new MySqlCommand("insert into tbLogs (Usuario, DataLog, Acao, Descricao) values (@usuario, @datalog, @acao, @descricao)", conexao);
+                cmd.Parameters.AddWithValue("@usuario", usuario);
+                cmd.Parameters.AddWithValue("@datalog", DateTime.Now);
+                cmd.Parameters.AddWithValue("@acao", acao);
+                cmd.Parameters.AddWithValue("@descricao", descricao);
+                await cmd.ExecuteNonQueryAsync();
+            }
+        }
     }
 }

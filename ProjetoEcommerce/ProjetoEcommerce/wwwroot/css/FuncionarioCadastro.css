@@ -1,6 +1,6 @@
 ﻿
 .container-cadastro {
-    background-color: lightgray;
+    background-color: lightblue;
     margin-top: 12%;
     font-size: 25px;
     display: grid;
@@ -9,7 +9,7 @@
     align-self: center;
     border-radius: 15px;
     height: 645px !important;
-    width: 1439px !important;
+    width: 1583px !important;
     padding: 25px;
     margin-left: -10%;
 }
@@ -24,6 +24,7 @@
 
 h1 {
     margin-top: 5%;
+    color:white;
 }
 
 .cadastro-row {
@@ -50,4 +51,32 @@ select {
 
 .item-cada {
     margin-left: 50px !important; /* Remove o espaçamento gigante */
+}
+
+body {
+    background-color: #39327c;
+}
+
+
+.Img {
+    position: absolute;
+}
+
+.lua {
+    margin-left: 100%;
+}
+
+.aviao {
+    margin-left: 35%;
+}
+
+.bird {
+    position: absolute;
+    bottom: 35%;
+    right: 10%;
+}
+
+.nuvem {
+    position: absolute;
+    bottom: 35%;
 }

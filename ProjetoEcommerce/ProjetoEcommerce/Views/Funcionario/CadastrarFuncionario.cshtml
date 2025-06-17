@@ -3,7 +3,16 @@
 
 <link href="~/css/funcionariocadastro.css" rel="stylesheet" />
 <body>
+
+
+
     <h1>Cadastrar Funcionário</h1>
+
+    <img class="Img aviao" src="~/imagem/aviao.png" />
+    <img class="img lua" src="~/imagem/lua.png" />
+    <img class="img nuvem" src="~/imagem/nuvem.png" />
+    <img class="img bird" src="~/imagem/bird.png" />
+
 
     <form asp-action="CadastrarFuncionario">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -11,7 +20,7 @@
             <header>
                 <nav class="navbar  Cadastro-navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
                     <div class="container-fluid">
-                        <a class="navbar-brand" asp-area="" asp-controller="Dashboard" asp-action="CadastroHome">Cliente</a>
+                        <a class="navbar-brand nav-link" asp-area="" asp-controller="Dashboard" asp-action="CadastroHome">Cliente</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>

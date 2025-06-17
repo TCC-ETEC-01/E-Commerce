@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProjetoEcommerce.Models;
 using ProjetoEcommerce.Repositorios;
-using System.Threading.Tasks;
 
 namespace ProjetoEcommerce.Controllers
 {
