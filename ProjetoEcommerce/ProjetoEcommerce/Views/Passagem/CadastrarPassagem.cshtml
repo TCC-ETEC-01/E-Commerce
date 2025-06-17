@@ -61,11 +61,14 @@
             <span asp-validation-for="Assento" class="text-danger"></span>
         </div>
 
-        <div class="col form-group">
-            <label asp-for="Situacao" class="control-label">Situação</label>
-            <input asp-for="Situacao" class="form-control cadastro-input" />
-            <span asp-validation-for="Situacao" class="text-danger"></span>
-        </div>
+            <div class="col row-cols-2 w-100 form-group">
+                <label asp-for="Situacao" class="control-label"></label>
+                <select asp-for="Situacao" class="">
+                    <option value="Disponivel">Disponivel</option>
+                    <option value="Indisponivel">Indisponivel</option>
+                </select>
+                <span asp-validation-for="Translado" class="text-danger"></span>
+            </div>
             <div class="col row-cols-2 w-100 form-group">
                 <label asp-for="Translado" class="control-label"></label>
                 <select asp-for="Translado" class="">
