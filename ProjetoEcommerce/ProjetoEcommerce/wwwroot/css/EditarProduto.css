@@ -1,49 +1,82 @@
-﻿.FormTudo {
-    background-color: rgb(33, 148, 206);
-    border-radius: 15px;
-    width: 55%;
+﻿/* Fundo da página */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('../imagem/fundo.jpg');
+    background-size: cover;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+/* Título */
+.tituloEditar {
+    text-align: center;
+    margin-top: 40px;
+    color: white;
+    font-size: 2rem;
+}
+
+/* Formulário com efeito glass */
+.FormTudo {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(113, 215, 199, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(113, 215, 199, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     color: white;
 }
 
+/* Campos do formulário */
 .div-item {
-    width: 55% !important;
-    margin-left: 25%;
+    margin-bottom: 20px;
 }
 
-body {
-    background-color: rgb(33, 148, 206)   !important;
+.cadastro-input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1rem;
 }
 
-.img {
-    position: absolute;
+    .cadastro-input::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
 }
 
-.sol{
-    left:3%;
+/* Botões */
+.botoes {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
 }
 
-.bird{
-    z-index:-1;
-    right:0%
+button {
+    padding: 12px 30px;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
-.tree {
-    bottom: 5%;
-    right:0;
-}
-.tree2 {
-    bottom: 5%;
-    left: 1%;
-}
-.bus{
-    z-index:-1;
-    bottom:5% !important;
-    left:45%;
+.btn-primary {
+    background-color: #007bff;
+    color: white;
 }
 
-.btn-secondary{
-    background-color:red;
-}
-.btn-secondary:hover {
-    background-color: darkred;
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
 }
