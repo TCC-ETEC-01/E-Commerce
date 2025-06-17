@@ -74,9 +74,15 @@ namespace ProjetoEcommerce.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult EditarViagem()
+        public async Task<IActionResult> EditarViagemAsync(int id)
         {
-            return View();
+            var viagem = await _viagemRepositorio.ObterViagem(id);
+
+            if (viagem == null)
+            {
+                return NotFound();
+            }
+            return View(viagem);
         }
 
         [HttpPost]
