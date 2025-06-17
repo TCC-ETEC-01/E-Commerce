@@ -1,3 +1,49 @@
 ﻿.FormTudo {
-    background: rgb(152, 152, 152);
+    background:rgb(32, 43, 102);
+    border-radius:15px;
+    width:55%;
+    color:white;
+}
+
+.div-item {
+    width: 55% !important;
+    margin-left: 25%;
+}
+
+body{
+    background-color:rgb(0, 255, 255) !important;
+}
+
+.img {
+    position: absolute;
+}
+
+.sol{
+    left:3%;
+}
+
+.bird{
+    z-index:-1;
+    right:0%
+}
+
+.tree {
+    bottom: 5%;
+    right:0;
+}
+.tree2 {
+    bottom: 5%;
+    left: 1%;
+}
+.bus{
+    z-index:-1;
+    bottom:5% !important;
+    left:45%;
+}
+
+.btn-secondary{
+    background-color:red;
+}
+.btn-secondary:hover {
+    background-color: darkred;
 }
