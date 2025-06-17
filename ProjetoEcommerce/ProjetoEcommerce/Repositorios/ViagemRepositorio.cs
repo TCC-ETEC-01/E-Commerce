@@ -90,16 +90,37 @@ namespace ProjetoEcommerce.Repositorios
             return ListaViagens;
         }
 
-        public async Task ExcluirViagem(int Id)
+        public async Task ExcluirViagem(int id)
         {
-            using var conexao = new MySqlConnection(_conexaoMySQL);
-            await conexao.OpenAsync();
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                await conexao.OpenAsync();
 
-            MySqlCommand cmd = new MySqlCommand("delete from tbViagem where IdViagem=@idViagem", conexao);
-            cmd.Parameters.AddWithValue("@idViagem", Id);
-            await cmd.ExecuteNonQueryAsync();
+                MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbPassagem where IdViagem=@idViagem", conexao);
+                cmdBuscarId.Parameters.AddWithValue("@idViagem", id);
 
-            conexao.Close();
+                using (var drViagemPassagem = await cmdBuscarId.ExecuteReaderAsync())
+                {
+                    if (await drViagemPassagem.ReadAsync())
+                    {
+                        drViagemPassagem.Close();
+                        MySqlCommand cmdExcluirPassagens = new MySqlCommand("delete from tbPassagem where IdViagem=@idViagem", conexao);
+                        cmdExcluirPassagens.Parameters.AddWithValue("@idViagem", id);
+                        await cmdExcluirPassagens.ExecuteNonQueryAsync();
+                    }
+                }
+
+                using (var drViagem = await cmdBuscarId.ExecuteReaderAsync())
+                {
+                    if (!await drViagem.ReadAsync())
+                    {
+                        drViagem.Close();
+                        MySqlCommand cmdExcluirViagem = new MySqlCommand("delete from tbViagem where IdViagem=@idViagem", conexao);
+                        cmdExcluirViagem.Parameters.AddWithValue("@idViagem", id);
+                        await cmdExcluirViagem.ExecuteNonQueryAsync();
+                    }
+                }
+            }
         }
 
         public async Task<tbViagem> ObterViagem(int Id)
