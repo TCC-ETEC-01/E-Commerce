@@ -166,16 +166,44 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
-        public async Task ExcluirFuncionario(int Id)
+        public async Task ExcluirFuncionario(int id)
         {
-            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            await using var conexao = new MySqlConnection(_conexaoMySQL);
+            await conexao.OpenAsync();
+
+            MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbVenda where IdFuncionario=@idFuncionario", conexao);
+            cmdBuscarId.Parameters.AddWithValue("@idFuncionario", id);
+
+            await using var drFuncionario = await cmdBuscarId.ExecuteReaderAsync(CommandBehavior.CloseConnection);
+
+            if (await drFuncionario.ReadAsync())
             {
-                await conexao.OpenAsync();
-                MySqlCommand cmd = new MySqlCommand("delete from tbFuncionario where IdFuncionario=@IdFuncionario", conexao);
-                cmd.Parameters.AddWithValue("@IdFuncionario", Id);
-                await cmd.ExecuteNonQueryAsync();
+                await conexao.CloseAsync();
+
+                await using var conexao2 = new MySqlConnection(_conexaoMySQL);
+                await conexao2.OpenAsync();
+
+                MySqlCommand cmdFuncionarioVenda = new MySqlCommand("delete from tbVenda where IdFuncionario=@idFuncionario", conexao2);
+                cmdFuncionarioVenda.Parameters.AddWithValue("@idFuncionario", id);
+                await cmdFuncionarioVenda.ExecuteNonQueryAsync();
+
+                MySqlCommand cmdExcluirFuncionario = new MySqlCommand("delete from tbFuncionario where IdFuncionario=@idFuncionario", conexao2);
+                cmdExcluirFuncionario.Parameters.AddWithValue("@idFuncionario", id);
+                await cmdExcluirFuncionario.ExecuteNonQueryAsync();
+            }
+            else
+            {
+                await conexao.CloseAsync();
+
+                await using var conexao3 = new MySqlConnection(_conexaoMySQL);
+                await conexao3.OpenAsync();
+
+                MySqlCommand cmdExcluirFuncionario = new MySqlCommand("delete from tbFuncionario where IdFuncionario=@idFuncionario", conexao3);
+                cmdExcluirFuncionario.Parameters.AddWithValue("@idFuncionario", id);
+                await cmdExcluirFuncionario.ExecuteNonQueryAsync();
             }
         }
+
         public async Task<List<tbFuncionario>> BuscarFuncionario(string nome)
         {
             var lista = new List<tbFuncionario>();
