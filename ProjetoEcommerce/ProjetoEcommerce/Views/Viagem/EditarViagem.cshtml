@@ -1,5 +1,13 @@
 ﻿@model ProjetoEcommerce.Models.tbViagem;
 
+
+
+<div class="btn-nav col d-flex justify-content-end align-items-start pt-3">
+    <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-primary">
+        <i class="bi bi-arrow-left-circle"></i> Voltar
+    </a>
+</div>
+<h2 class="tituloEditar">Editar Viagem</h2>
 <form asp-action="EditarViagem" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
