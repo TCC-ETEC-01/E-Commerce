@@ -255,6 +255,5 @@ namespace ProjetoEcommerce.Repositorios
                 return false;
             }
         }
-
     }
 }
