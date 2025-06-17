@@ -89,10 +89,5 @@ namespace ProjetoEcommerce.Controllers
            TempData["MensagemErro"] = "Erro ao excluir transporte.";
             return RedirectToAction(nameof(Index));
         }
-
-        public async Task<IActionResult> BarraPesquisa()
-        {
-            return View();
-        }
     }
 }
