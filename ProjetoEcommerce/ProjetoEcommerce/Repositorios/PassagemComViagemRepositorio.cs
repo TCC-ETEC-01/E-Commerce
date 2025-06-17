@@ -16,7 +16,7 @@ namespace ProjetoEcommerce.Repositorios
             {
                 await conexao.OpenAsync();
 
-                string query = @"select  p.IdPassagem, p.Valor, v.Origem, v.Destino, p.Assento,v.Descricao, v.DataPartida as Partida, v.DataRetorno as Retorno, t.TipoTransporte as Transporte, t.Companhia, t.CodigoTransporte as Cod_Transporte
+                string query = @"select  p.IdPassagem,p.Situacao, p.Valor, v.Origem, v.Destino, p.Assento,v.Descricao, v.DataPartida as Partida, v.DataRetorno as Retorno, t.TipoTransporte as Transporte, t.Companhia, t.CodigoTransporte as Cod_Transporte
 	                            from tbPassagem p
 	                            inner join tbViagem v on p.IdViagem = v.IdViagem
 	                            inner join tbTransporte t on p.IdTransporte = t.IdTransporte;";
@@ -37,6 +37,7 @@ namespace ProjetoEcommerce.Repositorios
                                 DataPartida = drPassagemComViagem.GetDateTime("Partida"),
                                 DataRetorno = drPassagemComViagem.GetDateTime("Retorno"),
                                 TipoTransporte = drPassagemComViagem.GetString("Transporte"),
+                                Situacao = drPassagemComViagem.GetString("Situacao"),
                                 CodigoTransporte = drPassagemComViagem.GetString("Cod_Transporte"),
                                 Companhia = drPassagemComViagem.GetString("Companhia"),
                                 Valor = drPassagemComViagem.GetDecimal("Valor")
@@ -56,7 +57,7 @@ namespace ProjetoEcommerce.Repositorios
             {
                 await conexao.OpenAsync();
 
-                string query = @"select  p.IdPassagem, p.Valor, v.Origem, v.Destino, p.Assento,v.Descricao, v.DataPartida as Partida, v.DataRetorno as Retorno, t.TipoTransporte as Transporte, t.Companhia, t.CodigoTransporte as Cod_Transporte
+                string query = @"select p.IdPassagem, p.Situacao, p.Valor, v.Origem, v.Destino, p.Assento,v.Descricao, v.DataPartida as Partida, v.DataRetorno as Retorno, t.TipoTransporte as Transporte, t.Companhia, t.CodigoTransporte as Cod_Transporte
 	                            from tbPassagem p
 	                            inner join tbViagem v on p.IdViagem = v.IdViagem
 	                            inner join tbTransporte t on p.IdTransporte = t.IdTransporte
@@ -80,6 +81,7 @@ namespace ProjetoEcommerce.Repositorios
                                 DataPartida = dr.GetDateTime("Partida"),
                                 DataRetorno = dr.GetDateTime("Retorno"),
                                 TipoTransporte = dr.GetString("Transporte"),
+                                Situacao = dr.GetString("Situacao"),
                                 CodigoTransporte = dr.GetString("Cod_Transporte"),
                                 Companhia = dr.GetString("Companhia"),
                                 Valor = dr.GetDecimal("Valor")

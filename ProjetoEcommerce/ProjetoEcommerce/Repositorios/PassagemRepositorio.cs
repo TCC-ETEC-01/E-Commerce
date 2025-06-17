@@ -157,78 +157,103 @@ namespace ProjetoEcommerce.Repositorios
             {
                 await conexao.OpenAsync();
 
-                MySqlCommand cmdVerificarFuncionario = new MySqlCommand("select 1 from tbFuncionario where IdFuncionario=@idFuncionario", conexao);
-                cmdVerificarFuncionario.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario.IdFuncionario);
-                using (var drVerificarFuncionario = await cmdVerificarFuncionario.ExecuteReaderAsync())
+                // Verifica Funcionário
+                using (var cmd = new MySqlCommand("select 1 from tbFuncionario where IdFuncionario=@idFuncionario", conexao))
                 {
-                    if (!await drVerificarFuncionario.ReadAsync())
+                    cmd.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario.IdFuncionario);
+                    using (var dr = await cmd.ExecuteReaderAsync())
                     {
-                        Console.WriteLine("Operação cancelada, funcionário inexistente");
+                        if (!await dr.ReadAsync())
+                        {
+                            Console.WriteLine("Operação cancelada, funcionário inexistente");
+                            return false;
+                        }
+                    }
+                }
+
+                // Verifica Passagem
+                using (var cmd = new MySqlCommand("select 1 from tbPassagem where IdPassagem=@idPassagem", conexao))
+                {
+                    cmd.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
+                    using (var dr = await cmd.ExecuteReaderAsync())
+                    {
+                        if (!await dr.ReadAsync())
+                        {
+                            Console.WriteLine("Operação cancelada, passagem inexistente");
+                            return false;
+                        }
+                    }
+                }
+
+                // Verifica Cliente
+                using (var cmd = new MySqlCommand("select 1 from tbCliente where IdCliente=@idCliente", conexao))
+                {
+                    cmd.Parameters.AddWithValue("@idCliente", venda.IdCliente.IdCliente);
+                    using (var dr = await cmd.ExecuteReaderAsync())
+                    {
+                        if (!await dr.ReadAsync())
+                        {
+                            Console.WriteLine("Operação cancelada, cliente inexistente");
+                            return false;
+                        }
+                    }
+                }
+
+                // Verifica Situação da Passagem
+                using (var cmd = new MySqlCommand("select Situacao from tbPassagem where IdPassagem=@idPassagem", conexao))
+                {
+                    cmd.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
+                    var situacao = await cmd.ExecuteScalarAsync();
+                    if (situacao?.ToString() == "Indisponivel")
+                    {
+                        Console.WriteLine("Impossível realizar a operação, passagem indisponível");
                         return false;
                     }
                 }
 
-                MySqlCommand cmdVerificarPassagem = new MySqlCommand("select 1 from tbPassagem where IdPassagem = @idPassagem", conexao);
-                cmdVerificarPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
-                using (var drVerificarPassagem = await cmdVerificarPassagem.ExecuteReaderAsync())
-                {
-                    if (!await drVerificarPassagem.ReadAsync())
-                    {
-                        Console.WriteLine("Operação cancelada, passagem inexistente");
-                        return false;
-                    }
-                }
-
-                MySqlCommand cmdVerificarCliente = new MySqlCommand("select 1 from tbCliente where IdCliente=@idCliente", conexao);
-                cmdVerificarCliente.Parameters.AddWithValue("@idCliente", venda.IdCliente.IdCliente);
-                using (var drVerificarCliente = await cmdVerificarCliente.ExecuteReaderAsync())
-                {
-                    if (!await drVerificarCliente.ReadAsync())
-                    {
-                        Console.WriteLine("Operação cancelada, cliente inexistente");
-                        return false;
-                    }
-                }
-
-                MySqlCommand cmdSituacaoPassagem = new MySqlCommand("select Situacao from tbPassagem where IdPassagem = @idPassagem", conexao);
-                cmdSituacaoPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
-                var situacao = await cmdSituacaoPassagem.ExecuteScalarAsync();
-                if (situacao?.ToString() == "Indisponivel")
-                {
-                    Console.WriteLine("Impossivel realizar a operação, passagem indisponivel");
-                    return false;
-                }
-
-                MySqlCommand cmdInserirVenda = new MySqlCommand(
+                // Inserir Venda
+                long idVendaGerado;
+                using (var cmd = new MySqlCommand(
                     "insert into tbVenda(IdCliente, IdPassagem, IdFuncionario, Valor, FormaPagamento, DataVenda) " +
-                    "values(@idCliente, @idPassagem, @idFuncionario, @valor, @pagamento, @dataVenda)", conexao);
-
-                cmdInserirVenda.Parameters.AddWithValue("@idCliente", venda.IdCliente.IdCliente);
-                cmdInserirVenda.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario.IdFuncionario);
-                cmdInserirVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
-                cmdInserirVenda.Parameters.AddWithValue("@valor", venda.Valor);
-                cmdInserirVenda.Parameters.AddWithValue("@pagamento", venda.FormaPagamento);
-                cmdInserirVenda.Parameters.AddWithValue("@dataVenda", venda.DataVenda);
-
-                await cmdInserirVenda.ExecuteNonQueryAsync();
-                var idVendaGerado = cmdInserirVenda.LastInsertedId;
-
-                MySqlCommand cmdVerificarVenda = new MySqlCommand("select 1 from tbVenda where IdVenda=@idVenda and IdPassagem=@idPassagem", conexao);
-                cmdVerificarVenda.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
-                cmdVerificarVenda.Parameters.AddWithValue("@idVenda", idVendaGerado);
-
-                using (var drVenda = await cmdVerificarVenda.ExecuteReaderAsync())
+                    "values(@idCliente, @idPassagem, @idFuncionario, @valor, @pagamento, @dataVenda)", conexao))
                 {
-                    if (await drVenda.ReadAsync())
+                    cmd.Parameters.AddWithValue("@idCliente", venda.IdCliente.IdCliente);
+                    cmd.Parameters.AddWithValue("@idFuncionario", venda.IdFuncionario.IdFuncionario);
+                    cmd.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
+                    cmd.Parameters.AddWithValue("@valor", venda.Valor);
+                    cmd.Parameters.AddWithValue("@pagamento", venda.FormaPagamento);
+                    cmd.Parameters.AddWithValue("@dataVenda", venda.DataVenda);
+
+                    await cmd.ExecuteNonQueryAsync();
+                    idVendaGerado = cmd.LastInsertedId;
+                }
+
+                // Verifica se a venda foi inserida corretamente
+                bool vendaConfirmada;
+                using (var cmd = new MySqlCommand("select 1 from tbVenda where IdVenda=@idVenda and IdPassagem=@idPassagem", conexao))
+                {
+                    cmd.Parameters.AddWithValue("@idVenda", idVendaGerado);
+                    cmd.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
+                    using (var dr = await cmd.ExecuteReaderAsync())
                     {
-                        MySqlCommand cmdAtualizarPassagem = new MySqlCommand("update tbPassagem set Situacao='Indisponivel' where IdPassagem=@idPassagem", conexao);
-                        cmdAtualizarPassagem.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
-                        await cmdAtualizarPassagem.ExecuteNonQueryAsync();
-                        return true;
+                        vendaConfirmada = await dr.ReadAsync();
                     }
                 }
+
+                // Se a venda for confirmada, atualiza a passagem
+                if (vendaConfirmada)
+                {
+                    using (var cmd = new MySqlCommand("update tbPassagem set Situacao='Indisponivel' where IdPassagem=@idPassagem", conexao))
+                    {
+                        cmd.Parameters.AddWithValue("@idPassagem", venda.IdPassagem.IdPassagem);
+                        await cmd.ExecuteNonQueryAsync();
+                    }
+                    return true;
+                }
+
                 return false;
             }
         }
+
     }
 }
