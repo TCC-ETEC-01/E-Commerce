@@ -105,9 +105,12 @@ namespace ProjetoEcommerce.Repositorios
                         cmdExcluirPassagemPacote.Parameters.AddWithValue("@IdPassagemPacote", id);
                         await cmdExcluirPassagemPacote.ExecuteNonQueryAsync();
                     }
-                    else
+                }
+                using (var drPassagem = await cmdBuscarId.ExecuteReaderAsync())
+                { 
+                    if (!await drPassagem.ReadAsync())
                     {
-                        drPassagemPacote.Close();
+                        drPassagem.Close();
                         MySqlCommand cmdExcluirPassagem = new MySqlCommand("delete from tbPassagem where IdPassagem=@IdPassagem", conexao);
                         cmdExcluirPassagem.Parameters.AddWithValue("@IdPassagem", id);
                         await cmdExcluirPassagem.ExecuteNonQueryAsync();
