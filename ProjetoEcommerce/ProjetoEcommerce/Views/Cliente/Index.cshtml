@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<ProjetoEcommerce.Models.tbCliente>
-<script src="~/js/clienteindex.js"></script>
 <link href="~/css/clienteindex.css" rel="stylesheet" />
 
 <div class="tudo">
@@ -7,7 +6,7 @@
     <div class="container row ">
         <div class="text-star col">
             <h1 class="text-primary">Anu Viagens</h1>
-            <p class="text-nav fs-6">Acompanhe todos os seus registros em um único lugar.</p>
+            <p class="text-nav text-light fs-6">Acompanhe todos os seus registros em um único lugar.</p>
             <form method="get" asp-action="Index" asp-controller="Cliente" class="d-flex justify-content-start p-2 pb-1">
                 <div class="search-box">
                     <input type="text" name="nome" class="search-txt text-white" placeholder="Pesquisar destino...">
@@ -27,7 +26,7 @@
         </div>
     </div>
 </nav>
-<section>
+     <section class="tudo p-3">    
     <div class="card">
         <div class="card-body">
 
