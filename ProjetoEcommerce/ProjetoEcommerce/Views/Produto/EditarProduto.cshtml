@@ -3,6 +3,11 @@
 <!-- Linka o CSS -->
 <link rel="stylesheet" href="~/css/editarproduto.css" />
 
+<div class="btn-nav col d-flex justify-content-end align-items-start pt-3">
+    <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-primary">
+        <i class="bi bi-arrow-left-circle"></i> Voltar
+    </a>
+</div>
 <h2 class="tituloEditar">Editar Produto</h2>
 
 <form asp-action="EditarProduto" method="post" class="FormTudo">

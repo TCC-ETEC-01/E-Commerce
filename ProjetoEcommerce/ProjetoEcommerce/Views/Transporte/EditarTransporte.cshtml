@@ -1,8 +1,15 @@
 ﻿@model ProjetoEcommerce.Models.tbTransporte
 
-<form asp-action="EditarTransporte" method="post" class="FormTudo container pt-4">
-    <h2 class="tituloEditar pt-5 p-5 pb-2">Editar Transporte</h2>
 
+
+<div class="btn-nav col d-flex justify-content-end align-items-start pt-3">
+    <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-primary">
+        <i class="bi bi-arrow-left-circle"></i> Voltar
+    </a>
+</div>
+<h2 class="tituloEditar pt-3 pb-2">Editar Transporte</h2>
+<form asp-action="EditarTransporte" method="post" class="FormTudo container pt-4">
+  
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <input type="hidden" asp-for="IdTransporte" class="form-control" />
