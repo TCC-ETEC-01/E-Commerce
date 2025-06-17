@@ -13,18 +13,17 @@
         <span asp-validation-for="IdPacote" class="text-danger"></span>
     </div>
 
-    <div class="row cadastro-row">
-        <div class="form-group pt-3">
-            <label asp-for="IdPassagem" class="control-label"></label>
-            <input asp-for="IdPassagem" class="form-control cadastro-input" />
-            <span asp-validation-for="IdPassagem" class="text-danger"></span>
-        </div>
+    <div class="form-group pt-3">
+        <label for="IdPassagem_IdPassagem" class="control-label">ID da passagem</label>
+        <input name="IdPassagem.IdPassagem" value="@Model.IdPassagem?.IdPassagem" class="form-control cadastro-input" />
+        <span asp-validation-for="IdPassagem.IdPassagem" class="text-danger"></span>
+    </div>
 
-        <div class="form-group pt-3">
-            <label asp-for="IdProduto" class="control-label"></label>
-            <input asp-for="IdProduto" class="form-control cadastro-input" />
-            <span asp-validation-for="IdProduto" class="text-danger"></span>
-        </div>
+    <div class="form-group pt-3">
+        <label for="IdProduto_IdProduto" class="control-label">ID do produto</label>
+        <input name="IdProduto.IdProduto" value="@Model.IdProduto?.IdProduto" class="form-control cadastro-input" />
+        <span asp-validation-for="IdProduto.IdProduto" class="text-danger"></span>
+    </div>
 
         <div class="form-group pt-3">
             <label asp-for="NomePacote" class="control-label"></label>

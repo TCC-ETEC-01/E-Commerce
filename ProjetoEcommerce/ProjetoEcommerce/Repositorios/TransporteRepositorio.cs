@@ -21,7 +21,7 @@ namespace ProjetoEcommerce.Repositorios
             MySqlCommand cmdBuscarTransporte = new MySqlCommand("select 1 from tbTransporte " +
             "where CodigoTransporte=@codigo", conexao);
             cmdBuscarTransporte.Parameters.AddWithValue("@codigo", transporte.CodigoTransporte);
-            using(var drTransporte = await cmdBuscarTransporte.ExecuteReaderAsync())
+            using (var drTransporte = await cmdBuscarTransporte.ExecuteReaderAsync())
             {
                 if (drTransporte.HasRows)
                 {
@@ -29,13 +29,13 @@ namespace ProjetoEcommerce.Repositorios
                     return false;
                 }
             }
-             var cmd = new MySqlCommand("insert into tbTransporte (CodigoTransporte, Companhia, TipoTransporte) VALUES (@codigo, @companhia, @tipo)", conexao);
+            var cmd = new MySqlCommand("insert into tbTransporte (CodigoTransporte, Companhia, TipoTransporte) VALUES (@codigo, @companhia, @tipo)", conexao);
             cmd.Parameters.AddWithValue("@codigo", transporte.CodigoTransporte);
             cmd.Parameters.AddWithValue("@companhia", transporte.Companhia);
             cmd.Parameters.AddWithValue("@tipo", transporte.TipoTransporte);
             int linhasAfetadas = await cmd.ExecuteNonQueryAsync();
             return linhasAfetadas > 0;
-           
+
         }
 
         public async Task<bool> AtualizarTransporte(tbTransporte transporte)
@@ -53,16 +53,36 @@ namespace ProjetoEcommerce.Repositorios
             return linhasAfetadas > 0;
         }
 
-        public async Task<bool> ExcluirTransporte(int id)
+        public async Task ExcluirTransporte(int id)
         {
-            await using var conexao = new MySqlConnection(_conexaoMySQL);
-            await conexao.OpenAsync();
+            using (var conexao = new MySqlConnection(_conexaoMySQL))
+            {
+                await conexao.OpenAsync();
 
-            var cmd = new MySqlCommand("delete from tbTransporte WHERE IdTransporte=@id", conexao);
-            cmd.Parameters.AddWithValue("@id", id);
+                MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbPassagem where IdTransporte=@idTransporte", conexao);
+                cmdBuscarId.Parameters.AddWithValue("@idTransporte", id);
 
-            int linhasAfetadas = await cmd.ExecuteNonQueryAsync();
-            return linhasAfetadas > 0;
+                using (var drTransportePassagem = await cmdBuscarId.ExecuteReaderAsync())
+                {
+                    if (await drTransportePassagem.ReadAsync())
+                    {
+                        drTransportePassagem.Close();
+                        MySqlCommand cmdExcluirPassagens = new MySqlCommand("delete from tbPassagem where IdTransporte=@idTransporte", conexao);
+                        cmdExcluirPassagens.Parameters.AddWithValue("@idTransporte", id);
+                        await cmdExcluirPassagens.ExecuteNonQueryAsync();
+                    }
+                }
+                using (var drTransporte = await cmdBuscarId.ExecuteReaderAsync())
+                {
+                    if (!await drTransporte.ReadAsync())
+                    {
+                        drTransporte.Close();
+                        MySqlCommand cmdExcluirTransporte = new MySqlCommand("delete from tbTransporte where IdTransporte=@idTransporte", conexao);
+                        cmdExcluirTransporte.Parameters.AddWithValue("@idTransporte", id);
+                        await cmdExcluirTransporte.ExecuteNonQueryAsync();
+                    }
+                }
+            }
         }
 
         public async Task<tbTransporte> ObterTransporte(int id)

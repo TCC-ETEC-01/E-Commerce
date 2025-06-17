@@ -1,6 +1,6 @@
 ﻿@model ProjetoEcommerce.Models.tbPassagem
 
-<!--Editar Passagem-->
+<!-- Editar Passagem -->
 <link href="~/css/editarpassagem.css" rel="stylesheet" />
 
 <h2 class="tituloEditar pt-5 p-5 pb-2">Editar Passagem</h2>
@@ -9,21 +9,22 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="form-group">
-        <input type="hidden" asp-for="IdPassagem" class="form-control" />
+        <input type="hidden" asp-for="IdPassagem" />
         <span asp-validation-for="IdPassagem" class="text-danger"></span>
     </div>
 
     <div class="row cadastro-row">
+
         <div class="form-group pt-3">
-            <label asp-for="IdViagem" class="control-label"></label>
-            <input asp-for="IdViagem" class="form-control cadastro-input" />
-            <span asp-validation-for="IdViagem" class="text-danger"></span>
+            <label for="IdViagem_IdViagem" class="control-label">ID da Viagem</label>
+            <input name="IdViagem.IdViagem" value="@Model.IdViagem?.IdViagem" class="form-control cadastro-input" />
+            <span asp-validation-for="IdViagem.IdViagem" class="text-danger"></span>
         </div>
 
         <div class="form-group pt-3">
-            <label asp-for="IdTransporte" class="control-label"></label>
-            <input asp-for="IdTransporte" class="form-control cadastro-input" />
-            <span asp-validation-for="IdTransporte" class="text-danger"></span>
+            <label for="IdTransporte_IdTransporte" class="control-label">ID do Transporte</label>
+            <input name="IdTransporte.IdTransporte" value="@Model?.IdTransporte?.IdTransporte" class="form-control cadastro-input" />
+            <span asp-validation-for="IdTransporte.IdTransporte" class="text-danger"></span>
         </div>
 
         <div class="form-group pt-3">
@@ -44,6 +45,14 @@
             <span asp-validation-for="Situacao" class="text-danger"></span>
         </div>
 
+        <div class="col row-cols-2 w-100 form-group">
+            <label asp-for="Translado" class="control-label"></label>
+            <select asp-for="Translado" class="">
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select>
+            <span asp-validation-for="Translado" class="text-danger"></span>
+        </div>
         <div class="btn form-group justify-content-center align-items-center d-flex pt-4">
             <button type="submit" class="btn ps-5 pe-5 fs-5 justify-content-center p-2">Alterar</button>
         </div>

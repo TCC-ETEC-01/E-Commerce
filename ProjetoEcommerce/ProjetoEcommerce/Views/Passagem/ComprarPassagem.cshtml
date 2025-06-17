@@ -1,82 +1,71 @@
-﻿    @model ProjetoEcommerce.Models.tbCliente;
+﻿@model ProjetoEcommerce.Models.tbVenda
 
 <link href="~/css/clientecadastro.css" rel="stylesheet" />
 
+<h1>Cadastrar Venda</h1>
 
-<body>
-    <h1>Cadastrar Venda</h1>
+<form asp-action="ComprarPassagem" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-    <form asp-action="CadastrarCliente">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="container-cadastro  w-100 h-100">
-            <header>
-                <nav class="navbar Cadastro-navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
-                    <div class="container-fluid">
-                        <a class="navbar-brand text-primary" asp-area="" asp-controller="Cliente" asp-action="CadastrarCliente">Cliente</a>
-                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                            <ul class="navbar-nav flex-grow-0 ">
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Produto" asp-action="CadastrarProduto">Produto</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Pacote" asp-action="CadastrarPacote">Pacote</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Passagem" asp-action="CadastrarPassagem">Passagem</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Funcionario" asp-action="CadastrarFuncionario">Funcionario</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Viagem" asp-action="CadastrarViagem">Viagem</a>
-                                </li>
-                            </ul>
-                        </div>
+    <div class="container-cadastro w-100 h-100">
+        <header>
+            <nav class="navbar Cadastro-navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand text-primary" asp-controller="Cliente" asp-action="CadastrarCliente">Cliente</a>
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-0">
+                            <li class="nav-item"><a class="nav-link text-light" asp-controller="Produto" asp-action="CadastrarProduto">Produto</a></li>
+                            <li class="nav-item"><a class="nav-link text-light" asp-controller="Pacote" asp-action="CadastrarPacote">Pacote</a></li>
+                            <li class="nav-item"><a class="nav-link text-light" asp-controller="Passagem" asp-action="CadastrarPassagem">Passagem</a></li>
+                            <li class="nav-item"><a class="nav-link text-light" asp-controller="Funcionario" asp-action="CadastrarFuncionario">Funcionario</a></li>
+                            <li class="nav-item"><a class="nav-link text-light" asp-controller="Viagem" asp-action="CadastrarViagem">Viagem</a></li>
+                        </ul>
                     </div>
-                </nav>
-            </header>
-            <div class="row cadastro-row">
-                <div class="col  form-group">
-                    <label asp-for="Nome" class="control-label">Nome do Cliente</label>
-                    <input asp-for="Nome" class="form-control cadastro-input" />
-                    <span asp-validation-for="Nome" class="text-danger"></span>
                 </div>
-                <div class="col form-group">
-                    <label asp-for="Email" class="control-label">Produto/Serviço</label>
-                    <input asp-for="Email" class="form-control cadastro-input" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
+            </nav>
+        </header>
 
-                <div class="col row-cols-2 w-100 form-group">
-                    <label asp-for="Email" class="control-label">Preço Unitário(R$)</label>
-                    <input asp-for="Email" class="form-control cadastro-input" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
+        <div class="row cadastro-row">
 
-
-
-                <div class="col row-cols-2 form-group">
-                    <label asp-for="Cpf" class="control-label">Tipo do Produto</label>
-                    <input asp-for="Cpf" class="form-control cadastro-input" />
-                    <span asp-validation-for="Cpf" class="text-danger"></span>
-                </div>
-                <div class="col row-cols-2 form-group">
-                    <label asp-for="Telefone" class="control-label">Quantidade</label>
-                    <input asp-for="Telefone" class="form-control cadastro-input" />
-                    <span asp-validation-for="Telefone" class="text-danger"></span>
-                </div>
-                <div class="col row-cols-2 form-group">
-                    <label asp-for="Telefone" class="control-label">Formas de pagamento</label>
-                    <input asp-for="Telefone" class="form-control cadastro-input" />
-                    <span asp-validation-for="Telefone" class="text-danger"></span>
-                </div>
+            <div class="col form-group">
+                <label for="idCliente" class="control-label">Id Cliente</label>
+                <input type="number" name="idCliente" id="idCliente" class="form-control cadastro-input" required />
+                <span asp-validation-for="IdCliente" class="text-danger"></span>
             </div>
 
+            <div class="col form-group">
+                <label for="idPassagem" class="control-label">Id Passagem</label>
+                <input type="number" name="idPassagem" id="idPassagem" class="form-control cadastro-input" required />
+                <span asp-validation-for="IdPassagem" class="text-danger"></span>
+            </div>
 
+            <div class="col form-group">
+                <label for="idFuncionario" class="control-label">Id Funcionário</label>
+                <input type="number" name="idFuncionario" id="idFuncionario" class="form-control cadastro-input" required />
+                <span asp-validation-for="IdFuncionario" class="text-danger"></span>
+            </div>
 
-            <div class=" btn form-group justify-content-center align-items-center  d-flex ">
-                <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" />Cadastrar</button>
+            <div class="col form-group">
+                <label for="valor" class="control-label">Valor Total (R$)</label>
+                <input type="number" name="valor" id="valor" step="0.01" class="form-control cadastro-input" required />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+
+            <div class="col form-group">
+                <label for="formaPagamento" class="control-label">Forma de Pagamento</label>
+                <input type="text" name="formaPagamento" id="formaPagamento" class="form-control cadastro-input" required />
+                <span asp-validation-for="FormaPagamento" class="text-danger"></span>
+            </div>
+
+            <div class="col form-group">
+                <label for="dataVenda" class="control-label">Data da Venda</label>
+                <input type="date" name="dataVenda" id="dataVenda" class="form-control cadastro-input" required />
+                <span asp-validation-for="DataVenda" class="text-danger"></span>
             </div>
         </div>
-    </form>
-</body>
+
+        <div class="btn form-group justify-content-center align-items-center d-flex mt-4">
+            <button type="submit" class="btn btn-primary ps-5 pe-5 fs-5 p-2">Cadastrar</button>
+        </div>
+    </div>
+</form>

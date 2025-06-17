@@ -22,7 +22,7 @@ namespace ProjetoEcommerce.Controllers
         public async Task<IActionResult> CadastrarPassagem(tbPassagem passagem, int idViagem, int idTransporte)
         {
             passagem.IdViagem = new tbViagem { IdViagem = idViagem };
-            passagem.IdTransporte = new tbTransporte { IdTransporte = idTransporte};
+            passagem.IdTransporte = new tbTransporte { IdTransporte = idTransporte };
             if (await _passagemRepositorio.CadastrarPassagem(passagem))
             {
                 TempData["MensagemSucesso"] = "Passagem cadastrada com Sucesso";
@@ -44,7 +44,7 @@ namespace ProjetoEcommerce.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditarPassagem(int id, [Bind("IdPassagem, Valor, Assento, IdViagem, Situacao")] tbPassagem passagem)
+        public async Task<IActionResult> EditarPassagem(int id, [Bind("IdPassagem,IdTransporte, Valor, Assento, IdViagem, Situacao, Translado")] tbPassagem passagem)
         {
             ModelState.Clear();
             if (id != passagem.IdPassagem)
@@ -72,14 +72,22 @@ namespace ProjetoEcommerce.Controllers
             TempData["MensagemSucesso"] = "Passagem excluída com Sucesso";
             return RedirectToAction("Index", "PassagemComViagem");
         }
-
+        
         public async Task<IActionResult> ComprarPassagem(tbVenda venda)
         {
-            if ( await _passagemRepositorio.VendaPassagem(venda))
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ComprarPassagem(tbVenda venda, int idPassagem, int idFuncionario, int idCliente)
+        {
+            venda.IdPassagem = new tbPassagem { IdPassagem = idPassagem};
+            venda.IdFuncionario = new tbFuncionario { IdFuncionario = idFuncionario};
+            venda.IdCliente = new tbCliente { IdCliente = idCliente};
+            if (await _passagemRepositorio.VendaPassagem(venda))
             {
                 TempData["MensagemSucesso"] = "Venda cadastrada com sucesso";
                 return RedirectToAction("Index", "PassagemComViagem");
-
             }
             TempData["MensagemErro"] = "Erro ao cadastrar venda";
             return View(venda);

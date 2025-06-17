@@ -5,18 +5,19 @@
     <div class="container row ">
         <div class="text-star col">
             <h1 class="text-primary">Anu Viagens</h1>
-            <p class="text-nav fs-6">Acompanhe todos os seus registros em um Ãºnico lugar.</p>
-            <div class="d-flex 	justify-content-start  p-2 pb-1">
+            <p class="text-nav fs-6">Acompanhe todos os seus registros em um unico lugar.</p>
+            <form method="get" asp-action="Index" asp-controller="PassagemComViagem" class="d-flex justify-content-start p-2 pb-1">
                 <div class="search-box">
-                    <input type="text" id="inputPesquisa" class="search-txt text-white" placeholder="Pesquisar...">
-                    <a href="#" class="search-btn">
+                    <input type="text" name="destino" class="search-txt text-white" placeholder="Pesquisar destino...">
+                    <button type="submit" class="search-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-search" viewBox="0 0 16 16">
-                          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                         </svg>
-                    </a>
+                    </button>
                 </div>
-            </div>
+            </form>
+
         </div>
         <div class="btn-nav col d-flex justify-content-end align-items-start pt-3">
             <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-primary">
@@ -37,6 +38,7 @@
                             <th>Retorno</th>
                             <th>Origem</th>
                             <th>Destino</th>
+                            <th>Situacao</th>
                             <th>Assento</th>
                             <th>Tipo</th>
                             <th>Código</th>
@@ -56,6 +58,7 @@
                                 <td class="text-truncate" style="max-width: 200px;" title="@item.DataRetorno">@item.DataRetorno</td>
                                 <td class="text-truncate" style="max-width: 200px;" title="@item.Origem">@item.Origem</td>
                                 <td class="text-truncate" style="max-width: 200px;" title="@item.Destino">@item.Destino</td>
+                                <td class="text-truncate" style="max-width: 200px;" title="@item.Situacao">@item.Situacao</td>
                                 <td>@item.Assento</td>
                                 <td>@item.TipoTransporte</td>
                                 <td>@item.CodigoTransporte</td>
