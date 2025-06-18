@@ -1,5 +1,4 @@
-﻿/* === BARRA DE PESQUISA === */
-.search-box {
+﻿.search-box {
     top: 5%;
     left: 60%;
     height: 40px;
@@ -52,7 +51,6 @@
     background: rgba(14, 76, 224, 0.9);
 }
 
-/* === BOTÕES DE AÇÃO NA TABELA === */
 .btnEditar {
     color: white;
     background-color: rgb(5, 30, 99);
@@ -145,5 +143,5 @@ body {
     background-color: #dbe7ff;
 }
 .text-nav {
-    color: #5a75d6; /* azul suave, harmonioso com o azul do header */
+    color: #5a75d6; 
 }

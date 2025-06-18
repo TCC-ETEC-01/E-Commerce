@@ -1,6 +1,12 @@
 a {
     text-decoration: none;
+    color: inherit; 
+    transition: color 0.3s ease;
 }
+
+    a:hover {
+        color: rgba(2,126,251,1);
+    }
 
 .btnDash {
     width: 130px;
@@ -8,6 +14,12 @@ a {
     line-height: 42px;
     padding: 0;
     border: none;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(0, 8, 151);
+    user-select: none;
 }
 
     .btnDash span {
@@ -15,6 +27,7 @@ a {
         display: block;
         width: 100%;
         height: 100%;
+        transition: color 0.3s ease;
     }
 
     .btnDash:before,
@@ -91,9 +104,10 @@ body {
     margin: 0;
     padding: 0;
     position: relative;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(0, 8, 151);
 }
 
-  
     body::before {
         content: "";
         position: absolute;
@@ -102,31 +116,39 @@ body {
         right: 0;
         bottom: 0;
         z-index: 0;
+
     }
 
-
 .text-star {
-    padding-top:3px;
+    padding-top: 3px;
     z-index: 99;
+    font-weight: 600;
 }
+
 .card-maid {
     border: 2px solid rgba(131, 175, 238, 0.4);
     border-radius: 10px;
     box-shadow: 0 7px 10px rgba(2,126,251,1);
-    transition: transform 0.2s;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: #fff; 
+    cursor: pointer;
 }
 
     .card-maid:hover {
         transform: scale(1.03);
+        box-shadow: 0 10px 20px rgba(2,126,251,0.5);
     }
 
 .tudo {
     border-radius: 12px;
     padding: 20px;
     margin: 20px;
-    background-color: rgba(94, 185, 232 , 0.4);
+    background-color: rgba(173, 198, 255, 0.15); 
+    box-shadow: 0 4px 8px rgba(2,126,251,0.1);
 }
 
-p{
-    color:rgb(0, 8, 151);
+p {
+    color: rgb(0, 8, 151);
+    line-height: 1.5;
+    font-weight: 500;
 }
