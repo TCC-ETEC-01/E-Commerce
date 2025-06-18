@@ -69,3 +69,96 @@ body {
         height: 20px;
         margin-right: 5px;
     }
+
+
+    /*==== Menu aside ====*/
+
+.logo {
+    width: 80px;
+    display: flex;
+    position: absolute;
+    margin-top: -10px;
+}
+
+    .logo span {
+        opacity: 0;
+        color: white;
+    }
+
+.sidebar {
+    width: 160px;
+    margin-top: -2.3px;
+    height: 100%;
+    background-color: rgb(47, 44, 44);
+    padding: 40px 0 40px 1%;
+    box-shadow: 4px 0 0 #232ab9;
+    position: absolute;
+    top: 9.5%;
+    /Ajusta a posição do menu aside/ left: 0;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+nav.sidebar.expandir {
+    width: 250px;
+}
+
+
+.btn-expandir {
+    width: 100%;
+    padding-left: 10px;
+    padding-bottom: 15px;
+}
+
+    .btn-expandir > i {
+        margin-left: 85px;
+        color: rgb(255, 255, 255);
+        font-size: 35px;
+        cursor: pointer;
+        transition: 0.5s;
+    }
+
+.lista-nav {
+    height: 100%;
+    list-style-type: none;
+}
+
+li.item-menu {
+    transition: 0.4s;
+    border-radius: 10px;
+}
+
+.lista-nav li.ativo {
+    background-color: #232ab9;
+}
+
+.lista-nav li.item-menu:hover {
+    background-color: #232ab9;
+}
+
+.lista-nav li.item-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 5px;
+    font-size: 15px;
+    padding: 20px 4%;
+    display: flex;
+    margin-bottom: 40px;
+    line-height: 40px;
+}
+
+ul li.item-menu a .txt-link {
+    margin-left: 15px;
+    transition: 0.8s;
+    opacity: 0;
+}
+
+nav.sidebar.expandir .txt-link {
+    margin-left: 40px;
+    opacity: 1;
+}
+
+ul li.item-menu a .icon > i {
+    font-size: 30px;
+    margin-left: 10px;
+}
