@@ -1,10 +1,22 @@
 ﻿@model ProjetoEcommerce.Models.tbCliente
+
 @{
     ViewData["Title"] = "Cadastrar Cliente";
 }
-<link href="~/css/cadastro.css " rel="stylesheet" />
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/clientecadastro.css" asp-append-version="true" />
+}
+
 <main class="container py-4">
-    <header class="bg-gradient text-white rounded-4 p-4 mb-4">
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger text-center fw-bold">
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <header class="bg-gradient text-white rounded-4 p-4 mb-4" style="background: linear-gradient(90deg, #4e54c8, #8f94fb);">
         <div class="d-flex align-items-center gap-3 mb-2">
             <i class="bi bi-person-plus-fill fs-2"></i>
             <div>
@@ -14,7 +26,7 @@
         </div>
     </header>
 
-    <form asp-action="CadastrarCliente" novalidate>
+    <form asp-action="CadastrarCliente" method="post" novalidate>
         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
         <section class="bg-light rounded-3 p-4 shadow-sm mb-4 border">
@@ -48,6 +60,7 @@
                         <i class="bi bi-gender-ambiguous me-1 text-primary"></i> Sexo
                     </label>
                     <select asp-for="Sexo" class="form-select">
+                        <option value="">Selecione</option>
                         <option value="Masculino">Masculino</option>
                         <option value="Feminino">Feminino</option>
                         <option value="Indefinido">Indefinido</option>
@@ -55,7 +68,7 @@
                     <span asp-validation-for="Sexo" class="text-danger"></span>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label asp-for="Cpf" class="form-label">
                         <i class="bi bi-credit-card-2-front-fill me-1 text-primary"></i> CPF
                     </label>
@@ -63,7 +76,7 @@
                     <span asp-validation-for="Cpf" class="text-danger"></span>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <label asp-for="Telefone" class="form-label">
                         <i class="bi bi-telephone-fill me-1 text-primary"></i> Telefone
                     </label>
@@ -78,12 +91,7 @@
                 <i class="bi bi-check-circle me-1"></i> Cadastrar
             </button>
         </div>
-
-        <div class="text-center">
-            <a asp-controller="Dashboard" asp-action="Index"
-               class="btn btn-danger m-2 px-5 py-2 fs-5 rounded-pill shadow-sm">
-                <i class="bi bi-x-circle-fill"></i> Cancelar
-            </a>
-        </div>
     </form>
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
