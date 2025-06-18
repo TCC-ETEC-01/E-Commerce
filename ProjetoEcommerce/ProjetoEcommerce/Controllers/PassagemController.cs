@@ -84,7 +84,7 @@ namespace ProjetoEcommerce.Controllers
             venda.IdPassagem = new tbPassagem { IdPassagem = idPassagem};
             venda.IdFuncionario = new tbFuncionario { IdFuncionario = idFuncionario};
             venda.IdCliente = new tbCliente { IdCliente = idCliente};
-             if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 if (await _passagemRepositorio.VendaPassagem(venda))
                 {
@@ -92,6 +92,7 @@ namespace ProjetoEcommerce.Controllers
                     return RedirectToAction("Index", "PassagemComViagem");
                 }
             }
+            
             TempData["MensagemErro"] = "Erro ao cadastrar venda";
             return View(venda);
         }

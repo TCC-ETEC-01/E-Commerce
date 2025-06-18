@@ -1,37 +1,32 @@
 ﻿@model ProjetoEcommerce.Models.tbFuncionario
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-<link href="~/css/clientecadastro.css" rel="stylesheet" />
+@{
+    ViewData["Title"] = "Cadastrar Funcionário";
+}
 
-<body>
-    <main class="container py-4">
-        <header class="bg-gradient text-white rounded-4 p-4 mb-4" style="background: linear-gradient(90deg, #4e54c8, #8f94fb);">
-            <div class="d-flex align-items-center gap-3 mb-2">
-                <i class="bi bi-person-plus-fill fs-2"></i>
-                <div>
-                    <h2 class="mb-0 fw-bold">Cadastrar Funcionário</h2>
-                    <small>Preencha os dados do novo funcionário</small>
-                </div>
+<link rel="stylesheet" href="~/css/clientecadastro.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+<main>
+    <div class="card-form">
+        <div class="card-header d-flex align-items-center">
+            <i class="bi bi-person-plus-fill"></i>
+            <div>
+                <h2 class="mb-0 fw-bold">Cadastrar Funcionário</h2>
+                <small>Preencha os dados do novo funcionário</small>
             </div>
-        </header>
+        </div>
 
-        <form asp-action="CadastrarFuncionario" novalidate>
+        <form asp-action="CadastrarFuncionario" method="post" novalidate>
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <section class="bg-light rounded-3 p-4 shadow-sm mb-4 border">
-                <div class="d-flex align-items-center mb-3">
-                    <i class="bi bi-person-circle fs-4 me-2 text-primary"></i>
-                    <div>
-                        <h5 class="fw-bold mb-0">Informações Pessoais</h5>
-                        <small class="text-muted">Dados básicos do funcionário</small>
-                    </div>
-                </div>
+            <section class="form-section">
+                <h5><i class="bi bi-person-circle"></i>Informações Pessoais</h5>
 
-                <div class="row g-3">
+                <div class="row g-4">
                     <div class="col-md-6">
                         <label asp-for="Nome" class="form-label">
-                            <i class="bi bi-person-fill me-1 text-primary"></i> Nome *
+                            <i class="bi bi-person-fill"></i>Nome *
                         </label>
                         <input asp-for="Nome" class="form-control" placeholder="Digite o nome completo" />
                         <span asp-validation-for="Nome" class="text-danger"></span>
@@ -39,7 +34,7 @@
 
                     <div class="col-md-6">
                         <label asp-for="Email" class="form-label">
-                            <i class="bi bi-envelope-fill me-1 text-primary"></i> Email *
+                            <i class="bi bi-envelope-fill"></i>Email *
                         </label>
                         <input asp-for="Email" type="email" class="form-control" placeholder="usuario@exemplo.com" />
                         <span asp-validation-for="Email" class="text-danger"></span>
@@ -47,9 +42,10 @@
 
                     <div class="col-md-4">
                         <label asp-for="Sexo" class="form-label">
-                            <i class="bi bi-gender-ambiguous me-1 text-primary"></i> Sexo
+                            <i class="bi bi-gender-ambiguous"></i>Sexo
                         </label>
                         <select asp-for="Sexo" class="form-select">
+                            <option value="">Selecione</option>
                             <option value="Masculino">Masculino</option>
                             <option value="Feminino">Feminino</option>
                             <option value="Indefinido">Indefinido</option>
@@ -59,7 +55,7 @@
 
                     <div class="col-md-4">
                         <label asp-for="Cpf" class="form-label">
-                            <i class="bi bi-credit-card-2-front-fill me-1 text-primary"></i> CPF
+                            <i class="bi bi-credit-card-2-front-fill"></i>CPF
                         </label>
                         <input asp-for="Cpf" class="form-control" placeholder="000.000.000-00" />
                         <span asp-validation-for="Cpf" class="text-danger"></span>
@@ -67,7 +63,7 @@
 
                     <div class="col-md-4">
                         <label asp-for="Telefone" class="form-label">
-                            <i class="bi bi-telephone-fill me-1 text-primary"></i> Telefone
+                            <i class="bi bi-telephone-fill"></i>Telefone
                         </label>
                         <input asp-for="Telefone" class="form-control" placeholder="(11) 99999-9999" />
                         <span asp-validation-for="Telefone" class="text-danger"></span>
@@ -75,7 +71,7 @@
 
                     <div class="col-md-6">
                         <label asp-for="Cargo" class="form-label">
-                            <i class="bi bi-briefcase-fill me-1 text-primary"></i> Cargo
+                            <i class="bi bi-briefcase-fill"></i>Cargo
                         </label>
                         <input asp-for="Cargo" class="form-control" placeholder="Cargo do funcionário" />
                         <span asp-validation-for="Cargo" class="text-danger"></span>
@@ -83,7 +79,7 @@
 
                     <div class="col-md-6">
                         <label asp-for="Senha" class="form-label">
-                            <i class="bi bi-key-fill me-1 text-primary"></i> Senha
+                            <i class="bi bi-key-fill"></i>Senha
                         </label>
                         <input asp-for="Senha" type="password" class="form-control" placeholder="Senha de acesso" />
                         <span asp-validation-for="Senha" class="text-danger"></span>
@@ -92,15 +88,17 @@
             </section>
 
             <div class="text-center">
-                <button type="submit" class="btn btn-primary px-5 py-2 fs-5 rounded-pill shadow-sm">
+                <button type="submit" class="btn btn-primary">
                     <i class="bi bi-check-circle me-1"></i> Cadastrar
                 </button>
-                <a asp-controller="Dashboard" asp-action="Index" class="btn btn-danger ms-3 px-5 py-2 fs-5 rounded-pill shadow-sm">
+                <a asp-controller="Dashboard" asp-action="Index" class="btn btn-danger">
                     <i class="bi bi-x-circle-fill me-1"></i> Cancelar
                 </a>
             </div>
         </form>
-    </main>
+    </div>
+</main>
 
+@section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+}

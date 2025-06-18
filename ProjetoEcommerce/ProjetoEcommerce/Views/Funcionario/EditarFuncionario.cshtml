@@ -1,76 +1,103 @@
-﻿@model ProjetoEcommerce.Models.tbFuncionario;
-<!--Editar Funcionário-->
-<link href="~/css/editarfuncionario.css" rel="stylesheet" />
+﻿@model ProjetoEcommerce.Models.tbFuncionario
 
+@{
+    ViewData["Title"] = "Editar Funcionário";
+}
 
-<div class="btn-nav col d-flex justify-content-end align-items-start pt-3">
-    <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-primary">
-        <i class="bi bi-arrow-left-circle"></i> Voltar
-    </a>
-</div>
-<h2 class="tituloEditar pt-3 pb-2">Editar Funcionário</h2>
+<link rel="stylesheet" href="~/css/EditarCliente.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
-<form asp-action="EditarFuncionario" method="post" class="FormTudo container pt-4">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<main>
+    <div class="card-form">
+        <div class="card-header d-flex align-items-center">
+            <i class="bi bi-pencil-square"></i>
+            <div>
+                <h2 class="mb-0 fw-bold">Editar Funcionário</h2>
+                <small>Atualize os dados do funcionário</small>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <input type="hidden" asp-for="IdFuncionario" class="form-control" />
-        <span asp-validation-for="IdFuncionario" class="text-danger"></span>
+        <form asp-action="EditarFuncionario" method="post" novalidate>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" asp-for="IdFuncionario" />
+
+            <section class="form-section">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label asp-for="Nome" class="form-label">
+                            <i class="bi bi-person-fill"></i> Nome
+                        </label>
+                        <input asp-for="Nome" class="form-control" />
+                        <span asp-validation-for="Nome" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label">
+                            <i class="bi bi-envelope-fill"></i> Email
+                        </label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Sexo" class="form-label">
+                            <i class="bi bi-gender-ambiguous"></i> Sexo
+                        </label>
+                        <select asp-for="Sexo" class="form-select">
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                            <option value="Indefinido">Indefinido</option>
+                        </select>
+                        <span asp-validation-for="Sexo" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Cpf" class="form-label">
+                            <i class="bi bi-credit-card-2-front-fill"></i> CPF
+                        </label>
+                        <input asp-for="Cpf" class="form-control" />
+                        <span asp-validation-for="Cpf" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Telefone" class="form-label">
+                            <i class="bi bi-telephone-fill"></i> Telefone
+                        </label>
+                        <input asp-for="Telefone" class="form-control" />
+                        <span asp-validation-for="Telefone" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Cargo" class="form-label">
+                            <i class="bi bi-briefcase-fill"></i> Cargo
+                        </label>
+                        <input asp-for="Cargo" class="form-control" />
+                        <span asp-validation-for="Cargo" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Senha" class="form-label">
+                            <i class="bi bi-key-fill"></i> Senha
+                        </label>
+                        <input asp-for="Senha" class="form-control" />
+                        <span asp-validation-for="Senha" class="text-danger"></span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save2-fill me-1"></i> Alterar
+                </button>
+
+                <button type="reset" class="btn btn-danger ms-2">
+                    <i class="bi bi-x-circle-fill me-1"></i> Cancelar
+                </button>
+            </div>
+        </form>
     </div>
+</main>
 
-
-    <div class="form-group div-item pt-3">
-        <label asp-for="Nome" class="control-label"></label>
-        <input asp-for="Nome" class="form-control cadastro-input" />
-        <span asp-validation-for="Nome" class="text-danger"></span>
-    </div>
-
-    <div class="form-group div-item pt-3">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control cadastro-input" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="form-group div-item pt-3">
-        <label asp-for="Sexo" class="control-label"></label>
-        <select asp-for="Sexo" class="form-control cadastro-input">
-            <option value="Masculino">Masculino</option>
-            <option value="Feminino">Feminino</option>
-            <option value="Indefinido">Indefinido</option>
-        </select>
-        <span asp-validation-for="Sexo" class="text-danger"></span>
-    </div>
-
-    <div class="form-group div-item pt-3">
-        <label asp-for="Cpf" class="control-label">CPF</label>
-        <input asp-for="Cpf" class="form-control cadastro-input" />
-        <span asp-validation-for="Cpf" class="text-danger"></span>
-    </div>
-
-    <div class="form-group div-item pt-3">
-        <label asp-for="Telefone" class="control-label"></label>
-        <input asp-for="Telefone" class="form-control cadastro-input" />
-        <span asp-validation-for="Telefone" class="text-danger"></span>
-    </div>
-
-    <div class="form-group div-item pt-3">
-        <label asp-for="Cargo" class="control-label"></label>
-        <input asp-for="Cargo" class="form-control cadastro-input" />
-        <span asp-validation-for="Cargo" class="text-danger"></span>
-    </div>
-
-    <div class="form-group div-item pt-3">
-        <label asp-for="Senha" class="control-label"></label>
-        <input asp-for="Senha" class="form-control cadastro-input" />
-        <span asp-validation-for="Senha" class="text-danger"></span>
-    </div>
-
-    <div class="btn form-group justify-content-center align-items-center d-flex pt-4">
-        <button type="submit" class="btn ps-5 pe-5 fs-5 justify-content-center p-2">Alterar</button>
-    </div>
-
-    <div class="btn form-group justify-content-center align-items-center d-flex">
-        <button type="reset" class="btn ps-5 pe-5 fs-5 justify-content-center p-2">Cancelar</button>
-    </div>
-    </div>
-</form>
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+}

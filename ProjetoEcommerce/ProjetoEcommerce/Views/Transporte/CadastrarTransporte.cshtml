@@ -1,37 +1,32 @@
 ﻿@model ProjetoEcommerce.Models.tbTransporte
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
-<link href="~/css/clientecadastro.css" rel="stylesheet" />
+@{
+    ViewData["Title"] = "Cadastrar Transporte";
+}
 
-<body>
-    <main class="container py-4">
-        <header class="bg-gradient text-white rounded-4 p-4 mb-4" style="background: linear-gradient(90deg, #4e54c8, #8f94fb);">
-            <div class="d-flex align-items-center gap-3 mb-2">
-                <i class="bi bi-truck-front fs-2"></i>
-                <div>
-                    <h2 class="mb-0 fw-bold">Cadastrar Transporte</h2>
-                    <small>Preencha os dados do novo transporte</small>
-                </div>
+<link rel="stylesheet" href="~/css/clientecadastro.css" asp-append-version="true" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+<main>
+    <div class="card-form">
+        <div class="card-header d-flex align-items-center">
+            <i class="bi bi-truck-front"></i>
+            <div>
+                <h2 class="mb-0 fw-bold">Cadastrar Transporte</h2>
+                <small>Preencha os dados do novo transporte</small>
             </div>
-        </header>
+        </div>
 
-        <form asp-action="CadastrarTransporte" novalidate>
+        <form asp-action="CadastrarTransporte" method="post" novalidate>
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <section class="bg-light rounded-3 p-4 shadow-sm mb-4 border">
-                <div class="d-flex align-items-center mb-3">
-                    <i class="bi bi-truck fs-4 me-2 text-primary"></i>
-                    <div>
-                        <h5 class="fw-bold mb-0">Detalhes do Transporte</h5>
-                        <small class="text-muted">Informe os dados do transporte</small>
-                    </div>
-                </div>
+            <section class="form-section">
+                <h5><i class="bi bi-truck"></i> Detalhes do Transporte</h5>
 
-                <div class="row g-3">
+                <div class="row g-4">
                     <div class="col-md-4">
                         <label asp-for="CodigoTransporte" class="form-label">
-                            <i class="bi bi-key-fill me-1 text-primary"></i> Código do Transporte *
+                            <i class="bi bi-key-fill me-1"></i> Código do Transporte
                         </label>
                         <input asp-for="CodigoTransporte" class="form-control" placeholder="Digite o código" />
                         <span asp-validation-for="CodigoTransporte" class="text-danger"></span>
@@ -39,7 +34,7 @@
 
                     <div class="col-md-4">
                         <label asp-for="Companhia" class="form-label">
-                            <i class="bi bi-building me-1 text-primary"></i> Companhia *
+                            <i class="bi bi-building me-1"></i> Companhia
                         </label>
                         <input asp-for="Companhia" class="form-control" placeholder="Nome da companhia" />
                         <span asp-validation-for="Companhia" class="text-danger"></span>
@@ -47,7 +42,7 @@
 
                     <div class="col-md-4">
                         <label asp-for="TipoTransporte" class="form-label">
-                            <i class="bi bi-truck-front-fill me-1 text-primary"></i> Tipo de Transporte *
+                            <i class="bi bi-truck-front-fill me-1"></i> Tipo de Transporte
                         </label>
                         <input asp-for="TipoTransporte" class="form-control" placeholder="Ex: Aéreo, Terrestre" />
                         <span asp-validation-for="TipoTransporte" class="text-danger"></span>
@@ -55,20 +50,18 @@
                 </div>
             </section>
 
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary px-5 py-2 fs-5 rounded-pill shadow-sm">
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">
                     <i class="bi bi-check-circle me-1"></i> Cadastrar
                 </button>
-            </div>
-
-            <div class="text-center mt-3">
-                <a asp-controller="Dashboard" asp-action="Index"
-                   class="btn btn-danger px-5 py-2 fs-5 rounded-pill shadow-sm">
+                <a asp-controller="Dashboard" asp-action="Index" class="btn btn-danger ms-2">
                     <i class="bi bi-x-circle-fill me-1"></i> Cancelar
                 </a>
             </div>
         </form>
-    </main>
+    </div>
+</main>
 
+@section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+}
