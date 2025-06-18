@@ -1,86 +1,77 @@
 ﻿@model IEnumerable<ProjetoEcommerce.Models.tbViagem>
+
 <link href="~/css/clienteindex.css" rel="stylesheet" />
-<link href="~/css/viagemindex.css" rel="stylesheet" />
-
 <div class="tudo">
-        <div class="container row ">
-            <div class="text-star col">
-                <h1 class="text-primary">Anu Viagens</h1>
-                <p class="text-nav text-light fs-6">Acompanhe todos os seus registros em um único lugar.</p>
-                <form method="get" asp-action="Index" asp-controller="Viagem" class="d-flex justify-content-start p-2 pb-1">
-                    <div class="search-box">
-                        <input type="text" name="termo" class="search-txt text-white" placeholder="Pesquisar destino...">
-                        <button type="submit" class="search-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                            </svg>
-                        </button>
-                    </div>
-                </form>
-            </div>
-            <div class="btn-nav col d-flex justify-content-end align-items-start pt-3">
-                <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-primary">
-                    <i class="bi bi-arrow-left-circle"></i> Voltar
-                </a>
-            </div>
-<section class="tudo p-3 ">
-    <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover table-striped">
-                    <thead class="table-primary">
-                        <tr>
-                            <th width="8%">Identificador</th>
-                            <th>DataRetorno</th>
-                            <th> Descricao</th>
-                            <th>Origem</th>
-                            <th>Destino</th>
-                            <th>DataPartida</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.IdViagem)</td>
-                                <td>
-                                    <strong>@Html.DisplayFor(modelItem => item.DataRetorno)</strong>
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Descricao">
-                                    @item.Descricao
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Origem">
-                                    @item.Origem
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Destino">
-                                    @item.Destino
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.DataPartida">
-                                    @item.DataPartida
-                                </td>
-
-                                <td class="text-center">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <a asp-controller="Viagem" asp-action="EditarViagem" asp-route-id="@item.IdViagem"
-                                           class="btn btnEditar" title="Editar">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <a asp-controller="Viagem" asp-action="ExcluirViagem" asp-route-id="@item.IdViagem"
-                                           onclick="return confirm('Tem certeza que deseja excluir esta Viagem?');"
-                                           class="btn btnCor" title="Excluir">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+    <div class="container row">
+        <div class="text-star col">
+            <h1 class="text-primary">Anu Viagens</h1>
+            <p class="text-nav text-light fs-6">Acompanhe todos os seus registros em um único lugar.</p>
+            <form method="get" asp-controller="Viagem" asp-action="Index" class="d-flex justify-content-start p-2 pb-1">
+                <div class="search-box">
+                    <input type="text" name="termo" class="search-txt text-white" placeholder="Pesquisar destino..." />
+                    <button type="submit" class="search-btn" title="Pesquisar">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="btn-nav col d-flex justify-content-end align-items-start pt-3 gap-2">
+            <a asp-controller="Viagem" asp-action="CadastrarViagem"
+               class="btn rounded-3 btn-primary" title="Cadastrar">
+                <i class="bi bi-person-plus"></i> Cadastrar
+            </a>
+            <a asp-controller="Dashboard" asp-action="Index"
+               class="btn rounded-3 btn-secondary">
+                <i class="bi bi-arrow-left-circle"></i> Voltar
+            </a>
         </div>
     </div>
-</section>
-</div>
+
+    <section class="tudo p-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th width="8%">ID</th>
+                                <th>Data Retorno</th>
+                                <th>Descrição</th>
+                                <th>Origem</th>
+                                <th>Destino</th>
+                                <th>Data Partida</th>
+                                <th class="text-center">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.IdViagem</td>
+                                    <td><strong>@item.DataRetorno</strong></td>
+                                    <td class="text-truncate" style="max-width: 300px;" title="@item.Descricao">@item.Descricao</td>
+                                    <td class="text-truncate" style="max-width: 300px;" title="@item.Origem">@item.Origem</td>
+                                    <td class="text-truncate" style="max-width: 300px;" title="@item.Destino">@item.Destino</td>
+                                    <td class="text-truncate" style="max-width: 300px;" title="@item.DataPartida">@item.DataPartida</td>
+                                    <td class="text-center">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a asp-controller="Viagem" asp-action="EditarViagem" asp-route-id="@item.IdViagem" class="btn btnEditar" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-controller="Viagem" asp-action="ExcluirViagem" asp-route-id="@item.IdViagem" onclick="return confirm('Tem certeza que deseja excluir esta viagem?');" class="btn btnCor" title="Excluir">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

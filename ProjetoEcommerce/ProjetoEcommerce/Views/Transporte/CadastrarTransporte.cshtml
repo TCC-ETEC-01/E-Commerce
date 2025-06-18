@@ -1,74 +1,74 @@
 ﻿@model ProjetoEcommerce.Models.tbTransporte
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 <link href="~/css/clientecadastro.css" rel="stylesheet" />
-<form asp-action="CadastrarTransporte">
-    <h1>Cadastrar Transporte</h1>
-	
-    <img class="Img aviao" src="~/imagem/aviao.png" />
-    <img class="img lua" src="~/imagem/lua.png" />
-    <img class="img nuvem" src="~/imagem/nuvem.png" />
-    <img class="img bird" src="~/imagem/bird.png" />
-   
-    <div class="container-cadastro  w-100 h-100">
 
-            <header>
-                <nav class="navbar Tran-navbar Cadastro-navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
-                    <div class="container-fluid">
-                        <a class="navbar-brand nav-link" asp-area="" asp-controller="Dashboard" asp-action="CadastroHome">Cliente</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                            <ul class="navbar-nav flex-grow-1 w-25">
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Produto" asp-action="CadastrarProduto">Produto</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Pacote" asp-action="CadastrarPacote">Pacote</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Passagem" asp-action="CadastrarPassagem">Passagem</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Funcionario" asp-action="CadastrarFuncionario">Funcionario</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Viagem" asp-action="CadastrarViagem">Viagem</a>
-                                </li>
-                                <li class="nav-item item-cada">
-                                <a class="nav-link text-primary" asp-area="" asp-controller="Transporte" asp-action="CadastrarTransporte">Transporte</a>
-                                </li>
-                            </ul>
-                        </div>
+<body>
+    <main class="container py-4">
+        <header class="bg-gradient text-white rounded-4 p-4 mb-4" style="background: linear-gradient(90deg, #4e54c8, #8f94fb);">
+            <div class="d-flex align-items-center gap-3 mb-2">
+                <i class="bi bi-truck-front fs-2"></i>
+                <div>
+                    <h2 class="mb-0 fw-bold">Cadastrar Transporte</h2>
+                    <small>Preencha os dados do novo transporte</small>
+                </div>
+            </div>
+        </header>
+
+        <form asp-action="CadastrarTransporte" novalidate>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <section class="bg-light rounded-3 p-4 shadow-sm mb-4 border">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-truck fs-4 me-2 text-primary"></i>
+                    <div>
+                        <h5 class="fw-bold mb-0">Detalhes do Transporte</h5>
+                        <small class="text-muted">Informe os dados do transporte</small>
                     </div>
-                </nav>
-                </header>
-
-
-
-            <div class="row cadastro-row">
-                <div class="col form-group">
-                    <label asp-for="CodigoTransporte" class="control-label"></label>
-                    <input asp-for="CodigoTransporte" class="form-control cadastro-input" />
-                    <span asp-validation-for="CodigoTransporte" class="text-danger"></span>
                 </div>
 
-                <div class="col form-group">
-                    <label asp-for="Companhia" class="control-label"></label>
-                    <input asp-for="Companhia" class="form-control cadastro-input" />
-                    <span asp-validation-for="Companhia" class="text-danger"></span>
-                </div>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label asp-for="CodigoTransporte" class="form-label">
+                            <i class="bi bi-key-fill me-1 text-primary"></i> Código do Transporte *
+                        </label>
+                        <input asp-for="CodigoTransporte" class="form-control" placeholder="Digite o código" />
+                        <span asp-validation-for="CodigoTransporte" class="text-danger"></span>
+                    </div>
 
-                <div class="col form-group">
-                    <label asp-for="TipoTransporte" class="control-label"></label>
-                    <input asp-for="TipoTransporte" class="form-control cadastro-input" />
-                    <span asp-validation-for="TipoTransporte" class="text-danger"></span>
+                    <div class="col-md-4">
+                        <label asp-for="Companhia" class="form-label">
+                            <i class="bi bi-building me-1 text-primary"></i> Companhia *
+                        </label>
+                        <input asp-for="Companhia" class="form-control" placeholder="Nome da companhia" />
+                        <span asp-validation-for="Companhia" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="TipoTransporte" class="form-label">
+                            <i class="bi bi-truck-front-fill me-1 text-primary"></i> Tipo de Transporte *
+                        </label>
+                        <input asp-for="TipoTransporte" class="form-control" placeholder="Ex: Aéreo, Terrestre" />
+                        <span asp-validation-for="TipoTransporte" class="text-danger"></span>
+                    </div>
                 </div>
+            </section>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-5 py-2 fs-5 rounded-pill shadow-sm">
+                    <i class="bi bi-check-circle me-1"></i> Cadastrar
+                </button>
             </div>
-            <div class=" btn form-group justify-content-center align-items-center  d-flex ">
-                <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" />Cadastrar</button>
+
+            <div class="text-center mt-3">
+                <a asp-controller="Dashboard" asp-action="Index"
+                   class="btn btn-danger px-5 py-2 fs-5 rounded-pill shadow-sm">
+                    <i class="bi bi-x-circle-fill me-1"></i> Cancelar
+                </a>
             </div>
-        
-     </div>
-</form>
+        </form>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>

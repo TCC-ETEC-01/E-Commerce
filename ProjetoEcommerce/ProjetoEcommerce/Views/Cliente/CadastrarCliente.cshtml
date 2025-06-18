@@ -1,89 +1,89 @@
 ﻿@model ProjetoEcommerce.Models.tbCliente
+@{
+    ViewData["Title"] = "Cadastrar Cliente";
+}
+<link href="~/css/cadastro.css " rel="stylesheet" />
+<main class="container py-4">
+    <header class="bg-gradient text-white rounded-4 p-4 mb-4">
+        <div class="d-flex align-items-center gap-3 mb-2">
+            <i class="bi bi-person-plus-fill fs-2"></i>
+            <div>
+                <h2 class="mb-0 fw-bold">Cadastrar Cliente</h2>
+                <small>Preencha os dados do novo cliente</small>
+            </div>
+        </div>
+    </header>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <form asp-action="CadastrarCliente" novalidate>
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-<body>
-    <main class="container py-4">
-        <header class="bg-gradient text-white rounded-4 p-4 mb-4" style="background: linear-gradient(90deg, #4e54c8, #8f94fb);">
-            <div class="d-flex align-items-center gap-3 mb-2">
-                <i class="bi bi-person-plus-fill fs-2"></i>
+        <section class="bg-light rounded-3 p-4 shadow-sm mb-4 border">
+            <div class="d-flex align-items-center mb-3">
+                <i class="bi bi-person-circle fs-4 me-2 text-primary"></i>
                 <div>
-                    <h2 class="mb-0 fw-bold">Cadastrar Cliente</h2>
-                    <small>Preencha os dados do novo cliente</small>
+                    <h5 class="fw-bold mb-0">Informações Pessoais</h5>
+                    <small class="text-muted">Dados básicos do cliente</small>
                 </div>
             </div>
-        </header>
-        <form asp-action="CadastrarCliente" novalidate>
-            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <section class="bg-light rounded-3 p-4 shadow-sm mb-4 border">
-                <div class="d-flex align-items-center mb-3">
-                    <i class="bi bi-person-circle fs-4 me-2 text-primary"></i>
-                    <div>
-                        <h5 class="fw-bold mb-0">Informações Pessoais</h5>
-                        <small class="text-muted">Dados básicos do cliente</small>
-                    </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label asp-for="Nome" class="form-label">
+                        <i class="bi bi-person-fill me-1 text-primary"></i> Nome *
+                    </label>
+                    <input asp-for="Nome" class="form-control" placeholder="Digite o nome completo" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
                 </div>
 
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label asp-for="Nome" class="form-label">
-                            <i class="bi bi-person-fill me-1 text-primary"></i> Nome *
-                        </label>
-                        <input asp-for="Nome" class="form-control" placeholder="Digite o nome completo" />
-                        <span asp-validation-for="Nome" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label asp-for="Email" class="form-label">
-                            <i class="bi bi-envelope-fill me-1 text-primary"></i> Email *
-                        </label>
-                        <input asp-for="Email" type="email" class="form-control" placeholder="usuario@exemplo.com" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-4">
-                        <label asp-for="Sexo" class="form-label">
-                            <i class="bi bi-gender-ambiguous me-1 text-primary"></i> Sexo
-                        </label>
-                        <select asp-for="Sexo" class="form-select">
-                            <option value="Masculino">Masculino</option>
-                            <option value="Feminino">Feminino</option>
-                            <option value="Indefinido">Indefinido</option>
-                        </select>
-                        <span asp-validation-for="Sexo" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label asp-for="Cpf" class="form-label">
-                            <i class="bi bi-credit-card-2-front-fill me-1 text-primary"></i> CPF
-                        </label>
-                        <input asp-for="Cpf" class="form-control" placeholder="000.000.000-00" />
-                        <span asp-validation-for="Cpf" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label asp-for="Telefone" class="form-label">
-                            <i class="bi bi-telephone-fill me-1 text-primary"></i> Telefone
-                        </label>
-                        <input asp-for="Telefone" class="form-control" placeholder="(11) 99999-9999" />
-                        <span asp-validation-for="Telefone" class="text-danger"></span>
-                    </div>
+                <div class="col-md-6">
+                    <label asp-for="Email" class="form-label">
+                        <i class="bi bi-envelope-fill me-1 text-primary"></i> Email *
+                    </label>
+                    <input asp-for="Email" type="email" class="form-control" placeholder="usuario@exemplo.com" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-            </section>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary px-5 py-2 fs-5 rounded-pill shadow-sm">
-                    <i class="bi bi-check-circle me-1"></i> Cadastrar
-                </button>
+
+                <div class="col-md-4">
+                    <label asp-for="Sexo" class="form-label">
+                        <i class="bi bi-gender-ambiguous me-1 text-primary"></i> Sexo
+                    </label>
+                    <select asp-for="Sexo" class="form-select">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Feminino">Feminino</option>
+                        <option value="Indefinido">Indefinido</option>
+                    </select>
+                    <span asp-validation-for="Sexo" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Cpf" class="form-label">
+                        <i class="bi bi-credit-card-2-front-fill me-1 text-primary"></i> CPF
+                    </label>
+                    <input asp-for="Cpf" class="form-control" placeholder="000.000.000-00" />
+                    <span asp-validation-for="Cpf" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="Telefone" class="form-label">
+                        <i class="bi bi-telephone-fill me-1 text-primary"></i> Telefone
+                    </label>
+                    <input asp-for="Telefone" class="form-control" placeholder="(11) 99999-9999" />
+                    <span asp-validation-for="Telefone" class="text-danger"></span>
+                </div>
             </div>
-            <div class="text-center">
+        </section>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary px-5 py-2 fs-5 rounded-pill shadow-sm">
+                <i class="bi bi-check-circle me-1"></i> Cadastrar
+            </button>
+        </div>
+
+        <div class="text-center">
             <a asp-controller="Dashboard" asp-action="Index"
-               class="btn  btn-danger m-2 px-5 py-2 fs-5 rounded-pill shadow-sm">
+               class="btn btn-danger m-2 px-5 py-2 fs-5 rounded-pill shadow-sm">
                 <i class="bi bi-x-circle-fill"></i> Cancelar
             </a>
-            </div>
-        </form>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        </div>
+    </form>
+</main>

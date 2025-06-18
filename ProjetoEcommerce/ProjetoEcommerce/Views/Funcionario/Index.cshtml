@@ -1,100 +1,89 @@
 ﻿@model IEnumerable<ProjetoEcommerce.Models.tbFuncionario>
 
-
 <script src="~/js/clienteindex.js"></script>
 <link href="~/css/clienteindex.css" rel="stylesheet" />
 
-
 <div class="tudo">
     <nav class="nav pt-3">
-    <div class="container row ">
-        <div class="text-star col">
-            <h1 class="text-primary">Anu Viagens</h1>
-            <p class="text-nav text-light fs-6">Acompanhe todos os seus registros em um único lugar.</p>
-            <form method="get" asp-action="Index" asp-controller="Funcionario" class="d-flex justify-content-start p-2 pb-1">
-                <div class="search-box">
-                    <input type="text" name="Nome" class="search-txt text-white" placeholder="Pesquisar destino...">
-                    <button type="submit" class="search-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                        </svg>
-                    </button>
+        <div class="container row">
+            <div class="text-star col">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-people text-primary fs-1 me-2"></i>
+                    <h1 class="text-primary m-0">Anu Viagens</h1>
                 </div>
-            </form>
-        </div>
-        <div class="btn-nav col d-flex justify-content-end align-items-start pt-3">
-            <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-primary">
-                <i class="bi bi-arrow-left-circle"></i> Voltar
-            </a>
-        </div>
-    </div>
-</nav>
-   <section class="tudo p-3">
-        <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover table-striped">
-                    <thead class="table-primary">
-                        <tr>
-                            <th width="8%">Identificador</th>
-                            <th>Nome</th>
-                            <th>Sexo</th>
-                            <th>Cargo</th>
-                            <th>Telefone</th>
-                            <th>Cpf</th>
-                            <th>Email</th>
-                            <th>Senha</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.IdFuncionario)</td>
-                                <td>
-                                    <strong>@Html.DisplayFor(modelItem => item.Nome)</strong>
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Sexo">
-                                    @item.Sexo
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Cargo">
-                                    @item.Cargo
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Telefone">
-                                    @item.Telefone
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Cpf">
-                                    @item.Cpf
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Email">
-                                    @item.Email
-                                </td>
-                                <td class="text-truncate" style="max-width: 300px;" title="@item.Senha">
-                                    @item.Senha
-                                </td>
-                              
-                                <td class="text-center">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <a asp-controller="Funcionario" asp-action="EditarFuncionario" asp-route-id="@item.IdFuncionario"
-                                               class="btn btnEditar" title="Editar">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <a asp-controller="Funcionario" asp-action="ExcluirFuncionario" asp-route-id="@item.IdFuncionario"
-                                           onclick="return confirm('Tem certeza que deseja excluir este funcionário?');"
-                                               class="btn btnCor" title="Excluir">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                <p class="text-nav fs-6">Acompanhe todos os seus registros em um único lugar.</p>
+                <form method="get" asp-action="Index" asp-controller="Funcionario" class="d-flex justify-content-start p-2 pb-1">
+                    <div class="search-box">
+                        <input type="text" name="Nome" class="search-txt text-white" placeholder="Pesquisar destino...">
+                        <button type="submit" class="search-btn" title="Pesquisar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="btn-nav col d-flex justify-content-end align-items-start pt-3 gap-2">
+                <a asp-controller="Funcionario" asp-action="CadastrarFuncionario" class="btn rounded-3 btn-primary" title="Cadastrar Funcionário">
+                    <i class="bi bi-person-plus"></i> Cadastrar
+                </a>
+                <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-secondary" title="Voltar">
+                    <i class="bi bi-arrow-left-circle"></i> Voltar
+                </a>
             </div>
         </div>
-    </div>
-</section>
+    </nav>
 
+    <section class="p-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th width="8%">Identificador</th>
+                                <th>Nome</th>
+                                <th>Sexo</th>
+                                <th>Cargo</th>
+                                <th>Telefone</th>
+                                <th>CPF</th>
+                                <th>Email</th>
+                                <th>Senha</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.IdFuncionario)</td>
+                                    <td><strong>@Html.DisplayFor(modelItem => item.Nome)</strong></td>
+                                    <td class="text-truncate" style="max-width: 300px;" title="@item.Sexo">@item.Sexo</td>
+                                    <td class="text-truncate" style="max-width: 300px;" title="@item.Cargo">@item.Cargo</td>
+                                    <td class="text-truncate" style="max-width: 300px;" title="@item.Telefone">@item.Telefone</td>
+                                    <td class="text-truncate" style="max-width: 300px;" title="@item.Cpf">@item.Cpf</td>
+                                    <td class="text-truncate" style="max-width: 300px;" title="@item.Email">@item.Email</td>
+                                    <td class="text-truncate" style="max-width: 300px;" title="@item.Senha">@item.Senha</td>
+                                    <td class="text-center">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <a asp-controller="Funcionario" asp-action="EditarFuncionario" asp-route-id="@item.IdFuncionario"
+                                               class="btn btnEditar" title="Editar">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a asp-controller="Funcionario" asp-action="ExcluirFuncionario" asp-route-id="@item.IdFuncionario"
+                                               onclick="return confirm('Tem certeza que deseja excluir este funcionário?');"
+                                               class="btn btnCor" title="Excluir">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>

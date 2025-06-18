@@ -1,0 +1,54 @@
+﻿.tudo {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #212529;
+    margin: 0;
+    padding: 0;
+}
+header {
+  background: linear-gradient(90deg, #4e54c8, #8f94fb);
+}
+
+header h2 {
+    font-size: 1.8rem;
+}
+
+form {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+::placeholder {
+    color: #adb5bd;
+}
+
+.btn-primary {
+    background-color: #4e54c8;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #3d42a4;
+    }
+
+form {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.form-label i {
+    vertical-align: middle;
+}
+
+::placeholder {
+    color: #adb5bd;
+}
+
+header .badge {
+    width: 12px;
+    height: 12px;
+}
+
+    header .badge.opacity-50 {
+        opacity: 0.4 !important;
+    }

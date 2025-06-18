@@ -4,78 +4,84 @@
 
 <div class="tudo">
     <nav class="nav pt-3">
-    <div class="container row ">
-        <div class="text-star col">
-            <h1 class="text-primary">Anu Viagens</h1>
-            <p class="text-nav text-light fs-6">Acompanhe todos os seus registros em um único lugar.</p>
-            <form method="get" asp-action="Index" asp-controller="PacoteComPassagemProduto" class="d-flex justify-content-start p-2 pb-1">
-                <div class="search-box">
-                    <input type="text" name="nomePacote" class="search-txt text-white" placeholder="Pesquisar destino...">
-                    <button type="submit" class="search-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-search" viewBox="0 0 16 16">
-                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                        </svg>
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div class="btn-nav col d-flex justify-content-end align-items-start pt-3">
-            <a asp-controller="Dashboard" asp-action="Index" class="btn rounded-3 btn-primary">
-                <i class="bi bi-arrow-left-circle"></i> Voltar
-            </a>
-        </div>
-    </div>
-</nav>
-    <section class="tudo p-3">
-        <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover table-striped">
-                    <thead class="table-primary">
-                        <tr>
-                            <th>Identificador</th>
-                            <th>Nome Produto</th>
-                            <th>Nome Pacote</th>
-                            <th>Assento</th>
-                            <th>Situação</th>
-                            <th>Transporte</th>
-                            <th>Companhia</th>
-                            <th>Código</th>
-                            <th>Valor</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.IdPacote</td>
-                                <td>@item.NomeProduto</td>
-                                <td>@item.NomePacote</td>
-                                <td>@item.Assento</td>
-                                <td>@item.Situacao</td>
-                                <td>@item.TipoTransporte</td>
-                                <td>@item.Companhia</td>
-                                <td>@item.CodigoTransporte</td>
-                                <td>@item.Valor.ToString("C")</td>
-                                <td class="text-center">
-                                    <a asp-controller="Pacote" asp-action="EditarPacote" asp-route-id="@item.IdPacote"
-                                           class="btn btnEditar" title="Editar">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    <a asp-controller="Pacote" asp-action="ExcluirPacote" asp-route-id="@item.IdPacote"
-                                           class="btn btnCor rounded-3" title="Excluir">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+        <div class="container row">
+            <div class="text-star col">
+                <h1 class="text-primary">Anu Viagens</h1>
+                <p class="text-nav text-light fs-6">Acompanhe todos os seus registros em um único lugar.</p>
+                <form method="get" asp-action="Index" asp-controller="PacoteComPassagemProduto" class="d-flex justify-content-start p-2 pb-1">
+                    <div class="search-box">
+                        <input type="text" name="nomePacote" class="search-txt text-white" placeholder="Pesquisar destino...">
+                        <button type="submit" class="search-btn" title="Pesquisar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="btn-nav col d-flex justify-content-end align-items-start pt-3 gap-2">
+                <a asp-controller="Pacote" asp-action="CadastrarPacote"
+                   class="btn rounded-3 btn-primary" title="Cadastrar">
+                    <i class="bi bi-person-plus"></i> Cadastrar
+                </a>
+                <a asp-controller="Dashboard" asp-action="Index"
+                   class="btn rounded-3 btn-secondary">
+                    <i class="bi bi-arrow-left-circle"></i> Voltar
+                </a>
             </div>
         </div>
-    </div>
-</section>
+    </nav>
 
-</<div>
+    <section class="p-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Identificador</th>
+                                <th>Nome Produto</th>
+                                <th>Nome Pacote</th>
+                                <th>Assento</th>
+                                <th>Situação</th>
+                                <th>Transporte</th>
+                                <th>Companhia</th>
+                                <th>Código</th>
+                                <th>Valor</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.IdPacote</td>
+                                    <td>@item.NomeProduto</td>
+                                    <td>@item.NomePacote</td>
+                                    <td>@item.Assento</td>
+                                    <td>@item.Situacao</td>
+                                    <td>@item.TipoTransporte</td>
+                                    <td>@item.Companhia</td>
+                                    <td>@item.CodigoTransporte</td>
+                                    <td>@item.Valor.ToString("C")</td>
+                                    <td class="text-center">
+                                        <a asp-controller="Pacote" asp-action="EditarPacote" asp-route-id="@item.IdPacote"
+                                           class="btn btnEditar" title="Editar">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a asp-controller="Pacote" asp-action="ExcluirPacote" asp-route-id="@item.IdPacote"
+                                           onclick="return confirm('Tem certeza que deseja excluir este pacote?');"
+                                           class="btn btnCor rounded-3" title="Excluir">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,75 +1,82 @@
-﻿@model ProjetoEcommerce.Models.tbProduto;
+﻿@model ProjetoEcommerce.Models.tbProduto
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 <link href="~/css/clientecadastro.css" rel="stylesheet" />
-<h1>Cadastrar Produto</h1>
 
-<img class="Img aviao" src="~/imagem/aviao.png" />
-<img class="img lua" src="~/imagem/lua.png" />
-<img class="img nuvem" src="~/imagem/nuvem.png" />
-<img class="img bird" src="~/imagem/bird.png" />
+<body>
+    <main class="container py-4">
+        <header class="bg-gradient text-white rounded-4 p-4 mb-4" style="background: linear-gradient(90deg, #4e54c8, #8f94fb);">
+            <div class="d-flex align-items-center gap-3 mb-2">
+                <i class="bi bi-box-seam fs-2"></i>
+                <div>
+                    <h2 class="mb-0 fw-bold">Cadastrar Produto</h2>
+                    <small>Preencha os dados do novo produto</small>
+                </div>
+            </div>
+        </header>
 
-<form asp-action="CadastrarProduto">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="container-cadastro  w-100 h-100">
-        <header>
-            <nav class="navbar Cadastro-navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
-                <div class="container-fluid">
-                    <a class="navbar-brand nav-link text-light" asp-area="" asp-controller="Cliente" asp-action="CadastrarCliente">Cliente</a>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-0 ">
-                            <li class="nav-item">
-                                <a class="nav-link text-primary" asp-area="" asp-controller="Produto" asp-action="CadastrarProduto">Produto</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Pacote" asp-action="CadastrarPacote">Pacote</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Passagem" asp-action="CadastrarPassagem">Passagem</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Funcionario" asp-action="CadastrarFuncionario">Funcionario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Viagem" asp-action="CadastrarViagem">Viagem</a>
-                            </li>
-                            <li class="nav-item item-cada">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Transporte" asp-action="CadastrarTransporte">Transporte</a>
-                            </li>
-                        </ul>
+        <form asp-action="CadastrarProduto" novalidate>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <section class="bg-light rounded-3 p-4 shadow-sm mb-4 border">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-card-list fs-4 me-2 text-primary"></i>
+                    <div>
+                        <h5 class="fw-bold mb-0">Detalhes do Produto</h5>
+                        <small class="text-muted">Informe as informações do produto</small>
                     </div>
                 </div>
-            </nav>
-        </header>
-        <div class="row cadastro-row">
-            <div class="col  form-group">
-                <label asp-for="NomeProduto" class="control-label"></label>
-                <input asp-for="NomeProduto" class="form-control cadastro-input" />
-                <span asp-validation-for="NomeProduto" class="text-danger"></span>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="NomeProduto" class="form-label">
+                            <i class="bi bi-tag-fill me-1 text-primary"></i> Nome do Produto *
+                        </label>
+                        <input asp-for="NomeProduto" class="form-control" placeholder="Digite o nome do produto" />
+                        <span asp-validation-for="NomeProduto" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Valor" class="form-label">
+                            <i class="bi bi-currency-dollar me-1 text-primary"></i> Valor *
+                        </label>
+                        <input asp-for="Valor" class="form-control" placeholder="Digite o valor" />
+                        <span asp-validation-for="Valor" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-8">
+                        <label asp-for="Descricao" class="form-label">
+                            <i class="bi bi-card-text me-1 text-primary"></i> Descrição
+                        </label>
+                        <input asp-for="Descricao" class="form-control" placeholder="Descrição do produto" />
+                        <span asp-validation-for="Descricao" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-4">
+                        <label asp-for="Quantidade" class="form-label">
+                            <i class="bi bi-stack me-1 text-primary"></i> Quantidade
+                        </label>
+                        <input asp-for="Quantidade" class="form-control" placeholder="Quantidade em estoque" />
+                        <span asp-validation-for="Quantidade" class="text-danger"></span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-5 py-2 fs-5 rounded-pill shadow-sm">
+                    <i class="bi bi-check-circle me-1"></i> Cadastrar
+                </button>
             </div>
-            <div class="col form-group">
-                <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" class="form-control cadastro-input" />
-                <span asp-validation-for="Valor" class="text-danger"></span>
+
+            <div class="text-center mt-3">
+                <a asp-controller="Dashboard" asp-action="Index"
+                   class="btn btn-danger px-5 py-2 fs-5 rounded-pill shadow-sm">
+                    <i class="bi bi-x-circle-fill me-1"></i> Cancelar
+                </a>
             </div>
+        </form>
+    </main>
 
-            <div class="col row-cols-2 form-group">
-                <label asp-for="Descricao" class="control-label"></label>
-                <input asp-for="Descricao" class="form-control cadastro-input" />
-                <span asp-validation-for="Descricao" class="text-danger"></span>
-            </div>
-
-            <div class="col row-cols-2 form-group">
-                <label asp-for="Quantidade" class="control-label"></label>
-                <input asp-for="Quantidade" class="form-control cadastro-input" />
-                <span asp-validation-for="Quantidade" class="text-danger"></span>
-            </div>
-
-        </div>
-
-        <div class=" btn form-group justify-content-center align-items-center  d-flex ">
-            <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" />Cadastrar</button>
-        </div>
-    </div>
-</form>
-
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>

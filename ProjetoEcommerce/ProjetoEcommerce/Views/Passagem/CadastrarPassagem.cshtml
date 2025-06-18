@@ -1,89 +1,103 @@
-﻿@model ProjetoEcommerce.Models.tbPassagem;
+﻿@model ProjetoEcommerce.Models.tbPassagem
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 <link href="~/css/clientecadastro.css" rel="stylesheet" />
 
+<body>
+    <main class="container py-4">
+        <header class="bg-gradient text-white rounded-4 p-4 mb-4" style="background: linear-gradient(90deg, #4e54c8, #8f94fb);">
+            <div class="d-flex align-items-center gap-3 mb-2">
+                <i class="bi bi-airplane-fill fs-2"></i>
+                <div>
+                    <h2 class="mb-0 fw-bold">Cadastrar Passagem</h2>
+                    <small>Preencha os dados da nova passagem</small>
+                </div>
+            </div>
+        </header>
 
-<form asp-action="CadastrarPassagem">
-    
-    <h1>Cadastrar Passagem</h1>
+        <form asp-action="CadastrarPassagem" novalidate>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-    <img class="Img aviao" src="~/imagem/aviao.png" />
-    <img class="img lua" src="~/imagem/lua.png" />
-    <img class="img nuvem" src="~/imagem/nuvem.png" />
-    <img class="img bird" src="~/imagem/bird.png" />
-
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="container-cadastro  w-100 h-100">
-        <header>
-            <nav class="navbar Cadastro-navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
-                <div class="container-fluid">
-                    <a class="navbar-brand nav-link text-light" asp-area="" asp-controller="Cliente" asp-action="CadastrarCliente">Cliente</a>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-0 ">
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Produto" asp-action="CadastrarProduto">Produto</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Pacote" asp-action="CadastrarPacote">Pacote</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-primary" asp-area="" asp-controller="Passagem" asp-action="CadastrarPassagem">Passagem</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Funcionario" asp-action="CadastrarFuncionario">Funcionario</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Viagem" asp-action="CadastrarViagem">Viagem</a>
-                            </li>
-                            <li class="nav-item item-cada">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Transporte" asp-action="CadastrarTransporte">Transporte</a>
-                            </li>
-                        </ul>
+            <section class="bg-light rounded-3 p-4 shadow-sm mb-4 border">
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-ticket-perforated-fill fs-4 me-2 text-primary"></i>
+                    <div>
+                        <h5 class="fw-bold mb-0">Informações da Passagem</h5>
+                        <small class="text-muted">Dados básicos da passagem</small>
                     </div>
                 </div>
-            </nav>
-        </header>
-    <div class="row cadastro-row">
-        <div class="col  form-group">
-            <label asp-for="IdViagem" class="control-label">Id Viagem</label>
-            <input asp-for="IdViagem" class="form-control cadastro-input" />
-            <span asp-validation-for="IdViagem" class="text-danger"></span>
-        </div>
-            <div class="col form-group">
-                <label asp-for="IdTransporte" class="control-label">Id Transporte</label>
-                <input asp-for="IdTransporte" class="form-control cadastro-input" />
-                <span asp-validation-for="IdTransporte" class="text-danger"></span>
-            </div>
-        <div class="col form-group">
-            <label asp-for="Valor" class="control-label"></label>
-            <input asp-for="Valor" class="form-control cadastro-input" />
-            <span asp-validation-for="Valor" class="text-danger"></span>
-        </div>
 
-        <div class="col form-group">
-            <label asp-for="Assento" class="control-label"></label>
-            <input asp-for="Assento" class="form-control cadastro-input" />
-            <span asp-validation-for="Assento" class="text-danger"></span>
-        </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="IdViagem" class="form-label">
+                            <i class="bi bi-map-fill me-1 text-primary"></i> Id Viagem *
+                        </label>
+                        <input asp-for="IdViagem" type="number" class="form-control" placeholder="Id da viagem" />
+                        <span asp-validation-for="IdViagem" class="text-danger"></span>
+                    </div>
 
-            <div class="col row-cols-2 w-100 form-group">
-                <label asp-for="Situacao" class="control-label"></label>
-                <select asp-for="Situacao" class="">
-                    <option value="Disponivel">Disponivel</option>
-                    <option value="Indisponivel">Indisponivel</option>
-                </select>
-                <span asp-validation-for="Translado" class="text-danger"></span>
+                    <div class="col-md-6">
+                        <label asp-for="IdTransporte" class="form-label">
+                            <i class="bi bi-truck-front-fill me-1 text-primary"></i> Id Transporte *
+                        </label>
+                        <input asp-for="IdTransporte" type="number" class="form-control" placeholder="Id do transporte" />
+                        <span asp-validation-for="IdTransporte" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Valor" class="form-label">
+                            <i class="bi bi-currency-dollar me-1 text-primary"></i> Valor *
+                        </label>
+                        <input asp-for="Valor" type="number" step="0.01" class="form-control" placeholder="Valor da passagem" />
+                        <span asp-validation-for="Valor" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Assento" class="form-label">
+                            <i class="bi bi-ui-checks-grid me-1 text-primary"></i> Assento *
+                        </label>
+                        <input asp-for="Assento" class="form-control" placeholder="Número do assento" />
+                        <span asp-validation-for="Assento" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Situacao" class="form-label">
+                            <i class="bi bi-info-circle-fill me-1 text-primary"></i> Situação *
+                        </label>
+                        <select asp-for="Situacao" class="form-select">
+                            <option value="">-- Selecione --</option>
+                            <option value="Disponivel">Disponível</option>
+                            <option value="Indisponivel">Indisponível</option>
+                        </select>
+                        <span asp-validation-for="Situacao" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Translado" class="form-label">
+                            <i class="bi bi-arrow-repeat me-1 text-primary"></i> Translado *
+                        </label>
+                        <select asp-for="Translado" class="form-select">
+                            <option value="">-- Selecione --</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                        <span asp-validation-for="Translado" class="text-danger"></span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-5 py-2 fs-5 rounded-pill shadow-sm">
+                    <i class="bi bi-check-circle me-1"></i> Cadastrar
+                </button>
+                <a asp-controller="Dashboard" asp-action="Index"
+                   class="btn btn-danger m-2 px-5 py-2 fs-5 rounded-pill shadow-sm">
+                    <i class="bi bi-x-circle-fill me-1"></i> Cancelar
+                </a>
             </div>
-            <div class="col row-cols-2 w-100 form-group">
-                <label asp-for="Translado" class="control-label"></label>
-                <select asp-for="Translado" class="">
-                    <option value="Sim">Sim</option>
-                    <option value="Não">Não</option>
-                </select>
-                <span asp-validation-for="Translado" class="text-danger"></span>
-            </div>
-        <div class=" btn form-group justify-content-center align-items-center  d-flex ">
-            <button type="submit" class="btn btn-primary text-center ps-5 pe-5 fs-5 justify-content-center  p-2" />Cadastrar</button>
-        </div>
-    </div>
-</form>
+        </form>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
