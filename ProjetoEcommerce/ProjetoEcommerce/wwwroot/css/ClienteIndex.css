@@ -1,4 +1,5 @@
-﻿.search-box {
+﻿/* === BARRA DE PESQUISA === */
+.search-box {
     top: 5%;
     left: 60%;
     height: 40px;
@@ -9,16 +10,15 @@
     align-items: center;
     background: none;
     transition: 0.6s;
-    color: rgb(255, 255, 255); 
+    color: white;
 }
-
 
 .search-txt {
     border: none;
     background: none;
     outline: none;
     padding: 0;
-    color: aliceblue;
+    color: white;
     font-size: 16px;
     line-height: 40px;
     width: 0;
@@ -28,59 +28,122 @@
 .search-btn {
     width: 33px;
     height: 33px;
-    border: 50%;
+    border: none;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: 0.5s;
-    border-radius:50%;
-    background:rgb(11, 38, 151);
+    border-radius: 50%;
+    background: rgb(14, 76, 224);
+    color: white;
 }
 
 .search-box:hover > .search-txt {
     width: 240px;
     padding: 0 6px;
-
 }
 
 .search-box:hover > .search-btn {
-    background: #fefefe;
-    border-radius: 50%;
+    background: white;
+    color: rgb(14, 76, 224);
 }
 
 .search-box:hover {
-    background: rgb(0, 83, 255);
-    color: rgb(11, 38, 151);
+    background: rgba(14, 76, 224, 0.9);
 }
+
+/* === BOTÕES DE AÇÃO NA TABELA === */
+.btnEditar {
+    color: white;
+    background-color: rgb(5, 30, 99);
+    border: 1px solid rgb(5, 30, 99);
+    transition: 0.3s;
+}
+
+    .btnEditar:hover {
+        background-color: rgb(14, 76, 224);
+    }
 
 .btnCor {
-    color: rgb(11, 38, 151);
-    border: solid 1px rgb(0, 10, 86);
+    color: white;
+    background-color: rgb(14, 76, 224);
+    border: 1px solid rgb(5, 30, 99);
+    transition: 0.3s;
 }
 
-.btnEditar {
-    color: rgb(0, 10, 86);
-    border: solid 1px rgb(0, 10, 86);
+    .btnCor:hover {
+        background-color: rgb(5, 30, 99);
+    }
+
+.btn-nav .btn {
+    min-width: 120px;
+    font-weight: 500;
+}
+
+.btn-nav .btn-primary {
+    background-color: rgb(14, 76, 224);
+    border-color: rgb(14, 76, 224);
+    color: white;
+}
+
+    .btn-nav .btn-primary:hover {
+        background-color: rgb(5, 30, 99);
+        border-color: rgb(5, 30, 99);
+    }
+
+.btn-nav .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+}
+
+    .btn-nav .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+.tudo {
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px;
+    background-color: rgba(173, 198, 255, 0.3);
 }
 
 .card {
-    background-color: rgba(9, 93, 173, 0.4); /* 0.4 = bem transparente */
+    background-color: rgba(14, 76, 224, 0.25);
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(14, 76, 224, 0.2);
+}
+
+.table th,
+.table td {
+    vertical-align: middle;
+    text-align: center;
+    color: #000;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(14, 76, 224, 0.1);
+}
+
+.table-primary {
+    background-color: rgb(14, 76, 224);
+    color: white;
 }
 
 body {
-    background-image: url('../imagem/1.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: #f0f4fb;
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    position: relative;
 }
 
 .tudo {
     border-radius: 12px;
     padding: 20px;
     margin: 20px;
-    background-color: rgba(148, 208, 234,0.5);
+    background-color: #dbe7ff;
+}
+.text-nav {
+    color: #5a75d6; /* azul suave, harmonioso com o azul do header */
 }
