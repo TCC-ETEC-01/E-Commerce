@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<ProjetoEcommerce.Models.tbPassagemComViagem>
 
 <link href="~/css/clienteindex.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 <div class="tudo">
     <nav class="nav pt-3">
@@ -84,6 +86,15 @@
                                                class="btn btnCor" title="Excluir">
                                                 <i class="bi bi-trash"></i>
                                             </a>
+                                            <button type="button"
+                                                    class="btn btn-success"
+                                                    title="Comprar Passagem"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalRegistrarCompra"
+                                                    data-passagemid="@item.IdPassagem"
+                                                    data-valor="@item.Valor">
+                                                <i class="bi bi-cart-plus"></i>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -95,3 +106,74 @@
         </div>
     </section>
 </div>
+
+]<div class="modal fade" id="modalRegistrarCompra" tabindex="-1" aria-labelledby="modalRegistrarCompraLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalRegistrarCompraLabel">
+                    <i class="bi bi-cart-plus-fill"></i> Registrar Compra
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+
+            <div class="modal-body">
+                <form asp-action="ComprarPassagem" method="post" novalidate id="formCompra">
+                    <input type="hidden" id="IdPassagem" name="idPassagem" />
+
+                    <div class="mb-3">
+                        <label for="idCliente" class="form-label">Id Cliente</label>
+                        <input type="number" id="idCliente" name="idCliente" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="idFuncionario" class="form-label">Id Funcionário</label>
+                        <input type="number" id="idFuncionario" name="idFuncionario" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="valor" class="form-label">Valor</label>
+                        <input type="number" id="valor" name="Valor" class="form-control" step="0.01" readonly />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="formaPagamento" class="form-label">Forma de Pagamento</label>
+                        <input type="text" id="formaPagamento" name="FormaPagamento" class="form-control" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="dataVenda" class="form-label">Data da Venda</label>
+                        <input type="date" id="dataVenda" name="DataVenda" class="form-control" required />
+                    </div>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle me-1"></i> Confirmar Compra
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const modalRegistrarCompra = document.getElementById('modalRegistrarCompra');
+        modalRegistrarCompra.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            const passagemId = button.getAttribute('data-passagemid');
+            const valor = button.getAttribute('data-valor');
+
+            // Atualiza os campos da modal
+            document.getElementById('IdPassagem').value = passagemId;
+            document.getElementById('valor').value = valor;
+            document.getElementById('dataVenda').valueAsDate = new Date();
+        });
+    </script>
+}

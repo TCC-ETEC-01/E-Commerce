@@ -1,69 +1,128 @@
 @model ProjetoEcommerce.Models.tbVenda
-<link href="~/css/clientecadastro.css" rel="stylesheet" />
 
-<h1>Cadastrar Venda</h1>
+@{
+    ViewData["Title"] = "Registrar Compra";
+}
 
-<form asp-action="ComprarPassagem" method="post">
-    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+<!-- Bootstrap + Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
-    <div class="container-cadastro w-100 h-100">
-        <header>
-            <nav class="navbar Cadastro-navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark box-shadow mb-3">
-                <div class="container-fluid">
-                    <a class="navbar-brand text-primary" asp-controller="Cliente" asp-action="CadastrarCliente">Cliente</a>
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-0">
-                            <li class="nav-item"><a class="nav-link text-light" asp-controller="Produto" asp-action="CadastrarProduto">Produto</a></li>
-                            <li class="nav-item"><a class="nav-link text-light" asp-controller="Pacote" asp-action="CadastrarPacote">Pacote</a></li>
-                            <li class="nav-item"><a class="nav-link text-light" asp-controller="Passagem" asp-action="CadastrarPassagem">Passagem</a></li>
-                            <li class="nav-item"><a class="nav-link text-light" asp-controller="Funcionario" asp-action="CadastrarFuncionario">Funcionario</a></li>
-                            <li class="nav-item"><a class="nav-link text-light" asp-controller="Viagem" asp-action="CadastrarViagem">Viagem</a></li>
-                        </ul>
+<style>
+    body {
+        background: linear-gradient(to right, #0e4ce0, #0e3eb8);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #fff;
+        min-height: 100vh;
+        padding-top: 100px;
+    }
+
+    .modal-content {
+        border-radius: 15px;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+    }
+
+    .modal-header {
+        background-color: #0e4ce0;
+        color: #fff;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .form-label {
+        font-weight: bold;
+        color: #0e4ce0;
+    }
+
+    .form-control:focus {
+        border-color: #0e4ce0;
+        box-shadow: 0 0 0 0.2rem rgba(14, 76, 224, 0.3);
+    }
+
+    .btn-custom {
+        background-color: #0e4ce0;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+        .btn-custom:hover {
+            background-color: #0c3ed1;
+        }
+
+    .input-icon {
+        width: 38px;
+        text-align: center;
+        color: #0e4ce0;
+    }
+</style>
+
+<div class="container text-center">
+    <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#modalCompra">
+        <i class="bi bi-cart-plus me-2"></i>Registrar Nova Compra
+    </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalCompra" tabindex="-1" aria-labelledby="modalCompraLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalCompraLabel">
+                    <i class="bi bi-bag-plus-fill me-2"></i>Registrar Compra
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+
+            <div class="modal-body">
+                <form asp-action="ComprarPassagem" method="post" novalidate>
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text input-icon"><i class="bi bi-person-vcard"></i></span>
+                        <input type="number" id="idCliente" name="idCliente" class="form-control" placeholder="ID do Cliente" required />
                     </div>
-                </div>
-            </nav>
-        </header>
 
-        <div class="row cadastro-row">
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text input-icon"><i class="bi bi-ticket-perforated-fill"></i></span>
+                        <input type="number" id="idPassagem" name="idPassagem" class="form-control" placeholder="ID da Passagem" required />
+                    </div>
 
-            <div class="col form-group">
-                <label for="idCliente" class="control-label">Id Cliente</label>
-                <input type="number" name="idCliente" id="idCliente" class="form-control cadastro-input" required />
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text input-icon"><i class="bi bi-person-workspace"></i></span>
+                        <input type="number" id="idFuncionario" name="idFuncionario" class="form-control" placeholder="ID do Funcionário" required />
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Valor" step="0.01" class="form-control" placeholder="Valor" />
+                        <label asp-for="Valor"><i class="bi bi-currency-dollar me-1"></i>Valor</label>
+                        <span asp-validation-for="Valor" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="FormaPagamento" class="form-control" placeholder="Forma de Pagamento" />
+                        <label asp-for="FormaPagamento"><i class="bi bi-credit-card-2-front me-1"></i>Forma de Pagamento</label>
+                        <span asp-validation-for="FormaPagamento" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input asp-for="DataVenda" type="date" class="form-control" />
+                        <label asp-for="DataVenda"><i class="bi bi-calendar-event me-1"></i>Data da Venda</label>
+                        <span asp-validation-for="DataVenda" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-custom btn-lg">
+                            <i class="bi bi-check-circle me-2"></i>Finalizar Compra
+                        </button>
+                    </div>
+                </form>
             </div>
 
-            <div class="col form-group">
-                <label for="idPassagem" class="control-label">Id Passagem</label>
-                <input type="number" name="idPassagem" id="idPassagem" class="form-control cadastro-input" required />
-            </div>
-
-            <div class="col form-group">
-                <label for="idFuncionario" class="control-label">Id Funcionário</label>
-                <input type="number" name="idFuncionario" id="idFuncionario" class="form-control cadastro-input" required />
-            </div>
-
-            <div class="col form-group">
-                <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" class="form-control cadastro-input" />
-                <span asp-validation-for="Valor" class="text-danger"></span>
-            </div>
-
-            <div class="col form-group">
-                <label asp-for="FormaPagamento" class="control-label"></label>
-                <input asp-for="FormaPagamento" class="form-control cadastro-input" />
-                <span asp-validation-for="FormaPagamento" class="text-danger"></span>
-            </div>
-
-
-
-            <div class="col form-group">
-                <label asp-for="DataVenda" class="control-label"></label>
-                <input asp-for="DataVenda" class="form-control cadastro-input" type="date" />
-                <span asp-validation-for="DataVenda" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="btn form-group justify-content-center align-items-center d-flex mt-4">
-            <button type="submit" class="btn btn-primary ps-5 pe-5 fs-5 p-2">Cadastrar</button>
         </div>
     </div>
-</form>
+</div>
+
+<!-- Bootstrap Bundle (com JS para modal) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
