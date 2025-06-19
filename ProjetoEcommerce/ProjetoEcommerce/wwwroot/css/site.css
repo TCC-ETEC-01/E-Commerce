@@ -74,9 +74,9 @@ body {
     width: 160px;
     margin-top: -2.3px;
     height: 100vh;
-    background-color: rgb(14, 76, 224);
+    background-color: rgb(0, 108, 255);
     padding: 40px 0 40px 1%;
-    box-shadow: 4px 0 0 #232ab9;
+    box-shadow: 5px 0 0 rgb(4, 4, 75);
     top: 0;
     left: 0;
     overflow-x: hidden;
@@ -109,6 +109,7 @@ nav.sidebar.expandir {
     margin-top: -10px;
     padding-left: 15px;
     cursor: pointer;
+    width:40px;
 }
 
 .logo span {
