@@ -21,8 +21,8 @@
         <div class="card-header d-flex align-items-center">
             <i class="bi bi-pencil-square"></i>
             <div>
-                <h2 class="mb-0 fw-bold">Editar Passagem</h2>
-                <small>Atualize os dados da passagem</small>
+                <h2 class="mb-0 fw-bold">Cadastrar Passagem</h2>
+                <small>Preencha os dados da nova passagem</small>
             </div>
         </div>
 
@@ -34,18 +34,18 @@
                 <div class="row g-4">
 
                     <div class="col-md-6">
-                        <label for="IdViagem_IdViagem" class="form-label">
+                        <label asp-for="IdViagem" class="form-label">
                             <i class="bi bi-calendar-check"></i> ID da Viagem
                         </label>
-                        <input name="IdViagem.IdViagem" value="@Model.IdViagem?.IdViagem" class="form-control" />
-                        <span asp-validation-for="IdViagem.IdViagem" class="text-danger"></span>
+                        <input asp-for="IdViagem" type="number"  class="form-control" placeholder="Id da viagem"/>
+                        <span asp-validation-for="IdViagem" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="IdTransporte_IdTransporte" class="form-label">
+                        <label asp-for="IdTransporte" class="form-label">
                             <i class="bi bi-truck-front"></i> ID do Transporte
                         </label>
-                        <input name="IdTransporte.IdTransporte" value="@Model?.IdTransporte?.IdTransporte" class="form-control" />
+                        <input asp-for="IdTransporte"  class="form-control" />
                         <span asp-validation-for="IdTransporte.IdTransporte" class="text-danger"></span>
                     </div>
 
@@ -89,7 +89,7 @@
 
             <div class="text-center mt-4">
                 <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-save2-fill me-1"></i> Alterar
+                    <i class="bi bi-check-circle me-1"></i> Cadastrar
                 </button>
                 <button type="reset" class="btn btn-danger ms-2">
                     <i class="bi bi-x-circle-fill me-1"></i> Cancelar
