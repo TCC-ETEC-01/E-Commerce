@@ -17,7 +17,7 @@ namespace ProjetoEcommerce.Controllers
         {
             IEnumerable<tbFuncionario> funcionarios;
 
-            if(string.IsNullOrEmpty(nome))
+            if (string.IsNullOrEmpty(nome))
             {
                 funcionarios = await _funcionarioRepositorio.TodosFuncionarios();
             }
@@ -25,7 +25,8 @@ namespace ProjetoEcommerce.Controllers
             {
                 funcionarios = await _funcionarioRepositorio.BuscarFuncionario(nome);
             }
-            ViewBag.Nome = nome;
+
+            ViewData["Nome"] = nome;
             return View(funcionarios);
         }
 
@@ -41,17 +42,18 @@ namespace ProjetoEcommerce.Controllers
             if (funcionario != null && funcionario.Senha == senha)
             {
                 HttpContext.Session.SetString("FuncionarioLogado", funcionario.Email);
-                TempData["Mensagem"] = "Bem vindo" + funcionario.Nome;
+                TempData["MensagemSucesso"] = "Bem-vindo, " + funcionario.Nome;
                 return RedirectToAction("Index", "DashBoard");
             }
-            ViewBag.Erro = "Dados incorretos, tente novamente!";
+
+            ViewData["MensagemErro"] = "Dados incorretos, tente novamente!";
             return View();
         }
 
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            TempData["Mensagem"] = "Você está indo embora? Até breve!";
+            TempData["MensagemSucesso"] = "Você está indo embora? Até breve!";
             return RedirectToAction("Login", "Funcionario");
         }
 
@@ -65,21 +67,19 @@ namespace ProjetoEcommerce.Controllers
         {
             if (!funcionario.Cpf.All(char.IsDigit) || !funcionario.Telefone.All(char.IsDigit))
             {
-                TempData["MensagemErro"] = "No campo CPF  e Telefone apenas numeros!";
+                ViewData["MensagemErro"] = "Nos campos CPF e Telefone, apenas números são aceitos.";
                 return View();
             }
 
             var sucesso = await _funcionarioRepositorio.CadastrarFuncionario(funcionario);
             if (sucesso)
             {
-                TempData["MensagemSucesso"] = "Cadastro Realizado com sucesso";
+                TempData["MensagemSucesso"] = "Cadastro realizado com sucesso";
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                TempData["MensagemErro"] = "Erro ao cadastrar o funcionário.";
-                return View();
-            }
+
+            ViewData["MensagemErro"] = "Erro ao cadastrar o funcionário.";
+            return View();
         }
 
         public async Task<IActionResult> EditarFuncionario(int Id)
@@ -99,26 +99,28 @@ namespace ProjetoEcommerce.Controllers
             {
                 return BadRequest();
             }
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     if (await _funcionarioRepositorio.EditarFuncionario(funcionario))
                     {
-                        var FuncionarioLogado = HttpContext.Session.GetString("FuncionarioLogado") ?? "Desconhecido";
+                        var funcionarioLogado = HttpContext.Session.GetString("FuncionarioLogado") ?? "Desconhecido";
 
                         await _funcionarioRepositorio.RegistrarLog(
-                            FuncionarioLogado,
+                            funcionarioLogado,
                             "Editar",
                             $"Funcionário ID {funcionario.IdFuncionario} editado."
                         );
 
+                        TempData["MensagemSucesso"] = "Funcionário editado com sucesso";
                         return RedirectToAction(nameof(Index));
                     }
                 }
                 catch (Exception)
                 {
-                    ModelState.AddModelError("", "Ocorreu um erro ao atualizar, tente novamente!");
+                    ViewData["MensagemErro"] = "Ocorreu um erro ao atualizar, tente novamente!";
                 }
             }
 
@@ -135,8 +137,7 @@ namespace ProjetoEcommerce.Controllers
 
             await _funcionarioRepositorio.ExcluirFuncionario(Id);
 
-            //Pega o usuario logado e joga no log, se nao tiver ninguem, entra como 'desconhecido' DALE!
-            var funcionarioLogado = HttpContext.Session.GetString("FuncionarioLogado") ?? "Desconhecido"; 
+            var funcionarioLogado = HttpContext.Session.GetString("FuncionarioLogado") ?? "Desconhecido";
 
             await _funcionarioRepositorio.RegistrarLog(
                 funcionarioLogado,
@@ -144,8 +145,8 @@ namespace ProjetoEcommerce.Controllers
                 $"Funcionário ID {Id} - {funcionario.Nome} excluído."
             );
 
+            TempData["MensagemSucesso"] = "Funcionário excluído com sucesso";
             return RedirectToAction(nameof(Index));
         }
-
     }
 }

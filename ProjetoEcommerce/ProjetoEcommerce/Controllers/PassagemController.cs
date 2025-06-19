@@ -23,12 +23,14 @@ namespace ProjetoEcommerce.Controllers
         {
             passagem.IdViagem = new tbViagem { IdViagem = idViagem };
             passagem.IdTransporte = new tbTransporte { IdTransporte = idTransporte };
+
             if (await _passagemRepositorio.CadastrarPassagem(passagem))
             {
-                TempData["MensagemSucesso"] = "Passagem cadastrada com Sucesso";
+                TempData["MensagemSucesso"] = "Passagem cadastrada com sucesso";
                 return RedirectToAction("Index", "PassagemComViagem");
             }
-            TempData["MensagemErro"] = "Erro ao cadastrar passagem";
+
+            ViewData["MensagemErro"] = "Erro ao cadastrar passagem";
             return View(passagem);
         }
 
@@ -40,13 +42,15 @@ namespace ProjetoEcommerce.Controllers
             {
                 return NotFound();
             }
+
             return View(passagem);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditarPassagem(int id, [Bind("IdPassagem,IdTransporte, Valor, Assento, IdViagem, Situacao, Translado")] tbPassagem passagem)
+        public async Task<IActionResult> EditarPassagem(int id, [Bind("IdPassagem,IdTransporte,Valor,Assento,IdViagem,Situacao,Translado")] tbPassagem passagem)
         {
             ModelState.Clear();
+
             if (id != passagem.IdPassagem)
             {
                 return BadRequest();
@@ -56,23 +60,24 @@ namespace ProjetoEcommerce.Controllers
             {
                 if (await _passagemRepositorio.AtualizarPassagem(passagem))
                 {
-                    TempData["MensagemSucesso"] = "Passagem atualizada com Sucesso";
+                    TempData["MensagemSucesso"] = "Passagem atualizada com sucesso";
                     return RedirectToAction("Index", "PassagemComViagem");
                 }
-                TempData["MensagemErro"] = "Erro ao atualizar passagem";
+
+                ViewData["MensagemErro"] = "Erro ao atualizar passagem";
                 return View(passagem);
             }
 
-            return View();
+            return View(passagem);
         }
 
         public async Task<IActionResult> ExcluirPassagem(int id)
         {
             await _passagemRepositorio.ExcluirPassagem(id);
-            TempData["MensagemSucesso"] = "Passagem excluída com Sucesso";
+            TempData["MensagemSucesso"] = "Passagem excluída com sucesso";
             return RedirectToAction("Index", "PassagemComViagem");
         }
-        
+
         public async Task<IActionResult> ComprarPassagem()
         {
             return View();
@@ -81,9 +86,10 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public async Task<IActionResult> ComprarPassagem(tbVenda venda, int idPassagem, int idFuncionario, int idCliente)
         {
-            venda.IdPassagem = new tbPassagem { IdPassagem = idPassagem};
-            venda.IdFuncionario = new tbFuncionario { IdFuncionario = idFuncionario};
-            venda.IdCliente = new tbCliente { IdCliente = idCliente};
+            venda.IdPassagem = new tbPassagem { IdPassagem = idPassagem };
+            venda.IdFuncionario = new tbFuncionario { IdFuncionario = idFuncionario };
+            venda.IdCliente = new tbCliente { IdCliente = idCliente };
+
             if (ModelState.IsValid)
             {
                 if (await _passagemRepositorio.VendaPassagem(venda))
@@ -92,8 +98,8 @@ namespace ProjetoEcommerce.Controllers
                     return RedirectToAction("Index", "PassagemComViagem");
                 }
             }
-            
-            TempData["MensagemErro"] = "Erro ao cadastrar venda";
+
+            ViewData["MensagemErro"] = "Erro ao cadastrar venda";
             return View(venda);
         }
     }

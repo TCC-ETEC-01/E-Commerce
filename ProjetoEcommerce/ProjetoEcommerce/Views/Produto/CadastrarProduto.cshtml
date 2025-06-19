@@ -4,6 +4,17 @@
     ViewData["Title"] = "Cadastrar Produto";
 }
 
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success">@TempData["MensagemSucesso"]</div>
+}
+
+@if (ViewData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger">@ViewData["MensagemErro"]</div>
+}
+
+
 <link rel="stylesheet" href="~/css/clientecadastro.css" asp-append-version="true" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 

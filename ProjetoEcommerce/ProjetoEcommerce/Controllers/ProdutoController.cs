@@ -26,7 +26,7 @@ namespace ProjetoEcommerce.Controllers
                 produtos = await _produtoRepositorio.BuscarProduto(nomeProduto);
             }
 
-            ViewBag.NomeProduto = nomeProduto;
+            ViewData["NomeProduto"] = nomeProduto;
             return View(produtos);
         }
 
@@ -40,10 +40,11 @@ namespace ProjetoEcommerce.Controllers
         {
             if (await _produtoRepositorio.CadastrarProduto(produto))
             {
-                TempData["MensagemSucesso"] = "Produto cadastrado com Sucesso";
+                TempData["MensagemSucesso"] = "Produto cadastrado com sucesso";
                 return RedirectToAction(nameof(Index));
             }
-            TempData["MensagemErro"] = "Erro ao cadastrar produto";
+
+            ViewData["MensagemErro"] = "Erro ao cadastrar produto";
             return View();
         }
 
@@ -55,6 +56,7 @@ namespace ProjetoEcommerce.Controllers
             {
                 return NotFound();
             }
+
             return View(produto);
         }
 
@@ -62,35 +64,29 @@ namespace ProjetoEcommerce.Controllers
         public async Task<IActionResult> EditarProduto(int id, [Bind("IdProduto,Valor,NomeProduto,Descricao,Quantidade")] tbProduto produto)
         {
             ModelState.Clear();
-            try
+
+            if (id != produto.IdProduto)
             {
-                if (id != produto.IdProduto)
-                {
-                    return BadRequest();
-                }
+                return BadRequest();
             }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", "Ocorreu um erro ao Editar.");
-                return View(produto);
-            }
+
             if (ModelState.IsValid)
+            {
+                if (await _produtoRepositorio.AtualizarProduto(produto))
                 {
-                    if (await _produtoRepositorio.AtualizarProduto(produto))
-                    {
-                        TempData["MensagemSucesso"] = "Produto cadastrado com Sucesso";
-                        return RedirectToAction(nameof(Index));
-                    }
+                    TempData["MensagemSucesso"] = "Produto atualizado com sucesso";
+                    return RedirectToAction(nameof(Index));
                 }
-            
-            TempData["MensagemErro"] = "Erro ao atualizar produto";
+            }
+
+            ViewData["MensagemErro"] = "Erro ao atualizar produto";
             return View(produto);
         }
 
         public async Task<IActionResult> ExcluirProduto(int id)
         {
             await _produtoRepositorio.ExcluirProduto(id);
-            TempData["MensagemSucesso"] = "Produto excluido com sucesso";
+            TempData["MensagemSucesso"] = "Produto excluído com sucesso";
             return RedirectToAction(nameof(Index));
         }
     }

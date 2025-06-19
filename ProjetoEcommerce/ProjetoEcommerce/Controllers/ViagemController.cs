@@ -26,7 +26,7 @@ namespace ProjetoEcommerce.Controllers
                 viagens = await _viagemRepositorio.BuscarViagens(termo);
             }
 
-            ViewBag.Termo = termo;
+            ViewData["Termo"] = termo;
             return View(viagens);
         }
 
@@ -38,27 +38,25 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public async Task<IActionResult> CadastrarViagem(tbViagem viagem)
         {
-            var viagemCadastro = viagem.IdViagem;
-
             if (viagem == null)
             {
-                ModelState.AddModelError("", "Dados da viagem s�o obrigatorios, tente novamente!");
+                ModelState.AddModelError("", "Dados da viagem são obrigatórios, tente novamente!");
             }
             else
             {
                 if (!viagem.DataPartida.HasValue || !viagem.DataRetorno.HasValue)
                 {
-                    ModelState.AddModelError("", "Data de partida e retorno s�o obrigatorias, tente novamente!");
+                    ModelState.AddModelError("", "Data de partida e retorno são obrigatórias, tente novamente!");
                 }
                 else
                 {
                     if (viagem.DataPartida.Value.Year < 2025 || viagem.DataRetorno.Value.Year < 2025)
                     {
-                        ModelState.AddModelError("", "Datas n�o podem ser anteriores ao ano de 2025");
+                        ModelState.AddModelError("", "Datas não podem ser anteriores ao ano de 2025");
                     }
                     if (viagem.DataRetorno <= viagem.DataPartida)
                     {
-                        ModelState.AddModelError("", "A data de retorno precisa ser ap�s a data de partida!");
+                        ModelState.AddModelError("", "A data de retorno precisa ser após a data de partida!");
                     }
                 }
             }
@@ -69,10 +67,11 @@ namespace ProjetoEcommerce.Controllers
             }
 
             await _viagemRepositorio.CadastrarViagem(viagem);
+            TempData["MensagemSucesso"] = "Viagem cadastrada com sucesso!";
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> EditarViagemAsync(int id)
+        public async Task<IActionResult> EditarViagem(int id)
         {
             var viagem = await _viagemRepositorio.ObterViagem(id);
 
@@ -97,13 +96,13 @@ namespace ProjetoEcommerce.Controllers
                 {
                     if (await _viagemRepositorio.EditarViagem(viagem))
                     {
+                        TempData["MensagemSucesso"] = "Viagem atualizada com sucesso!";
                         return RedirectToAction(nameof(Index));
                     }
                 }
                 catch (Exception)
                 {
                     ModelState.AddModelError("", "Ocorreu um erro ao tentar atualizar, tente novamente!");
-                    return View(viagem);
                 }
             }
 
@@ -113,6 +112,7 @@ namespace ProjetoEcommerce.Controllers
         public async Task<IActionResult> ExcluirViagem(int Id)
         {
             await _viagemRepositorio.ExcluirViagem(Id);
+            TempData["MensagemSucesso"] = "Viagem excluída com sucesso!";
             return RedirectToAction(nameof(Index));
         }
 

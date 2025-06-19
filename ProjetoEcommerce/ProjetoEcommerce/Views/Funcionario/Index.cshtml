@@ -1,4 +1,13 @@
 ﻿@model IEnumerable<ProjetoEcommerce.Models.tbFuncionario>
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success">@TempData["MensagemSucesso"]</div>
+}
+
+@if (ViewData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger">@ViewData["MensagemErro"]</div>
+}
 
 <script src="~/js/clienteindex.js"></script>
 <link href="~/css/clienteindex.css" rel="stylesheet" />

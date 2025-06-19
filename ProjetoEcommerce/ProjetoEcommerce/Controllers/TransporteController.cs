@@ -26,7 +26,7 @@ namespace ProjetoEcommerce.Controllers
                 transportes = await _transporteRepositorio.BuscarTransporte(termo);
             }
 
-            ViewBag.Termo = termo;
+            ViewData["Termo"] = termo;
             return View(transportes);
         }
 
@@ -44,7 +44,7 @@ namespace ProjetoEcommerce.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            TempData["MensagemErro"] = "Erro ao cadastrar transporte.";
+            ViewData["MensagemErro"] = "Erro ao cadastrar transporte.";
             return View(transporte);
         }
 
@@ -55,11 +55,12 @@ namespace ProjetoEcommerce.Controllers
             {
                 return NotFound();
             }
+
             return View(transporte);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditarTransporte(int id, [Bind("IdTransporte, CodigoTransporte, Companhia, TipoTransporte")] tbTransporte transporte)
+        public async Task<IActionResult> EditarTransporte(int id, [Bind("IdTransporte,CodigoTransporte,Companhia,TipoTransporte")] tbTransporte transporte)
         {
             ModelState.Clear();
 
@@ -76,17 +77,17 @@ namespace ProjetoEcommerce.Controllers
                     return RedirectToAction(nameof(Index));
                 }
 
-                TempData["MensagemErro"] = "Erro ao atualizar transporte.";
+                ViewData["MensagemErro"] = "Erro ao atualizar transporte.";
                 return View(transporte);
             }
 
-            return View();
+            return View(transporte);
         }
 
         public async Task<IActionResult> ExcluirTransporte(int id)
         {
-            await _transporteRepositorio.ExcluirTransporte(id); 
-           TempData["MensagemErro"] = "Erro ao excluir transporte.";
+            await _transporteRepositorio.ExcluirTransporte(id);
+            TempData["MensagemSucesso"] = "Transporte excluído com sucesso!";
             return RedirectToAction(nameof(Index));
         }
     }

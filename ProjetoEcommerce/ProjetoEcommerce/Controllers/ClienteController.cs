@@ -12,6 +12,7 @@ namespace ProjetoEcommerce.Controllers
         {
             _clienteRepositorio = clienteRepositorio;
         }
+
         public async Task<IActionResult> Index(string nome)
         {
             IEnumerable<tbCliente> clientes;
@@ -25,10 +26,9 @@ namespace ProjetoEcommerce.Controllers
                 clientes = await _clienteRepositorio.BuscarCliente(nome);
             }
 
-            ViewBag.Nome = nome;
+            ViewData["Nome"] = nome;
             return View(clientes);
         }
-
 
         public IActionResult CadastrarCliente()
         {
@@ -40,7 +40,7 @@ namespace ProjetoEcommerce.Controllers
         {
             if (!cliente.Cpf.All(char.IsDigit) || !cliente.Telefone.All(char.IsDigit))
             {
-                TempData["MensagemErro"] = "Nos campos CPF e Telefone são aceitos apenas números. Digite novamente!";
+                ViewData["MensagemErro"] = "Nos campos CPF e Telefone são aceitos apenas números. Digite novamente!";
                 return View();
             }
 
@@ -66,7 +66,9 @@ namespace ProjetoEcommerce.Controllers
             {
                 return BadRequest();
             }
+
             ModelState.Clear();
+
             if (ModelState.IsValid)
             {
                 try
@@ -80,7 +82,7 @@ namespace ProjetoEcommerce.Controllers
                 }
                 catch (Exception)
                 {
-                    ModelState.AddModelError("", "Ocorreu um erro ao atualizar, tente novamente!");
+                    ViewData["MensagemErro"] = "Ocorreu um erro ao atualizar, tente novamente!";
                 }
             }
 

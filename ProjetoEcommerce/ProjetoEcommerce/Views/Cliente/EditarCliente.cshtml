@@ -3,6 +3,15 @@
 @{
     ViewData["Title"] = "Editar Cliente";
 }
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success">@TempData["MensagemSucesso"]</div>
+}
+
+@if (ViewData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger">@ViewData["MensagemErro"]</div>
+}
 
 
     <link rel="stylesheet" href="~/css/EditarCliente.css" asp-append-version="true" />

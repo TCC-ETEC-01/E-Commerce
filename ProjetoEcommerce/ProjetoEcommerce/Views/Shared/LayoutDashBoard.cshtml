@@ -15,59 +15,6 @@
 @{
         var emailFuncionario = Context.Session.GetString("FuncionarioLogado");
 }
-@{
-        var ocultarSidebar = ViewData["OcultarSidebar"] as bool? ?? false;
-}
-@if (!ocultarSidebar)
-{
-    <nav class="sidebar position-fixed d-flex flex-column" id="sidebarMenu">
-        <a asp-controller="DashBoard" asp-action="Index" class="logo d-flex align-items-center">
-            <img src="~/imagem/logo.png" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;" />
-        </a>
-
-        <div class="d-flex align-items-center gap-2 px-3 pt-3 nome-funcionario text-white">
-            <i class="bi bi-person-circle fs-4"></i>
-            <span class="fw-semibold nome-text">@emailFuncionario</span>
-        </div>
-
-        <div class="btn-expandir d-none d-md-block">
-            <i class="bi bi-arrow-right-circle-fill" id="btn-exp"></i>
-        </div>
-
-        <ul class="lista-nav flex-grow-1 list-unstyled">
-            <li class="item-menu">
-                <a asp-controller="Cliente" asp-action="Index">
-                    <span class="icon"><i class="bi bi-people"></i></span>
-                    <span class="txt-link">Clientes</span>
-                </a>
-            </li>
-            <li class="item-menu">
-                <a asp-controller="Funcionario" asp-action="Index">
-                    <span class="icon"><i class="bi bi-person-badge"></i></span>
-                    <span class="txt-link">Funcionários</span>
-                </a>
-            </li>
-            <li class="item-menu">
-                <a asp-controller="Produto" asp-action="Index">
-                    <span class="icon"><i class="bi bi-box-seam"></i></span>
-                    <span class="txt-link">Produtos</span>
-                </a>
-            </li>
-            <li class="item-menu">
-                <a asp-controller="Transporte" asp-action="Index">
-                    <span class="icon"><i class="bi bi-airplane"></i></span>
-                    <span class="txt-link">Transportes</span>
-                </a>
-            </li>
-            <li class="item-menu">
-                <a asp-controller="Viagem" asp-action="Index">
-                    <span class="icon"><i class="bi bi-luggage"></i></span>
-                    <span class="txt-link">Viagens</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-}
 <body>
     <header>
         <div class="navbar-container-ajustada">
@@ -93,11 +40,12 @@
                                 <i class="bi bi-ticket-perforated fs-4 me-2"></i> Passagens
                             </a>
                         </li>
-                        <li class="nav-item cargo">
-                            <a class="nav-link d-flex align-items-center" asp-controller="Passagem" asp-action="ComprarPassagem">
-                                <i class="bi bi-cart-plus fs-4 me-2"></i> Comprar Passagem
-                            </a>
-                        </li>
+                            <li class="nav-item cargo">
+                                <a class="nav-link d-flex align-items-center" asp-controller="Produto" asp-action="Index">
+                                   <i class="bi bi-basket2 fs-4 me-2"></i>
+                                     Produtos
+                                </a>
+                            </li>
                         <li class="nav-item cargo">
                             <a class="nav-link saida d-flex align-items-center" asp-controller="Funcionario" asp-action="Login">
                                 <i class="bi bi-box-arrow-right fs-4 me-2"></i> Sair
@@ -135,12 +83,6 @@
                 <a asp-controller="Funcionario" asp-action="Index">
                     <span class="icon"><i class="bi bi-person-badge"></i></span>
                     <span class="txt-link">Funcionários</span>
-                </a>
-            </li>
-            <li class="item-menu">
-                <a asp-controller="Produto" asp-action="Index">
-                    <span class="icon"><i class="bi bi-box-seam"></i></span>
-                    <span class="txt-link">Produtos</span>
                 </a>
             </li>
             <li class="item-menu">

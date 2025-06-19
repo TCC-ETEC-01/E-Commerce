@@ -1,4 +1,19 @@
 @model IEnumerable<ProjetoEcommerce.Models.tbTransporte>
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success">@TempData["MensagemSucesso"]</div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger">@TempData["MensagemErro"]</div>
+}
+
+@if (ViewData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger">@ViewData["MensagemErro"]</div>
+}
+
 
 <link href="~/css/clienteindex.css" rel="stylesheet" />
 
@@ -8,7 +23,7 @@
         <div class="container row">
             <div class="text-star col">
                 <h1 class="text-primary">Anu Viagens</h1>
-                <p class="text-nav text-light fs-6">Acompanhe todos os seus registros em um único lugar.</p>
+                <p class="text-nav fs-6">Acompanhe todos os seus registros em um único lugar.</p>
 
                 <form method="get" asp-controller="Transporte" asp-action="Index" class="d-flex justify-content-start p-2 pb-1">
                     <div class="search-box">

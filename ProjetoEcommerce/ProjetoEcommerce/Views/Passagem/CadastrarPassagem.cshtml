@@ -1,83 +1,99 @@
-﻿@model ProjetoEcommerce.Models.tbVenda
+﻿@model ProjetoEcommerce.Models.tbPassagem
 
 @{
-    ViewData["Title"] = "Registrar Compra";
+    ViewData["Title"] = "Cadastrar Passagem";
+}
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success">@TempData["MensagemSucesso"]</div>
 }
 
-<link rel="stylesheet" href="~/css/registrocompra.css" asp-append-version="true" />
+@if (ViewData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger">@ViewData["MensagemErro"]</div>
+}
+
+<link rel="stylesheet" href="~/css/ClienteCadastro.css" asp-append-version="true" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
 <main>
     <div class="card-form">
         <div class="card-header d-flex align-items-center">
-            <i class="bi bi-bag-check-fill fs-2 me-3" style="color:#0e4ce0;"></i>
+            <i class="bi bi-pencil-square"></i>
             <div>
-                <h2 class="mb-0 fw-bold" style="color:#0e4ce0;">Registrar Compra</h2>
-                <small>Preencha os dados da nova venda</small>
+                <h2 class="mb-0 fw-bold">Editar Passagem</h2>
+                <small>Atualize os dados da passagem</small>
             </div>
         </div>
 
-        <form asp-action="ComprarPassagem" method="post" novalidate>
+        <form asp-action="CadastrarPassagem" method="post" novalidate>
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" asp-for="IdPassagem" />
 
             <section class="form-section">
-                <h5><i class="bi bi-info-circle-fill me-1" style="color:#0e4ce0;"></i> Dados da Compra</h5>
-
                 <div class="row g-4">
-                    <div class="col-md-4">
-                        <label for="idCliente" class="form-label">
-                            <i class="bi bi-person-fill" style="color:#0e4ce0;"></i> Id Cliente
+
+                    <div class="col-md-6">
+                        <label for="IdViagem_IdViagem" class="form-label">
+                            <i class="bi bi-calendar-check"></i> ID da Viagem
                         </label>
-                        <input type="number" name="idCliente" id="idCliente" class="form-control" placeholder="Id do cliente" required />
+                        <input name="IdViagem.IdViagem" value="@Model.IdViagem?.IdViagem" class="form-control" />
+                        <span asp-validation-for="IdViagem.IdViagem" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-4">
-                        <label for="idPassagem" class="form-label">
-                            <i class="bi bi-ticket-perforated-fill" style="color:#0e4ce0;"></i> Id Passagem
+                    <div class="col-md-6">
+                        <label for="IdTransporte_IdTransporte" class="form-label">
+                            <i class="bi bi-truck-front"></i> ID do Transporte
                         </label>
-                        <input type="number" name="idPassagem" id="idPassagem" class="form-control" placeholder="Id da passagem" required />
+                        <input name="IdTransporte.IdTransporte" value="@Model?.IdTransporte?.IdTransporte" class="form-control" />
+                        <span asp-validation-for="IdTransporte.IdTransporte" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-4">
-                        <label for="idFuncionario" class="form-label">
-                            <i class="bi bi-person-badge-fill" style="color:#0e4ce0;"></i> Id Funcionário
-                        </label>
-                        <input type="number" name="idFuncionario" id="idFuncionario" class="form-control" placeholder="Id do funcionário" required />
-                    </div>
-
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label asp-for="Valor" class="form-label">
-                            <i class="bi bi-currency-dollar" style="color:#0e4ce0;"></i> Valor
+                            <i class="bi bi-currency-dollar"></i> Valor
                         </label>
-                        <input asp-for="Valor" type="number" step="0.01" class="form-control" placeholder="Valor da venda" />
+                        <input asp-for="Valor" class="form-control" />
                         <span asp-validation-for="Valor" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-4">
-                        <label asp-for="FormaPagamento" class="form-label">
-                            <i class="bi bi-credit-card-2-front-fill" style="color:#0e4ce0;"></i> Forma de Pagamento
+                    <div class="col-md-6">
+                        <label asp-for="Assento" class="form-label">
+                            <i class="bi bi-person-seat"></i> Assento
                         </label>
-                        <input asp-for="FormaPagamento" class="form-control" placeholder="Ex: Cartão, Dinheiro" />
-                        <span asp-validation-for="FormaPagamento" class="text-danger"></span>
+                        <input asp-for="Assento" class="form-control" />
+                        <span asp-validation-for="Assento" class="text-danger"></span>
                     </div>
 
-                    <div class="col-md-4">
-                        <label asp-for="DataVenda" class="form-label">
-                            <i class="bi bi-calendar-check-fill" style="color:#0e4ce0;"></i> Data da Venda
+                    <div class="col-md-6">
+                        <label asp-for="Situacao" class="form-label">
+                            <i class="bi bi-info-circle"></i> Situação
                         </label>
-                        <input asp-for="DataVenda" type="date" class="form-control" />
-                        <span asp-validation-for="DataVenda" class="text-danger"></span>
+                        <input asp-for="Situacao" class="form-control" />
+                        <span asp-validation-for="Situacao" class="text-danger"></span>
                     </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Translado" class="form-label">
+                            <i class="bi bi-arrow-repeat"></i> Translado
+                        </label>
+                        <select asp-for="Translado" class="form-select">
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                        <span asp-validation-for="Translado" class="text-danger"></span>
+                    </div>
+
                 </div>
             </section>
 
             <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary px-5 fs-5">
-                    <i class="bi bi-check-circle me-2"></i> Cadastrar
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save2-fill me-1"></i> Alterar
                 </button>
-                <a asp-controller="Dashboard" asp-action="Index" class="btn btn-danger ms-3">
-                    <i class="bi bi-x-circle-fill me-2"></i> Cancelar
-                </a>
+                <button type="reset" class="btn btn-danger ms-2">
+                    <i class="bi bi-x-circle-fill me-1"></i> Cancelar
+                </button>
             </div>
         </form>
     </div>

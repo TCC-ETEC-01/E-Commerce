@@ -21,15 +21,16 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public async Task<IActionResult> CadastrarPacote(tbPacote pacote, int idPassagem, int idProduto)
         {
-           pacote.IdPassagem = new tbPassagem { IdPassagem = idPassagem};
-            pacote.IdProduto= new tbProduto{ IdProduto = idProduto };
+            pacote.IdPassagem = new tbPassagem { IdPassagem = idPassagem };
+            pacote.IdProduto = new tbProduto { IdProduto = idProduto };
+
             if (await _PacoteRepositorio.CadastrarPacote(pacote))
             {
-                TempData["MensagemSucesso"] = "Pacote cadastrado com Sucesso";
+                TempData["MensagemSucesso"] = "Pacote cadastrado com sucesso";
                 return RedirectToAction("Index", "PacoteComPassagemProduto");
             }
 
-            TempData["MensagemErro"] = "Erro ao cadastrar pacote";
+            ViewData["MensagemErro"] = "Erro ao cadastrar pacote";
             return View();
         }
 
@@ -59,11 +60,11 @@ namespace ProjetoEcommerce.Controllers
             if (ModelState.IsValid)
             {
                 await _PacoteRepositorio.AtualizarPacote(pacote);
-                TempData["MensagemSucesso"] = "Pacote atualizado com Sucesso";
+                TempData["MensagemSucesso"] = "Pacote atualizado com sucesso";
                 return RedirectToAction("Index", "PacoteComPassagemProduto");
             }
 
-            TempData["MensagemErro"] = "Erro ao atualizar pacote";
+            ViewData["MensagemErro"] = "Erro ao atualizar pacote";
             return View(pacote);
         }
 
