@@ -106,13 +106,7 @@ namespace ProjetoEcommerce.Controllers
                 {
                     if (await _funcionarioRepositorio.EditarFuncionario(funcionario))
                     {
-                        var funcionarioLogado = HttpContext.Session.GetString("FuncionarioLogado") ?? "Desconhecido";
 
-                        await _funcionarioRepositorio.RegistrarLog(
-                            funcionarioLogado,
-                            "Editar",
-                            $"Funcionário ID {funcionario.IdFuncionario} editado."
-                        );
 
                         TempData["MensagemSucesso"] = "Funcionário editado com sucesso";
                         return RedirectToAction(nameof(Index));
