@@ -47,15 +47,15 @@ body {
         color: white !important;
     }
 .navbar-brand {
-    margin-left: 10px; /* Reduzido */
+    margin-left: 10px; 
 }
 
 .navbar-nav {
-    gap: 0.75rem; /* Espaço horizontal entre os itens */
+    gap: 0.75rem; 
 }
 
 .cargo {
-    margin-left:220px !important; /* Remove o espaçamento gigante */
+    margin-left:220px !important; 
 }
 
 .nav-link {
@@ -70,29 +70,24 @@ body {
         margin-right: 5px;
     }
 
-
-
-/* Sidebar fixa */
 .sidebar {
     width: 160px;
     margin-top: -2.3px;
     height: 100vh;
-    background-color: rgb(47, 44, 44);
+    background-color: rgb(14, 76, 224);
     padding: 40px 0 40px 1%;
     box-shadow: 4px 0 0 #232ab9;
-    top: 8.3%;
+    top: 0;
     left: 0;
     overflow-x: hidden;
     transition: width 0.5s;
-    z-index: 1030; /* para ficar sobre outros elementos */
+    z-index: 1030;
 }
 
-/* Expande */
 nav.sidebar.expandir {
     width: 250px;
 }
 
-/* Botão expandir fica escondido em telas pequenas */
 .btn-expandir {
     width: 100%;
     padding-left: 10px;
@@ -107,9 +102,7 @@ nav.sidebar.expandir {
         transition: 0.5s;
     }
 
-/* Logo */
 .logo {
-    /* removi width fixo pra permitir imagem menor */
     display: flex;
     align-items: center;
     gap: 10px;
@@ -118,20 +111,18 @@ nav.sidebar.expandir {
     cursor: pointer;
 }
 
-
-    .logo span {
+.logo span {
         opacity: 0;
         color: white;
         transition: opacity 0.5s;
-    }
 
-/* Mostra texto da logo quando expandida */
+}
+
 nav.sidebar.expandir .logo span {
     opacity: 1;
     margin-left: 10px;
 }
 
-/* Menu */
 .lista-nav {
     height: 100%;
     list-style-type: none;
@@ -161,7 +152,6 @@ li.item-menu {
     line-height: 1;
 }
 
-/* Texto dos links começa invisível e com transição */
 ul li.item-menu a .txt-link {
     margin-left: 15px;
     transition: opacity 0.8s, margin-left 0.8s;
@@ -169,53 +159,33 @@ ul li.item-menu a .txt-link {
     white-space: nowrap;
 }
 
-/* Texto visível no modo expandido */
 nav.sidebar.expandir .txt-link {
     margin-left: 40px;
     opacity: 1;
 }
 
-/* Ícones maior tamanho */
 ul li.item-menu a .icon > i {
     font-size: 30px;
     margin-left: 10px;
 }
+.navbar-container-ajustada {
+    margin-left: 160px; 
+    z-index: 1040;
+}
 
-/* RESPONSIVIDADE: Esconde sidebar em telas pequenas e mostra botão para abrir */
-/* Em telas < 768px (md) a sidebar some */
-@media (max-width: 767.98px) {
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: -250px; /* esconde fora da tela */
-        width: 250px !important;
-        height: 100vh;
-        padding-top: 60px;
-        transition: left 0.3s ease-in-out;
-        box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-        z-index: 1050;
-    }
-        /* Quando ativa, aparece */
-        .sidebar.show {
-            left: 0;
-        }
+.nome-funcionario {
+    font-size: 16px;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.5s;
+}
 
-    /* Botão expandir fica fixo no topo para abrir menu */
-    .btn-expandir {
-        display: none; /* escondido dentro da sidebar */
-    }
+.nome-text {
+    font-size: 16px;
+}
 
-    /* Botão para abrir sidebar (fora dela) */
-    #btn-toggle-sidebar {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        font-size: 2rem;
-        color: white;
-        background-color: rgb(47,44,44);
-        border-radius: 50%;
-        padding: 5px 10px;
-        z-index: 1100;
-        cursor: pointer;
-    }
+.sidebar:not(.expandir) .nome-funcionario .nome-text {
+    opacity: 0;
 }

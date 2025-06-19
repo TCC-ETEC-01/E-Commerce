@@ -116,3 +116,7 @@ h5 {
 footer, header {
     visibility: hidden;
 }
+sidebar
+{
+    display:none
+}

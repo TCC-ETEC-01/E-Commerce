@@ -12,54 +12,23 @@
 
     @RenderSection("Styles", required: false)
 </head>
-
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand titulo-nav fs-3 fw-bold me-5" asp-area="" asp-controller="DashBoard" asp-action="Index">
-                    Anu Viagens
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-center">
-                    <ul class="navbar-nav d-flex flex-row align-items-center gap-3 fs-5">
-                        <li class="nav-item cargo">
-                            <a class="nav-link d-flex align-items-center" asp-controller="PacoteComPassagemProduto" asp-action="Index">
-                                <i class="bi bi-bag-plus fs-4 me-2"></i> Pacotes
-                            </a>
-                        </li>
-                        <li class="nav-item cargo">
-                            <a class="nav-link d-flex align-items-center" asp-controller="PassagemComViagem" asp-action="Index">
-                                <i class="bi bi-ticket-perforated fs-4 me-2"></i> Passagens
-                            </a>
-                        </li>
-                        <li class="nav-item cargo">
-                            <a class="nav-link d-flex align-items-center" asp-controller="Passagem" asp-action="ComprarPassagem">
-                                <i class="bi bi-cart-plus fs-4 me-2"></i> Comprar Passagem
-                            </a>
-                        </li>
-                        <li class="nav-item cargo">
-                            <a class="nav-link saida d-flex align-items-center" asp-controller="Funcionario" asp-action="Login">
-                                <i class="bi bi-box-arrow-right fs-4 me-2"></i> Sair
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!-- Sidebar responsiva com Bootstrap -->
+@{
+        var emailFuncionario = Context.Session.GetString("FuncionarioLogado");
+}
+@{
+        var ocultarSidebar = ViewData["OcultarSidebar"] as bool? ?? false;
+}
+@if (!ocultarSidebar)
+{
     <nav class="sidebar position-fixed d-flex flex-column" id="sidebarMenu">
         <a asp-controller="DashBoard" asp-action="Index" class="logo d-flex align-items-center">
             <img src="~/imagem/logo.png" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;" />
-            <span class="ms-2 text-white fw-semibold">
-             
-            </span>
         </a>
+
+        <div class="d-flex align-items-center gap-2 px-3 pt-3 nome-funcionario text-white">
+            <i class="bi bi-person-circle fs-4"></i>
+            <span class="fw-semibold nome-text">@emailFuncionario</span>
+        </div>
 
         <div class="btn-expandir d-none d-md-block">
             <i class="bi bi-arrow-right-circle-fill" id="btn-exp"></i>
@@ -98,6 +67,97 @@
             </li>
         </ul>
     </nav>
+}
+<body>
+    <header>
+        <div class="navbar-container-ajustada">
+        <nav class="navbar navbar-expand-sm navbar-fixa navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand titulo-nav fs-3 fw-bold me-5" asp-area="" asp-controller="DashBoard" asp-action="Index">
+                    Anu Viagens
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-center">
+                    <ul class="navbar-nav d-flex flex-row align-items-center gap-3 fs-5">
+                        <li class="nav-item cargo">
+                            <a class="nav-link d-flex align-items-center" asp-controller="PacoteComPassagemProduto" asp-action="Index">
+                                <i class="bi bi-bag-plus fs-4 me-2"></i> Pacotes
+                            </a>
+                        </li>
+                        <li class="nav-item cargo">
+                            <a class="nav-link d-flex align-items-center" asp-controller="PassagemComViagem" asp-action="Index">
+                                <i class="bi bi-ticket-perforated fs-4 me-2"></i> Passagens
+                            </a>
+                        </li>
+                        <li class="nav-item cargo">
+                            <a class="nav-link d-flex align-items-center" asp-controller="Passagem" asp-action="ComprarPassagem">
+                                <i class="bi bi-cart-plus fs-4 me-2"></i> Comprar Passagem
+                            </a>
+                        </li>
+                        <li class="nav-item cargo">
+                            <a class="nav-link saida d-flex align-items-center" asp-controller="Funcionario" asp-action="Login">
+                                <i class="bi bi-box-arrow-right fs-4 me-2"></i> Sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        </div>
+    </header>
+
+    <nav class="sidebar position-fixed d-flex flex-column" id="sidebarMenu">
+        <a asp-controller="DashBoard" asp-action="Index" class="logo d-flex align-items-center">
+            <img src="~/imagem/logo.png" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;" />
+        </a>
+
+        <div class="d-flex align-items-center gap-2 px-3 pt-3 nome-funcionario text-white">
+            <i class="bi bi-person-circle fs-4"></i>
+            <span class="fw-semibold nome-text">@emailFuncionario</span>
+        </div>
+
+        <div class="btn-expandir d-none d-md-block">
+            <i class="bi bi-arrow-right-circle-fill" id="btn-exp"></i>
+        </div>
+
+        <ul class="lista-nav flex-grow-1 list-unstyled">
+            <li class="item-menu">
+                <a asp-controller="Cliente" asp-action="Index">
+                    <span class="icon"><i class="bi bi-people"></i></span>
+                    <span class="txt-link">Clientes</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a asp-controller="Funcionario" asp-action="Index">
+                    <span class="icon"><i class="bi bi-person-badge"></i></span>
+                    <span class="txt-link">Funcionários</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a asp-controller="Produto" asp-action="Index">
+                    <span class="icon"><i class="bi bi-box-seam"></i></span>
+                    <span class="txt-link">Produtos</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a asp-controller="Transporte" asp-action="Index">
+                    <span class="icon"><i class="bi bi-airplane"></i></span>
+                    <span class="txt-link">Transportes</span>
+                </a>
+            </li>
+            <li class="item-menu">
+                <a asp-controller="Viagem" asp-action="Index">
+                    <span class="icon"><i class="bi bi-luggage"></i></span>
+                    <span class="txt-link">Viagens</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
 
     <div class="container">
         <main role="main" class="pb-3">
