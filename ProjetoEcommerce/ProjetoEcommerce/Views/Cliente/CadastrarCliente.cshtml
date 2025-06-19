@@ -1,22 +1,7 @@
-﻿@model ProjetoEcommerce.Models.tbPassagem
+﻿@model ProjetoEcommerce.Models.tbCliente
 
 @{
-    ViewData["Title"] = "Cadastrar Passagem";
-}
-@if (TempData["MensagemSucesso"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <i class="bi bi-check-circle-fill"></i> @TempData["MensagemSucesso"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
-
-@if (TempData["MensagemErro"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <i class="bi bi-exclamation-triangle-fill"></i> @TempData["MensagemErro"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    ViewData["Title"] = "Cadastrar Cliente";
 }
 
 <link rel="stylesheet" href="~/css/ClienteCadastro.css" asp-append-version="true" />
@@ -25,71 +10,63 @@
 <main>
     <div class="card-form">
         <div class="card-header d-flex align-items-center">
-            <i class="bi bi-plus-square"></i>
+            <i class="bi bi-person-plus-fill"></i>
             <div>
-                <h2 class="mb-0 fw-bold">Cadastrar Passagem</h2>
-                <small>Preencha os dados da nova passagem</small>
+                <h2 class="mb-0 fw-bold">Cadastrar Cliente</h2>
+                <small>Preencha os dados do novo cliente</small>
             </div>
         </div>
 
-        <form asp-action="CadastrarPassagem" method="post" novalidate>
+        <form asp-action="CadastrarCliente" method="post" novalidate>
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
             <section class="form-section">
-                <h5><i class="bi bi-ticket-perforated-fill"></i> Dados da Passagem</h5>
+                <h5><i class="bi bi-person-fill"></i> Dados do Cliente</h5>
 
                 <div class="row g-4">
 
                     <div class="col-md-6">
-                        <label for="IdViagem_IdViagem" class="form-label">
-                            <i class="bi bi-calendar-check"></i> ID da Viagem *
+                        <label asp-for="Nome" class="form-label">
+                            <i class="bi bi-card-text"></i> Nome *
                         </label>
-                        <input name="IdViagem.IdViagem" value="@Model.IdViagem?.IdViagem" class="form-control" />
-                        <span asp-validation-for="IdViagem.IdViagem" class="text-danger"></span>
+                        <input asp-for="Nome" class="form-control" placeholder="Nome completo" />
+                        <span asp-validation-for="Nome" class="text-danger"></span>
                     </div>
 
                     <div class="col-md-6">
-                        <label for="IdTransporte_IdTransporte" class="form-label">
-                            <i class="bi bi-truck-front"></i> ID do Transporte *
+                        <label asp-for="Sexo" class="form-label">
+                            <i class="bi bi-gender-ambiguous"></i> Sexo *
                         </label>
-                        <input name="IdTransporte.IdTransporte" value="@Model?.IdTransporte?.IdTransporte" class="form-control" />
-                        <span asp-validation-for="IdTransporte.IdTransporte" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label asp-for="Valor" class="form-label">
-                            <i class="bi bi-currency-dollar"></i> Valor *
-                        </label>
-                        <input asp-for="Valor" class="form-control" placeholder="Ex: 100.00" />
-                        <span asp-validation-for="Valor" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label asp-for="Assento" class="form-label">
-                            <i class="bi bi-person-seat"></i> Assento *
-                        </label>
-                        <input asp-for="Assento" class="form-control" placeholder="Número do assento" />
-                        <span asp-validation-for="Assento" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label asp-for="Situacao" class="form-label">
-                            <i class="bi bi-info-circle"></i> Situação *
-                        </label>
-                        <input asp-for="Situacao" class="form-control" placeholder="Ex: Confirmada, Pendente" />
-                        <span asp-validation-for="Situacao" class="text-danger"></span>
-                    </div>
-
-                    <div class="col-md-6">
-                        <label asp-for="Translado" class="form-label">
-                            <i class="bi bi-arrow-repeat"></i> Translado *
-                        </label>
-                        <select asp-for="Translado" class="form-select">
-                            <option value="">Selecione</option>
-                            <option value="Sim">Sim</option>
-                            <option value="Não">Não</option>
+                        <select asp-for="Sexo" class="form-select">
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                            <option value="Outro">Outro</option>
                         </select>
-                        <span asp-validation-for="Translado" class="text-danger"></span>
+                        <span asp-validation-for="Sexo" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Email" class="form-label">
+                            <i class="bi bi-envelope"></i> Email *
+                        </label>
+                        <input asp-for="Email" class="form-control" placeholder="exemplo@email.com" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Telefone" class="form-label">
+                            <i class="bi bi-telephone"></i> Telefone *
+                        </label>
+                        <input asp-for="Telefone" class="form-control" placeholder="(00) 00000-0000" />
+                        <span asp-validation-for="Telefone" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Cpf" class="form-label">
+                            <i class="bi bi-person-vcard"></i> CPF *
+                        </label>
+                        <input asp-for="Cpf" class="form-control" placeholder="000.000.000-00" />
+                        <span asp-validation-for="Cpf" class="text-danger"></span>
                     </div>
 
                 </div>
@@ -99,7 +76,7 @@
                 <button type="submit" class="btn btn-primary">
                     <i class="bi bi-check-circle me-1"></i> Cadastrar
                 </button>
-                <a asp-controller="Dashboard" asp-action="Index" class="btn btn-danger ms-2">
+                <a asp-controller="Cliente" asp-action="Index" class="btn btn-danger ms-2">
                     <i class="bi bi-x-circle-fill me-1"></i> Cancelar
                 </a>
             </div>
