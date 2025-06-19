@@ -67,14 +67,13 @@ namespace ProjetoEcommerce.Controllers
                 return BadRequest();
             }
 
-            ModelState.Clear();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var atualizado = await _clienteRepositorio.EditarCliente(cliente);
-                    if (atualizado)
+                     
+                    if(await _clienteRepositorio.AtualizarCliente(cliente))
                     {
                         TempData["MensagemSucesso"] = "Cliente atualizado com sucesso";
                         return RedirectToAction(nameof(Index));

@@ -15,9 +15,9 @@ namespace ProjetoEcommerce.Repositorios
             {
                 await conexao.OpenAsync();
                 MySqlCommand cmd = new MySqlCommand("select * from tbCliente where IdCliente = @idCliente", conexao);
-                cmd.Parameters.Add("@idCliente", MySqlDbType.VarChar).Value = Id;
+                cmd.Parameters.AddWithValue("@idCliente", Id);
 
-                using (MySqlDataReader dr = (MySqlDataReader)await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection))
+                using (var dr = await cmd.ExecuteReaderAsync(CommandBehavior.CloseConnection))
                 {
                     tbCliente cliente = null;
                     if (await dr.ReadAsync())
@@ -27,7 +27,7 @@ namespace ProjetoEcommerce.Repositorios
                             Nome = dr["Nome"].ToString(),
                             Sexo = dr["Sexo"].ToString(),
                             Email = dr["Email"].ToString(),
-                            Telefone = dr["Email"].ToString(),
+                            Telefone = dr["Telefone"].ToString(),
                             Cpf = dr["Cpf"].ToString(),
                             IdCliente = Convert.ToInt32(dr["IdCliente"])
                         };
@@ -87,7 +87,7 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
-        public async Task<bool> EditarCliente(tbCliente cliente)
+        public async Task<bool> AtualizarCliente(tbCliente cliente)
         {
             try
             {
