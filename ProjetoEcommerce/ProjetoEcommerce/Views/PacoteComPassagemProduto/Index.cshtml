@@ -1,5 +1,15 @@
 ﻿@model IEnumerable<ProjetoEcommerce.Models.tbPacoteComPassagemProduto>
 
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success">@TempData["MensagemSucesso"]</div>
+}
+
+@if (ViewData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger">@ViewData["MensagemErro"]</div>
+}
+
 <link href="~/css/clienteindex.css" rel="stylesheet" />
 
 <div class="tudo">
