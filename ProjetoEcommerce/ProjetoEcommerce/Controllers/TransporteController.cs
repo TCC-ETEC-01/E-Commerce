@@ -86,8 +86,12 @@ namespace ProjetoEcommerce.Controllers
 
         public async Task<IActionResult> ExcluirTransporte(int id)
         {
-            await _transporteRepositorio.ExcluirTransporte(id);
-            TempData["MensagemSucesso"] = "Transporte excluído com sucesso!";
+            if (await _transporteRepositorio.ExcluirTransporte(id))
+            {
+                TempData["MensagemSucesso"] = "Transporte excluído com sucesso!";
+                return RedirectToAction(nameof(Index));
+            }
+            TempData["MensagemErro"] = "Passagem já vendida!";
             return RedirectToAction(nameof(Index));
         }
     }

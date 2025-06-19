@@ -87,7 +87,7 @@ namespace ProjetoEcommerce.Repositorios
             }
         }
 
-        public async Task ExcluirPassagem(int id)
+        public async Task<bool> ExcluirPassagem(int id)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
@@ -106,6 +106,7 @@ namespace ProjetoEcommerce.Repositorios
                         await cmdExcluirPassagemPacote.ExecuteNonQueryAsync();
                     }
                 }
+
                 using (var drPassagem = await cmdBuscarId.ExecuteReaderAsync())
                 { 
                     if (!await drPassagem.ReadAsync())
@@ -114,18 +115,9 @@ namespace ProjetoEcommerce.Repositorios
                         MySqlCommand cmdExcluirPassagem = new MySqlCommand("delete from tbPassagem where IdPassagem=@IdPassagem", conexao);
                         cmdExcluirPassagem.Parameters.AddWithValue("@IdPassagem", id);
                         await cmdExcluirPassagem.ExecuteNonQueryAsync();
+                       
                     }
-                }
-
-                using (var drPassagemVenda = await cmdBuscarId.ExecuteReaderAsync())
-                {
-                    if (!await drPassagemVenda.ReadAsync())
-                    {
-                        drPassagemVenda.Close();
-                        MySqlCommand cmdExcluirPassagemVenda = new MySqlCommand("delete from tbVenda where IdPassagem=@IdPassagem", conexao);
-                        cmdExcluirPassagemVenda.Parameters.AddWithValue("@IdPassagem", id);
-                        await cmdExcluirPassagemVenda.ExecuteNonQueryAsync();
-                    }
+                    return false;
                 }
             }
         }

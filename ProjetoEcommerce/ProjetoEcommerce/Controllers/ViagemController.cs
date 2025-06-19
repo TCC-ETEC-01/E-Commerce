@@ -111,9 +111,16 @@ namespace ProjetoEcommerce.Controllers
 
         public async Task<IActionResult> ExcluirViagem(int Id)
         {
-            await _viagemRepositorio.ExcluirViagem(Id);
-            TempData["MensagemSucesso"] = "Viagem excluída com sucesso!";
+            if (await _viagemRepositorio.ExcluirViagem(Id))
+            {
+       
+                TempData["MensagemSucesso"] = "Viagem excluída com sucesso!";
+                return RedirectToAction(nameof(Index));
+            }
+            TempData["MensagemErro"] = "Passagem já vendida!";
+
             return RedirectToAction(nameof(Index));
+
         }
 
         public async Task<IActionResult> BarraPesquisa()

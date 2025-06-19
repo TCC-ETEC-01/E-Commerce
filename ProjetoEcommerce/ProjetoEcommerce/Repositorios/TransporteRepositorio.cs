@@ -53,12 +53,23 @@ namespace ProjetoEcommerce.Repositorios
             return linhasAfetadas > 0;
         }
 
-        public async Task ExcluirTransporte(int id)
+        public async Task<bool> ExcluirTransporte(int id)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 await conexao.OpenAsync();
+                MySqlCommand cmdVerificarVenda = new MySqlCommand("select 1 from tbVenda where IdPassagem=@idPassagem", conexao);
+                cmdVerificarVenda.Parameters.AddWithValue("idPassagem", id);
+                using (var drVenda = await cmdVerificarVenda.ExecuteReaderAsync())
+                {
+                    if (await drVenda.ReadAsync())
+                    {
+                        drVenda.Close();
+                        Console.WriteLine("Venda realizada");
+                        return false;
 
+                    }
+                }
                 MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbPassagem where IdTransporte=@idTransporte", conexao);
                 cmdBuscarId.Parameters.AddWithValue("@idTransporte", id);
 
@@ -70,6 +81,7 @@ namespace ProjetoEcommerce.Repositorios
                         MySqlCommand cmdExcluirPassagens = new MySqlCommand("delete from tbPassagem where IdTransporte=@idTransporte", conexao);
                         cmdExcluirPassagens.Parameters.AddWithValue("@idTransporte", id);
                         await cmdExcluirPassagens.ExecuteNonQueryAsync();
+                        return true;
                     }
                 }
                 using (var drTransporte = await cmdBuscarId.ExecuteReaderAsync())
@@ -80,8 +92,10 @@ namespace ProjetoEcommerce.Repositorios
                         MySqlCommand cmdExcluirTransporte = new MySqlCommand("delete from tbTransporte where IdTransporte=@idTransporte", conexao);
                         cmdExcluirTransporte.Parameters.AddWithValue("@idTransporte", id);
                         await cmdExcluirTransporte.ExecuteNonQueryAsync();
+
                     }
-                }
+                    return true;
+                }     
             }
         }
 

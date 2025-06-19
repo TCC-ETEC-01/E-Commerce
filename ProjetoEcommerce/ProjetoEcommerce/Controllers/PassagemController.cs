@@ -73,8 +73,13 @@ namespace ProjetoEcommerce.Controllers
 
         public async Task<IActionResult> ExcluirPassagem(int id)
         {
-            await _passagemRepositorio.ExcluirPassagem(id);
-            TempData["MensagemSucesso"] = "Passagem excluída com sucesso";
+            if (await _passagemRepositorio.ExcluirPassagem(id))
+            {
+                TempData["MensagemSucesso"] = "Passagem excluída com sucesso";
+                return RedirectToAction("Index", "PassagemComViagem");
+            }
+            TempData["MensagemErro"] = "Passagem já vendida!";
+
             return RedirectToAction("Index", "PassagemComViagem");
         }
 
@@ -89,15 +94,12 @@ namespace ProjetoEcommerce.Controllers
             venda.IdPassagem = new tbPassagem { IdPassagem = idPassagem };
             venda.IdFuncionario = new tbFuncionario { IdFuncionario = idFuncionario };
             venda.IdCliente = new tbCliente { IdCliente = idCliente };
-
-            if (ModelState.IsValid)
-            {
                 if (await _passagemRepositorio.VendaPassagem(venda))
                 {
                     TempData["MensagemSucesso"] = "Venda cadastrada com sucesso";
                     return RedirectToAction("Index", "PassagemComViagem");
                 }
-            }
+            
 
             ViewData["MensagemErro"] = "Erro ao cadastrar venda";
             return View(venda);

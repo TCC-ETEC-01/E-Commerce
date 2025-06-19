@@ -90,12 +90,23 @@ namespace ProjetoEcommerce.Repositorios
             return ListaViagens;
         }
 
-        public async Task ExcluirViagem(int id)
+        public async Task<bool> ExcluirViagem(int id)
         {
             using (var conexao = new MySqlConnection(_conexaoMySQL))
             {
                 await conexao.OpenAsync();
+                MySqlCommand cmdVerificarVenda = new MySqlCommand("select 1 from tbVenda where IdPassagem=@idPassagem", conexao);
+                cmdVerificarVenda.Parameters.AddWithValue("idPassagem", id);
+                using (var drVenda = await cmdVerificarVenda.ExecuteReaderAsync())
+                {
+                    if (!await drVenda.ReadAsync())
+                    {
+                        drVenda.Close();
+                        Console.WriteLine("Venda realizada");
+                        return false;
 
+                    }
+                }
                 MySqlCommand cmdBuscarId = new MySqlCommand("select 1 from tbPassagem where IdViagem=@idViagem", conexao);
                 cmdBuscarId.Parameters.AddWithValue("@idViagem", id);
 
@@ -107,6 +118,7 @@ namespace ProjetoEcommerce.Repositorios
                         MySqlCommand cmdExcluirPassagens = new MySqlCommand("delete from tbPassagem where IdViagem=@idViagem", conexao);
                         cmdExcluirPassagens.Parameters.AddWithValue("@idViagem", id);
                         await cmdExcluirPassagens.ExecuteNonQueryAsync();
+                        return true;
                     }
                 }
 
@@ -119,6 +131,7 @@ namespace ProjetoEcommerce.Repositorios
                         cmdExcluirViagem.Parameters.AddWithValue("@idViagem", id);
                         await cmdExcluirViagem.ExecuteNonQueryAsync();
                     }
+                    return true;    
                 }
             }
         }
