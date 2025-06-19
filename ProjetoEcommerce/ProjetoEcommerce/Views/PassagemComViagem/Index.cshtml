@@ -127,7 +127,14 @@
                     </div>
                     <div class="mb-3">
                         <label for="formaPagamento" class="form-label">Forma de Pagamento</label>
-                        <input type="text" class="form-control" id="formaPagamento" name="FormaPagamento" required />
+                        <select class="form-select" id="formaPagamento" name="FormaPagamento" required>
+                            <option value="">Selecione uma opção</option>
+                            <option value="Cartão de Crédito">Cartão de Crédito</option>
+                            <option value="Cartão de Débito">Cartão de Débito</option>
+                            <option value="Pix">PIX</option>
+                            <option value="Boleto">Boleto</option>
+                            <option value="Dinheiro">Dinheiro</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="dataVenda" class="form-label">Data da Venda</label>
