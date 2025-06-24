@@ -93,7 +93,7 @@ git clone https://github.com/TCC-ETEC-01/E-Commerce.git
 json
 Copiar código
 "ConnectionStrings": {
-  "DefaultConnection": "server=localhost;database=NomeDoBanco;user=seuUsuario;password=suaSenha;"
+  "conexaoMySQL": "server=localhost; database=nomeDoBanco; user=SeuUsuario; password=SuaSenha"
 }
 5. 🗄️ No MySQL:
 
