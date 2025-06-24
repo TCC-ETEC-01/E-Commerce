@@ -38,7 +38,7 @@ namespace ProjetoEcommerce.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(string email, string senha)
         {
-            var funcionario = await _funcionarioRepositorio.ObterFuncionarioEmail(email);
+                var funcionario = await _funcionarioRepositorio.ObterFuncionarioEmail(email);
             if (funcionario != null && funcionario.Senha == senha)
             {
                 HttpContext.Session.SetString("FuncionarioLogado", funcionario.Email);
