@@ -36,5 +36,5 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=DashBoard}/{action=Index}/{id?}");
+    pattern: "{controller=Funcionario}/{action=Login}/{id?}");
 app.Run();
